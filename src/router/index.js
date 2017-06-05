@@ -1,15 +1,51 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+//引入主要页面。'@'的路径设置，见build/webpack.base.conf.js
+import Login from '@/pages/Login/Login.vue'
+import Home from '@/pages/Home/Home.vue'
+import Message from '@/pages/Message/Message.vue'
+import Discovery from '@/pages/Discovery/Discovery.vue'
+import Me from '@/pages/Me/Me.vue'
+import NotFound from '@/pages/NotFound/NotFound.vue'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/home',
+      name: 'Home',
+      // component: Login
+      component: Home
+    },
+    {
+      path: '/message',
+      name: 'Message',
+      // component: Login
+      component: Message
+    },
+    {
+      path: '/discovery',
+      name: 'Discovery',
+      // component: Login
+      component: Discovery
+    },
+    {
+      path: '/me',
+      name: 'Me',
+      // component: Login
+      component: Me
+    },
+    {
+      path: '*',
+      name: NotFound,
+      component: NotFound
     }
   ]
 })
