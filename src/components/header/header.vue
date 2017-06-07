@@ -1,5 +1,8 @@
 <template>
-<div class="header">Header</div>
+<div class="header">
+  Header
+  <span class="iconfont icon-zhuanfa"></span>
+</div>
 </template>
 
 <script>
