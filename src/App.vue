@@ -2,21 +2,21 @@
   <div id="app">
     <top-header></top-header>
     <div class="tab-group">
-      <div class="tab">
-        <router-link to="/home">首页</router-link>
-        <router-link to="/message">消息</router-link>
-        <router-link to="/discovery">发现</router-link>
-        <router-link to="/me">我</router-link>
-      </div>
+        <router-link to="/home" class="tab">首页</router-link>
+        <router-link to="/message" class="tab">消息</router-link>
+        <router-link to="/discovery" class="tab">发现</router-link>
+        <router-link to="/me" class="tab">我</router-link>
     </div>
-    <transition :name="transitionName" mode="out-in">
-      <router-view></router-view>
-    </transition>
+    <div class="main-content">
+      <transition :name="transitionName" mode="out-in">
+        <router-view></router-view>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
-  import header from './components/header/header.vue'
+import header from './components/header/header.vue'
 
 export default {
   name: 'app',
@@ -47,14 +47,44 @@ export default {
   .slide-to-left-enter-active,.slide-to-right-leave-active,.slide-to-left-leave-active,.slide-to-right-enter-active
     transition all .2s linear
   .slide-to-left-enter,.slide-to-left-leave
+    /*opacity 0*/
     transform translate(-100%)
   .slide-to-right-enter,.slide-to-right-leave
+    /*opacity 0*/
     transform translate(100%)
 
   #app
-    color: red
-    a
-      color: #000
+    .tab-group
+      width 100%
+      margin-bottom 10px
+      background-color #f5f5f5
+      -webkit-box-shadow 0 1px 2px rgba(0,0,0,.15)
+      box-shadow 0 1px 2px rgba(0,0,0,.15)
+      display -wbekit-flex
+      display flex
+      /*flex-flow nowrap row*/
+      z-index 1
+      .tab
+        flex 1
+        display: block
+        font-size: .875rem
+        font-weight:700
+        text-align center
+        line-height: 40px
+        color: #5d5d5d
+        position: relative
+      .active-tab
+        color #ff8200
+        font-size: .9275rem
+        &:before
+          content ' '
+          width 100%
+          height 2px
+          background-color: #ff8200;
+          position: absolute
+          bottom 0
+          left 0
+          z-index 2
 
   .home
     background-color blue
