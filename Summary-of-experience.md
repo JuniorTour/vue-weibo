@@ -8,3 +8,5 @@
 v-enter,v-enter-active,v-leave,v-leave-active
 
 #### 3.watch的是'$route'而非'$router'
+
+#### 4.build/dev-server.js和相应的api请求json更新后都需要重启服务器

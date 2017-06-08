@@ -1,14 +1,16 @@
 <template>
   <div id="app">
-    <top-header></top-header>
-    <div class="tab-group">
+    <div class="head-part">
+      <top-header></top-header>
+      <div class="tab-group">
         <router-link to="/home" class="tab">首页</router-link>
         <router-link to="/message" class="tab">消息</router-link>
         <router-link to="/discovery" class="tab">发现</router-link>
         <router-link to="/me" class="tab">我</router-link>
+      </div>
     </div>
-    <div class="main-content">
-      <transition :name="transitionName" mode="out-in">
+    <div class="main-body">
+      <transition :name="transitionName">
         <router-view></router-view>
       </transition>
     </div>
@@ -45,17 +47,25 @@ export default {
 <style lang="stylus">
   /*路由跳转动画*/
   .slide-to-left-enter-active,.slide-to-right-leave-active,.slide-to-left-leave-active,.slide-to-right-enter-active
-    transition all .2s linear
-  .slide-to-left-enter,.slide-to-left-leave
-    /*opacity 0*/
+    transition all 5s linear
+  .slide-to-left-enter-active,.slide-to-left-leave-active
     transform translate(-100%)
-  .slide-to-right-enter,.slide-to-right-leave
-    /*opacity 0*/
+    opacity 0
+  .slide-to-right-enter-active,.slide-to-right-leave-active
     transform translate(100%)
+    opacity 0
+    /*仍有bug，当向右滑动时，页面会自动变宽。*/
 
   #app
+    .head-part
+      position: fixed
+      top 0
+      left 0
+      width:100%
+      z-index 20
     .tab-group
       width 100%
+      max-width 100%
       margin-bottom 10px
       background-color #f5f5f5
       -webkit-box-shadow 0 1px 2px rgba(0,0,0,.15)
@@ -86,6 +96,9 @@ export default {
           left 0
           z-index 2
 
+    .main-body
+      padding 94px 0 0 0
+      max-width 100%
   .home
     background-color blue
   .message

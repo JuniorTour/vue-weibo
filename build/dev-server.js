@@ -25,6 +25,19 @@ var proxyTable = config.dev.proxyTable
 var app = express()
 var compiler = webpack(webpackConfig)
 
+//模拟动态数据：
+//https://segmentfault.com/q/1010000006915580
+var weiboContent=require('../src/data/weibo-content.json')
+var apiRouters = express.Router() //定义router
+apiRouters.get('/weibo-content',function (req, res) {
+  res.json({
+    errorNum:0,
+    data:weiboContent
+  })
+})
+
+app.use('/apis',apiRouters)
+
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   quiet: true
