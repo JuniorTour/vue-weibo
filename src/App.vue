@@ -47,14 +47,23 @@ export default {
 <style lang="stylus">
   /*路由跳转动画*/
   .slide-to-left-enter-active,.slide-to-right-leave-active,.slide-to-left-leave-active,.slide-to-right-enter-active
-    transition all 5s linear
-  .slide-to-left-enter-active,.slide-to-left-leave-active
-    transform translate(-100%)
+    transition all .3s ease-out
+
+  /*进入的组件什么也不做，只是保持透明，准备替代离开的组件。*/
+  .slide-to-left-enter,.slide-to-left-enter-active
     opacity 0
-  .slide-to-right-enter-active,.slide-to-right-leave-active
-    transform translate(100%)
+  /*离开的元素向左过渡位移离开，并逐渐透明。*/
+  .slide-to-left-leave-active
+    transform translate(-50%)
     opacity 0
-    /*仍有bug，当向右滑动时，页面会自动变宽。*/
+
+  .slide-to-right-enter,.slide-to-right-enter-active
+    opacity 0
+  .slide-to-right-leave-active
+    transform translate(50%)
+    opacity 0
+    /*仍有bug，当向右滑动时，页面会自动变宽。
+    用给父元素声明overflow hidden解决了。*/
 
   #app
     .head-part
@@ -98,13 +107,14 @@ export default {
 
     .main-body
       padding 94px 0 0 0
-      max-width 100%
-  .home
-    background-color blue
-  .message
-    background-color red
-  .discovery
-    background-color green
-  .me
-    background-color yellow
+      position relative
+      overflow hidden
+      .home
+        background-color blue
+      .message
+        background-color red
+      .discovery
+        background-color green
+      .me
+        background-color yellow
 </style>
