@@ -5,9 +5,9 @@
       <i class="iconfont icon-xiangxiajiantou"></i>
     </div>
     <div class="icon-group">
-      <a class="iconfont icon-xie"></a>
+      <a class="iconfont icon-compose"></a>
       <a class="iconfont icon-sousuo"></a>
-      <a class="iconfont icon-shuaxin"></a>
+      <a class="iconfont icon-refresh"></a>
     </div>
   </div>
 </template>

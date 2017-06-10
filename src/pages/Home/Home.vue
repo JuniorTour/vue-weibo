@@ -11,7 +11,7 @@
         <a class="avatar" :href="item.mblog.user.profile_url">
           <div class="avatar-wrapper">
             <img class="avatar-img" :src="item.mblog.user.profile_image_url">
-            <!--<i class="iconfont" :class="verifiedType"></i>-->
+            <i class="iconfont" :class="calculateVerifiedClass(item.mblog.user.verified_type)"></i>
           </div>
         </a>
         <div class="user-info">
@@ -67,6 +67,24 @@
         }
         console.log('card_group:', this.weiboContent.card_group)
       })
+    },
+    methods: {
+      calculateVerifiedClass: function (verifiedType) {
+        let tempOutcome = ''
+        switch (verifiedType) {
+          case -1:
+            tempOutcome = 'no-verified'
+            break
+          case 0:
+            tempOutcome = 'icon-yellow-v'
+            break
+          case 1:
+            tempOutcome = 'icon-blue-v'
+            break
+        }
+        console.log('verifiedType : ' + tempOutcome)
+        return tempOutcome
+      }
     }
   }
 </script>
@@ -80,6 +98,10 @@
     display: flex
     align-items: center
     padding-left .75rem
+    .icon-huo
+      color: #f00
+      margin-top -5px
+      font-size: 20px
     .top-tip-content
       font-size: .875rem
       color: #FF8200;
@@ -90,6 +112,8 @@
 .card-header
   display: flex
 
+.card a
+  color: #598abf
 .card
   width 100%
   background-color #fff
@@ -102,17 +126,35 @@
     .avatar-wrapper
       border-radius 50%
       border .0625rem solid #e5e5e5
+      position: relative
+      &:before
+        content ' '
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        border-radius: 50%
+        border: .0625rem solid #e5e5e5
+        box-sizing: border-box;
+        /*border-1px*/
     & .avatar-img
       width 2.125rem
       border-radius 50%
       vertical-align top
       display block
+    .no-verfied
+      display none
+    .icon-yellow-v,.icon-blue-v
+      position: absolute;
+      right: -.125rem;
+      bottom: -.125rem;
   .user-info
     max-width 16rem /*避免名字过长*/
     display: flex
     justify-content center
     flex-direction column
-    padding: .6875rem .6875rem 0;
+    padding: .6875rem .6875rem 0
     line-height: 1rem
     .user-name
       color #333
@@ -132,5 +174,5 @@
       right .5rem
 
 .card-body
-  padding: .25rem .75rem .625rem;
+  padding: .25rem .75rem .625rem
 </style>
