@@ -1,21 +1,33 @@
 <template>
   <div class="home">
-    <div class="top-tip">
-    <i class="iconfont icon-huo"></i>
-    <span class="top-tip-content">{{topTip.text}}</span>
-    <i class="iconfont icon-xiangyoujiantou"></i>
+    <div class="top-tip" v-if="hasTopTip">
+      <a href="#" class="to-top-tip">
+        <i class="iconfont icon-huo"></i>
+        <a class="top-tip-content txt-cut">{{topTip.text}}<i class="iconfont icon-xiangyoujiantou"></i></a>
+      </a>
     </div>
     <div class="card" v-for="(item,index) in weiboContent.card_group">
-      <div class="user-name">{{item.mblog.text}}</div>
-      <h2>{{index}}</h2>
-      <!--<div class="card-header">-->
-      <!--<div class="avatar">-->
-      <!--<img :src="item.mblog.user.profile_image_url">-->
-      <!--<i class="iconfont" :class="verifiedType"></i>-->
-      <!--</div>-->
-      <!--<div class="user-name">{{item.mblog.user.screen_name}}</div>-->
-      <!--<div class="publish-time">{{item.mblog.created_at}}</div>-->
-      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <header class="card-header">
+        <a class="avatar" :href="item.mblog.user.profile_url">
+          <div class="avatar-wrapper">
+            <img class="avatar-img" :src="item.mblog.user.profile_image_url">
+            <!--<i class="iconfont" :class="verifiedType"></i>-->
+          </div>
+        </a>
+        <div class="user-info">
+          <a :href="item.mblog.user.profile_url" class="user-name txt-l txt-cut">{{item.mblog.user.screen_name}}</a>
+          <div class="publish-data txt-xs">
+            <span class="publish-created-at">{{item.mblog.created_at}}</span>
+            <span class="publish-source">来自{{item.mblog.source}}</span>
+          </div>
+        </div>
+        <a class="card-operate">
+          <i class="iconfont icon-xiangxiajiantou"></i>
+        </a>
+      </header>
+      <section class="card-body">
+        <p class="default-content">{{item.mblog.text}}</p>
+      </section>
     </div>
   </div>
 </template>
@@ -23,15 +35,12 @@
 <script>
   export default {
     name: 'home',
-//    mounted: function () {
-//      console.log('mounted!')
-//      this.contentInitiate()
-//    },
     data(){
       return {
         //要使用实例的属性，需要在这初始化声明
         topTip: {},
-        weiboContent: {}
+        weiboContent: {},
+        hasTopTip: false
       }
     },
     /*此处也可以在mounted之中用$nextTick调用methods的方法，来初始化weiboContent。详见 http://dwz.cn/65ocqi
@@ -40,27 +49,88 @@
       /*https://segmentfault.com/q/1010000006915580
        * 放在目录里并不意味能通过http访问。
        * 要么另起web服务serve这个目录，要么放在static目录里，因为dev-server对该目录文件实现了http访问。*/
-//        this.$http.get('static/data/weibo-content.json', {id: 0}).then(res => {
+      // this.$http.get('static/data/weibo-content.json', {id: 0}).then(res => {
+      //等价于：
       this.$http.get('apis/weibo-content', {id: 0}).then(res => {
-//          console.log(res)
         /*res.body.data和res.data.data，哪一个才是最佳实践？*/
         if (res.body.errorNum !== 0) {
-          console.log('Data get error!')
+          console.log('Get data error!')
           return;
         }
-        this.topTip = res.data.data.card_group.shift() //公告是card_group[0]，用shift方法弹出
-        this.weiboContent = res.data.data  //微博的内容在card_group[1]及之后
-        console.log('this.weiboContent:')
-        console.log(this.weiboContent)
-        console.log('card_group:')
-        console.log(this.weiboContent.card_group)
-        console.log('this.topTip:')
-        console.log(this.topTip)
+        this.weiboContent = res.data.data  //微博的所有内容
+        console.log('this.weiboContent:', this.weiboContent)
+        let tempTopTip = res.data.data.card_group[0]
+        if (tempTopTip.mod_type === 'mod/clientTopTips') {
+          this.topTip = res.data.data.card_group.shift() //公告是card_group[0]，用shift方法弹出
+          this.hasTopTip = true
+          console.log('this.topTip:', this.topTip)
+        }
+        console.log('card_group:', this.weiboContent.card_group)
       })
     }
   }
 </script>
 
 <style scoped lang="stylus">
+.top-tip
+  width 100%
+  background-color #fed
+  .to-top-tip
+    height 2.75em
+    display: flex
+    align-items: center
+    padding-left .75rem
+    .top-tip-content
+      font-size: .875rem
+      color: #FF8200;
+      padding 0 .6875rem
+      .iconfont
+        font-size: 0.775rem;  //iconfont没选好，文字对不齐
 
+.card-header
+  display: flex
+
+.card
+  width 100%
+  background-color #fff
+  margin-bottom .5625rem
+  position: relative
+  .avatar
+    margin .75rem 0 .5rem .75rem
+    display flex
+    position relative;
+    .avatar-wrapper
+      border-radius 50%
+      border .0625rem solid #e5e5e5
+    & .avatar-img
+      width 2.125rem
+      border-radius 50%
+      vertical-align top
+      display block
+  .user-info
+    max-width 16rem /*避免名字过长*/
+    display: flex
+    justify-content center
+    flex-direction column
+    padding: .6875rem .6875rem 0;
+    line-height: 1rem
+    .user-name
+      color #333
+    .publish-data
+      color #929292
+      .publish-source
+        padding-left .5rem
+  .card-operate
+    position: absolute
+    top: 0
+    right: 0
+    width: 3.75rem
+    height: 3.375rem
+    .icon-xiangxiajiantou
+      position: absolute
+      top .5rem
+      right .5rem
+
+.card-body
+  padding: .25rem .75rem .625rem;
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="user-and-group">
-      <p class="user-title txt-cut">JuniorTour</p>
+      <p class="user-title txt-cut">帅到被人砍___</p>
       <i class="iconfont icon-xiangxiajiantou"></i>
     </div>
     <div class="icon-group">
@@ -44,6 +44,7 @@ export default{}
       float: right;
       /*padding 0 12px*/
       a.iconfont
+        vertical-align: top
         display inline-block
         width: 46px
         font-size: 22px

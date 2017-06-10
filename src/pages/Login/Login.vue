@@ -1,7 +1,7 @@
 <template>
 <div class="login">
   <h1>It is Login</h1>
-  <router-link to="/home">首页</router-link>
+  <router-link to="/home">去首页</router-link>
 </div>
 </template>
 
