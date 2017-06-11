@@ -53,13 +53,13 @@ export default {
     opacity 0
   /*离开的元素向左过渡位移离开，并逐渐透明。*/
   .slide-to-left-leave-active
-    transform translate(-80%)
+    transform translate(80%)
     opacity 0
 
   .slide-to-right-enter,.slide-to-right-enter-active
     opacity 0
   .slide-to-right-leave-active
-    transform translate(80%)
+    transform translate(-80%)
     opacity 0
     /*仍有bug，当向右滑动时，页面会自动变宽。
     用给父元素声明overflow hidden解决了。*/

@@ -26,10 +26,48 @@ body, html
   text-overflow: ellipsis
   white-space: nowrap
 
+/*active style:*/
+/*微博用的是data-act-type:"hover"，估计是为了适配移动端。稍后更改这个问题。
+IOS safari浏览器不支持:active*/
+.able-to-active:active
+  background-color #ebebeb
 
-@media (-webkit-min-device-pixel-ratio: 2),not all
-  .border-1px
-    &:before
-      width:4.25rem
-      height 4.25rem
-      transform scale(0.5) translate(-50%,-50%)
+/*1px hack:*/
+.separate-line
+  width .0625rem
+  height 1.5rem
+  background-color #dcdcdc
+  line-height 1
+
+.border-top-1px
+  position: relative
+.border-top-1px:before
+  position: absolute
+  top: 0
+  left 0
+  content ' '
+  width: 100%
+  height .0625rem
+  background-color #dadada
+
+@media (-webkit-min-device-pixel-ratio: 2), not all
+  .border-top-1px:before
+    transform scaleY(0.5)
+
+.border-1px
+  position: relative
+.border-1px:before
+  /*border-1px-hack
+  http://jinlong.github.io/2015/05/24/css-retina-hairlines/*/
+  content: ' ';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: .0625rem solid #e4e4e4;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 50%;
+  width: 200%;
+  height: 200%;
+  transform: scale(0.5);
+  transform-origin: left top;

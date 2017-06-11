@@ -6,7 +6,7 @@
         <a class="top-tip-content txt-cut">{{topTip.text}}<i class="iconfont icon-xiangyoujiantou"></i></a>
       </a>
     </div>
-    <div class="card" v-for="(item,index) in weiboContent.card_group">
+    <div class="card able-to-active" v-for="(item,index) in weiboContent.card_group">
       <header class="card-header">
         <a class="avatar" :href="item.mblog.user.profile_url">
           <div class="avatar-wrapper border-1px">
@@ -21,13 +21,29 @@
             <span class="publish-source">来自{{item.mblog.source}}</span>
           </div>
         </div>
-        <a class="card-operate">
+        <a class="card-operate able-to-active">
           <i class="iconfont icon-xiangxiajiantou"></i>
         </a>
       </header>
       <section class="card-body">
         <p class="default-content">{{item.mblog.text}}</p>
       </section>
+      <footer class="card-footer border-top-1px txt-s">
+        <a class="forward able-to-active">
+          <i class="iconfont icon-zhuanfa"></i>
+          {{item.mblog.reposts_count}}
+        </a>
+        <i class="separate-line"></i>
+        <a class="comment able-to-active">
+          <i class="iconfont icon-pinglun"></i>
+          {{item.mblog.comments_count}}
+        </a>
+        <i class="separate-line"></i>
+        <a class="like able-to-active">
+          <i class="iconfont icon-like"></i>
+          {{item.mblog.attitudes_count}}
+        </a>
+      </footer>
     </div>
   </div>
 </template>
@@ -123,58 +139,56 @@
     margin .75rem 0 .5rem .75rem
     display flex
     position relative;
-    .avatar-wrapper
-      position: relative
-      &:before
-        /*border-1px-hack
-        http://jinlong.github.io/2015/05/24/css-retina-hairlines/*/
-        content: ' ';
-        position: absolute;
-        top: 0;
-        left: 0;
-        border: .0625rem solid #e4e4e4;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        border-radius: 50%;
-        /*width: 200%;
-        height: 200%;
-        transform: scale(0.5);
-        transform-origin: left top;*/
-    & .avatar-img
+    .avatar-img
       width 2.125rem
       border-radius 50%
       vertical-align top
       display block
-    .no-verfied
+    .no-verified
       display none
     .icon-yellow-v,.icon-blue-v
       position: absolute;
       right: -.125rem;
       bottom: -.125rem;
-  .user-info
-    max-width 16rem /*避免名字过长*/
-    display: flex
-    justify-content center
-    flex-direction column
-    padding: .6875rem .6875rem 0
-    line-height: 1rem
-    .user-name
-      color #333
-    .publish-data
-      color #929292
-      .publish-source
-        padding-left .5rem
-  .card-operate
+
+.user-info
+  max-width 16rem /*避免名字过长*/
+  display: flex
+  justify-content center
+  flex-direction column
+  padding: .6875rem .6875rem 0
+  line-height: 1rem
+  .user-name
+    color #333
+  .publish-data
+    color #929292
+    .publish-source
+      padding-left .5rem
+
+.card-operate
+  position: absolute
+  top: 0
+  right: 0
+  width: 3.75rem
+  height: 3.375rem
+  .icon-xiangxiajiantou
     position: absolute
-    top: 0
-    right: 0
-    width: 3.75rem
-    height: 3.375rem
-    .icon-xiangxiajiantou
-      position: absolute
-      top .5rem
-      right .5rem
+    top .5rem
+    right .5rem
 
 .card-body
   padding: .25rem .75rem .625rem
+
+.card-footer
+  width: 100%
+  display: flex
+  align-items center
+  & > a
+    color #929292
+    flex:1
+    text-align center
+    padding: .375rem 0
+    display: inline-block;
+    height: 1.5rem;
+    line-height: 1.5rem;
 </style>
