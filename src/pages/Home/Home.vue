@@ -9,7 +9,7 @@
     <div class="card" v-for="(item,index) in weiboContent.card_group">
       <header class="card-header">
         <a class="avatar" :href="item.mblog.user.profile_url">
-          <div class="avatar-wrapper">
+          <div class="avatar-wrapper border-1px">
             <img class="avatar-img" :src="item.mblog.user.profile_image_url">
             <i class="iconfont" :class="calculateVerifiedClass(item.mblog.user.verified_type)"></i>
           </div>
@@ -124,20 +124,22 @@
     display flex
     position relative;
     .avatar-wrapper
-      border-radius 50%
-      border .0625rem solid #e5e5e5
       position: relative
       &:before
-        content ' '
-        width: 100%
-        height: 100%
-        position: absolute
-        top: 0
-        left: 0
-        border-radius: 50%
-        border: .0625rem solid #e5e5e5
+        /*border-1px-hack
+        http://jinlong.github.io/2015/05/24/css-retina-hairlines/*/
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: .0625rem solid #e4e4e4;
+        -webkit-box-sizing: border-box;
         box-sizing: border-box;
-        /*border-1px*/
+        border-radius: 50%;
+        /*width: 200%;
+        height: 200%;
+        transform: scale(0.5);
+        transform-origin: left top;*/
     & .avatar-img
       width 2.125rem
       border-radius 50%
