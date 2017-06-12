@@ -26,9 +26,13 @@
         </a>
       </header>
       <section class="card-body">
-        <p class="default-content">{{item.mblog.text}}</p>
+        <p class="default-content" v-html="item.mblog.text"></p>
+        <!--{{item.mblog.pics[0].url}}-->
+        <ul v-if="item.mblog.pics.length!==0" class="pic-list">
+          <li v-for="(eachPic,index) in item.mblog.pics"><img :src=eachPic.url></li>
+        </ul>
       </section>
-      <footer class="card-footer border-top-1px txt-s">
+      <footer class="card-footer txt-s">
         <a class="forward able-to-active">
           <i class="iconfont icon-zhuanfa"></i>
           {{item.mblog.reposts_count}}
@@ -82,6 +86,9 @@
           console.log('this.topTip:', this.topTip)
         }
         console.log('card_group:', this.weiboContent.card_group)
+//        console.log('mblog:', this.weiboContent.card_group[2].mblog)
+        console.log('pics[0]:', this.weiboContent.card_group[2].mblog.pics[0])
+        console.log('pics[0].url:', this.weiboContent.card_group[2].mblog.pics[0].url)
       })
     },
     methods: {
@@ -125,16 +132,17 @@
       .iconfont
         font-size: 0.775rem;  //iconfont没选好，文字对不齐
 
-.card-header
-  display: flex
-
-.card a
-  color: #598abf
 .card
   width 100%
   background-color #fff
   margin-bottom .5625rem
   position: relative
+
+.card a
+  color: #598abf
+
+.card-header
+  display: flex
   .avatar
     margin .75rem 0 .5rem .75rem
     display flex
@@ -176,13 +184,33 @@
     top .5rem
     right .5rem
 
+
 .card-body
   padding: .25rem .75rem .625rem
+  line-height 1.35rem
+.pic-list
+  margin-top .4375rem
+  overflow hidden
+  & li
+    float: left
+  & img
+    width 4.75rem
+    height 4.75rem
+    margin-right .25rem
 
 .card-footer
   width: 100%
   display: flex
   align-items center
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#dadada),color-stop(50%,#dadada),color-stop(50%,rgba(0, 0, 0, 0)))
+  background-image: -webkit-linear-gradient(top,#dadada 0,#dadada 50%,rgba(0, 0, 0, 0) 50%)
+  background-image: linear-gradient(to bottom,#dadada 0,#dadada 50%,rgba(0, 0, 0, 0) 50%);
+  /*从上到下，在1px的高度之中，从#dadada开始，直到0.5px时，将剩余的下半部分0.5px设置为透明，
+  从而实现视觉上的0.5px。*/
+  -webkit-background-size: 100% 1px;
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: top;
   & > a
     color #929292
     flex:1
@@ -190,5 +218,5 @@
     padding: .375rem 0
     display: inline-block;
     height: 1.5rem;
-    line-height: 1.5rem;
+    line-height: 1.5rem
 </style>

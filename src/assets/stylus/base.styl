@@ -2,6 +2,8 @@ body, html
   line-height: 1
   font-weight: 200
   font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif
+a
+  color #598abf
 
 .clearfix
   zoom 1
@@ -10,9 +12,6 @@ body, html
     display: table
     content: ""
     clear: both
-
-.active
-  background-color #ebebeb
 
 //文字相关类：
 .txt-l
@@ -28,16 +27,30 @@ body, html
 
 /*active style:*/
 /*微博用的是data-act-type:"hover"，估计是为了适配移动端。稍后更改这个问题。
-IOS safari浏览器不支持:active*/
+IOS safari浏览器对于:active有怪癖。
+https://stackoverflow.com/questions/3885018/active-pseudo-class-doesnt-work-in-mobile-safari*/
 .able-to-active:active
   background-color #ebebeb
+  -webkit-tap-highlight-color: #0f0;
 
 /*1px hack:*/
 .separate-line
-  width .0625rem
-  height 1.5rem
-  background-color #dcdcdc
-  line-height 1
+  //width .0625rem
+  //height 1.5rem
+  //background-color #dcdcdc
+  //line-height 1
+  //微博所用方法：
+  height: 1.5rem;
+  width: 1px;
+  background-image: -webkit-gradient(linear,left top,right top,color-stop(50%,rgba(0, 0, 0, 0)),color-stop(50%,#dadada),color-stop(100%,#dadada));
+  background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0) 50%,#dadada 50%,#dadada 100%);
+  background-image: linear-gradient(to right,rgba(0, 0, 0, 0) 50%,#dadada 50%,#dadada 100%);
+  background-size: 1px 100%;
+  background-repeat: no-repeat;
+  background-position: right;
+  //搭配mask蒙版/遮罩属性，实现向上下两端渐细
+  -webkit-mask: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(0, 0, 0, 0)),color-stop(30%,#000),color-stop(70%,#000),color-stop(100%,rgba(0, 0, 0, 0)))
+  -webkit-mask: -webkit-linear-gradient(top,rgba(0, 0, 0, 0),#000 30%,#000 70%,rgba(0, 0, 0, 0) 100%)
 
 .border-top-1px
   position: relative
@@ -53,6 +66,8 @@ IOS safari浏览器不支持:active*/
 @media (-webkit-min-device-pixel-ratio: 2), not all
   .border-top-1px:before
     transform scaleY(0.5)
+  .separate-line
+    transform scaleX(0.5)
 
 .border-1px
   position: relative
