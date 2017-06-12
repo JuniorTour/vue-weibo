@@ -1,10 +1,10 @@
 
 @font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1497098669555'); /* IE9*/
-  src: url('iconfont.eot?t=1497098669555#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1497098669555') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1497098669555') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1497098669555#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1497272791227'); /* IE9*/
+  src: url('iconfont.eot?t=1497272791227#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1497272791227') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1497272791227') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1497272791227#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -15,35 +15,65 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-huangguan:before { content: "\e600"; }
+.icon-crown:before { content: "\e600"; }
 
-.icon-compose:before { content: "\e626"; }
+.icon-forward:before { content: "\e65f"; }
 
-.icon-zhuanfa:before { content: "\e65f"; }
+.icon-gear:before { content: "\e634"; }
 
-.icon-pinglun:before { content: "\e621"; }
+.icon-comment:before { content: "\e621"; }
 
-.icon-jinlingyingcaiwangtubiao55:before { content: "\e75a"; }
+.icon-collect:before { content: "\e604"; }
 
-.icon-zankongxingai:before { content: "\e65c"; }
+.icon-compose:before { content: "\e60b"; }
 
-.icon-sousuo:before { content: "\e651"; }
+.icon-position:before { content: "\e606"; }
 
-.icon-xiangshangjiantou:before { content: "\e65d"; }
+.icon-msg:before { content: "\e75a"; }
 
-.icon-xiangxiajiantou:before { content: "\e65e"; }
+.icon-t:before { content: "\e607"; }
 
-.icon-xiangyoujiantou:before { content: "\e660"; }
+.icon-level:before { content: "\e862"; }
 
-.icon-xiangzuojiantou:before { content: "\e661"; }
+.icon-article:before { content: "\e6bc"; }
 
-.icon-huo:before { content: "\e63a"; }
+.icon-like:before { content: "\e65c"; }
 
-.icon-aite:before { content: "\e700"; }
+.icon-search:before { content: "\e651"; }
+
+.icon-up-arrow:before { content: "\e65d"; }
+
+.icon-down-arrow:before { content: "\e65e"; }
+
+.icon-right-arrow:before { content: "\e660"; }
+
+.icon-left-arrow:before { content: "\e661"; }
+
+.icon-hot:before { content: "\e63a"; }
+
+.icon-film:before { content: "\e60d"; }
+
+.icon-video:before { content: "\e737"; }
+
+.icon-music:before { content: "\e60c"; }
+
+.icon-charity:before { content: "\e601"; }
+
+.icon-at:before { content: "\e700"; }
+
+.icon-album:before { content: "\e60a"; }
 
 .icon-v:before { content: "\e64a"; }
+.icon-yellow-v:before { content: "\e64a"; color:#FFB502;}
+.icon-blue-v:before { content: "\e64a"; color:#00A4FF;}
+
+.icon-link:before { content: "\e665"; }
 
 .icon-refresh:before { content: "\e726"; }
 
-.icon-laba:before { content: "\e668"; }
+.icon-speaker:before { content: "\e668"; }
+
+.icon-famous-people:before { content: "\e618"; }
+
+.icon-friends:before { content: "\e6ae"; }
 

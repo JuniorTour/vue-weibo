@@ -2,11 +2,11 @@
   <div class="header">
     <div class="user-and-group">
       <p class="user-title txt-cut">帅到被人砍___</p>
-      <i class="iconfont icon-xiangxiajiantou"></i>
+      <i class="iconfont icon-down-arrow"></i>
     </div>
     <div class="icon-group">
       <a class="iconfont icon-compose"></a>
-      <a class="iconfont icon-sousuo"></a>
+      <a class="iconfont icon-search"></a>
       <a class="iconfont icon-refresh"></a>
     </div>
   </div>
@@ -33,7 +33,7 @@ export default{}
       .user-title
         font-size 1.125rem
 
-      .icon-xiangxiajiantou
+      .icon-down-arrow
         font-size: .8215rem
         color: #f07c10;
         position absolute

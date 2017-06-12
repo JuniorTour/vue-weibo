@@ -33,9 +33,15 @@ IOS safari浏览器对于:active有怪癖。
 https://stackoverflow.com/questions/3885018/active-pseudo-class-doesnt-work-in-mobile-safari
 我目前简单采取了给body添加ontouchstart事件的解决方案。
 
-#### 8.Webstorm用regex和捕获组批量替换
+#### 8.WebStorm用regex和捕获组批量替换
 如用“+word+”替换“word”：
   1.先勾选find框后的Regex选项
   2.在find框中：(\w+)
   3.在replace框中："$1"
 $1就是匹配到的捕获组。
+
+
+#Bug记录：
+1.卡片footer的两个间隔线在chrome58之中会因为页面宽度不同，呈现不同的宽度？？weibo.cn也是！
+
+2.header的上下两栏之中，始终会有细微的距离，无法紧密贴合。weibo.cn也是！

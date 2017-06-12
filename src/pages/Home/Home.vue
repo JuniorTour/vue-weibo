@@ -3,7 +3,7 @@
     <div class="top-tip" v-if="hasTopTip">
       <a href="#" class="to-top-tip">
         <i class="iconfont icon-huo"></i>
-        <a class="top-tip-content txt-cut">{{topTip.text}}<i class="iconfont icon-xiangyoujiantou"></i></a>
+        <p class="top-tip-content txt-cut">{{topTip.text}}<i class="iconfont icon-down-arrow"></i></p>
       </a>
     </div>
     <div class="card able-to-active" v-for="(item,index) in weiboContent.card_group">
@@ -22,7 +22,7 @@
           </div>
         </div>
         <a class="card-operate able-to-active">
-          <i class="iconfont icon-xiangxiajiantou"></i>
+          <i class="iconfont icon-down-arrow"></i>
         </a>
       </header>
       <section class="card-body">
@@ -34,12 +34,12 @@
       </section>
       <footer class="card-footer txt-s">
         <a class="forward able-to-active">
-          <i class="iconfont icon-zhuanfa"></i>
+          <i class="iconfont icon-forward"></i>
           {{item.mblog.reposts_count}}
         </a>
         <i class="separate-line"></i>
         <a class="comment able-to-active">
-          <i class="iconfont icon-pinglun"></i>
+          <i class="iconfont icon-comment"></i>
           {{item.mblog.comments_count}}
         </a>
         <i class="separate-line"></i>
@@ -129,6 +129,7 @@
       font-size: .875rem
       color: #FF8200;
       padding 0 .6875rem
+      line-height: 1.5rem
       .iconfont
         font-size: 0.775rem;  //iconfont没选好，文字对不齐
 
@@ -179,7 +180,7 @@
   right: 0
   width: 3.75rem
   height: 3.375rem
-  .icon-xiangxiajiantou
+  .icon-down-arrow
     position: absolute
     top .5rem
     right .5rem
@@ -190,6 +191,7 @@
   line-height 1.35rem
 .pic-list
   margin-top .4375rem
+  width: 15.5rem
   overflow hidden
   & li
     float: left

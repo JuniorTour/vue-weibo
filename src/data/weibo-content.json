@@ -17,7 +17,7 @@
         "created_at": "刚刚",
         "id": "4116400258028744",
         "mid": "4116400258028744",
-        "text": "幸会，很高兴认识你！</br>这是一个用Vue.js全家桶模仿微博网页版（m.weibo.cn）的Demo。</br>欢迎访问相关Github仓库：<a href='https://github.com/JuniorTour/vue-weibo' data-url=\"\"><span class= \"surl-text \">JuniorTour/vue-weibo</span></a></br>欢迎和我在微博上交流：<a href='https://m.weibo.cn/u/1697676002' data-url=\"\"><span class= \"surl-text \">帅到被人砍___的微博</span></a></br>欢迎访问我的博客：<a href='http://juniortour.net' data-url=\"\"><span class= \"surl-text \">少年游-前端技术博客</span></a></br>总之，欢迎各种交流~(～￣▽￣)～~~~ ",
+        "text": "幸会，很高兴认识你！</br>这是一个用Vue.js全家桶模仿微博网页版（m.weibo.cn）的Demo。</br>欢迎访问相关Github仓库查看详情：<a href='https://github.com/JuniorTour/vue-weibo' data-url=\"\"><span class= \"surl-text \">JuniorTour/vue-weibo</span></a></br>欢迎和我在微博上交流：<a href='https://m.weibo.cn/u/1697676002' data-url=\"\"><span class= \"surl-text \">帅到被人砍___的微博</span></a></br>欢迎访问我的博客：<a href='http://juniortour.net' data-url=\"\"><span class= \"surl-text \">少年游-前端技术博客</span></a></br>总之，欢迎各种交流 (～￣▽￣)～ ",
         "textLength": 16,
         "source": "一个学生",
         "favorited": false,
@@ -43,7 +43,7 @@
         "created_at": "18分钟前",
         "id": "4116400258028744",
         "mid": "4116400258028744",
-        "text": "测试网页链接<i class=\"iconfont icon-huo\"></i><a data-url=\"\"><span class= \"surl-text \">淘宝天猫会员体系统一，淘气值要变成“VIP版的芝麻信用”？</span></a>、</br>#关键词：<a class='k' href=''>#网页链接#</a>、</br>打开全文跳转链接：...<a href=\"/status/4117386514582475\">全文</a>等功能。​",
+        "text": "测试网页链接<i class=\"iconfont icon-huo\"></i><a data-url=\"\"><span class= \"surl-text \">这是一个网页链接</span></a>、#关键词：<a class='k' href=''>#关键词#</a>、打开全文跳转链接：...<a href=\"/status/4117386514582475\">全文</a>等功能。​",
         "textLength": 16,
         "source": "iphone se(高级黑)",
         "favorited": false,
@@ -69,7 +69,7 @@
         "created_at": "24小时前",
         "id": "4116400258028744",
         "mid": "4116400258028744",
-        "text": "第三条 ​",
+        "text": "测试图片列表功能：​",
         "textLength": 16,
         "source": "微博 weibo.com",
         "favorited": false,
@@ -90,14 +90,14 @@
           "verified": true,
           "verified_type": 0
         },
-        "reposts_count": 400,
+        "reposts_count": 99999,
         "comments_count": 99999,
         "attitudes_count": 0,
         "isLongText": false,
         "pics": [
            {
             "pid": "718878b5ly1fgig1mmdmbj20u091px6q",
-            "url": "./static/img/eg-img/green_shade-min.jpg",
+            "url": "./static/img/eg-img/green-shade-min.jpg",
             "size": "thumb180",
             "geo":  {
               "width": 180,
@@ -116,7 +116,7 @@
         },
           {
             "pid": "718878b5ly1fgig1mmdmbj20u091px6q",
-            "url": "./static/img/eg-img/green_shade-min.jpg",
+            "url": "./static/img/eg-img/red-ample-min.jpg",
             "size": "thumb180",
             "geo":  {
               "width": 180,
@@ -135,7 +135,7 @@
           },
           {
             "pid": "718878b5ly1fgig1mmdmbj20u091px6q",
-            "url": "./static/img/eg-img/green_shade-min.jpg",
+            "url": "./static/img/eg-img/red-apricot-min.jpg",
             "size": "thumb180",
             "geo":  {
               "width": 180,
@@ -154,7 +154,7 @@
           },
           {
             "pid": "718878b5ly1fgig1mmdmbj20u091px6q",
-            "url": "./static/img/eg-img/green_shade-min.jpg",
+            "url": "./static/img/eg-img/green-shade-min.jpg",
             "size": "thumb180",
             "geo":  {
               "width": 180,

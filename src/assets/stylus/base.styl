@@ -31,7 +31,7 @@ IOS safari浏览器对于:active有怪癖。
 https://stackoverflow.com/questions/3885018/active-pseudo-class-doesnt-work-in-mobile-safari*/
 .able-to-active:active
   background-color #ebebeb
-  -webkit-tap-highlight-color: #0f0;
+  -webkit-tap-highlight-color: #0f0
 
 /*1px hack:*/
 .separate-line
@@ -40,14 +40,15 @@ https://stackoverflow.com/questions/3885018/active-pseudo-class-doesnt-work-in-m
   //background-color #dcdcdc
   //line-height 1
   //微博所用方法：
-  height: 1.5rem;
-  width: 1px;
-  background-image: -webkit-gradient(linear,left top,right top,color-stop(50%,rgba(0, 0, 0, 0)),color-stop(50%,#dadada),color-stop(100%,#dadada));
-  background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0) 50%,#dadada 50%,#dadada 100%);
-  background-image: linear-gradient(to right,rgba(0, 0, 0, 0) 50%,#dadada 50%,#dadada 100%);
-  background-size: 1px 100%;
-  background-repeat: no-repeat;
-  background-position: right;
+  height: 1.5rem
+  width: 1px
+  background-color: #dadada
+  background-image: -webkit-gradient(linear,left top,right top,color-stop(50%,rgba(0, 0, 0, 0)),color-stop(50%,#dadada),color-stop(100%,#dadada))
+  background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0) 50%,#dadada 50%,#dadada 100%)
+  background-image: linear-gradient(to right,rgba(0, 0, 0, 0) 50%,#dadada 50%,#dadada 100%)
+  background-size: 1px 100%
+  background-repeat: no-repeat
+  background-position: right
   //搭配mask蒙版/遮罩属性，实现向上下两端渐细
   -webkit-mask: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(0, 0, 0, 0)),color-stop(30%,#000),color-stop(70%,#000),color-stop(100%,rgba(0, 0, 0, 0)))
   -webkit-mask: -webkit-linear-gradient(top,rgba(0, 0, 0, 0),#000 30%,#000 70%,rgba(0, 0, 0, 0) 100%)
@@ -74,15 +75,15 @@ https://stackoverflow.com/questions/3885018/active-pseudo-class-doesnt-work-in-m
 .border-1px:before
   /*border-1px-hack
   http://jinlong.github.io/2015/05/24/css-retina-hairlines/*/
-  content: ' ';
-  position: absolute;
-  top: 0;
-  left: 0;
-  border: .0625rem solid #e4e4e4;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-radius: 50%;
-  width: 200%;
-  height: 200%;
-  transform: scale(0.5);
-  transform-origin: left top;
+  content: ' '
+  position: absolute
+  top: 0
+  left: 0
+  border: .0625rem solid #e4e4e4
+  -webkit-box-sizing: border-box
+  box-sizing: border-box
+  border-radius: 50%
+  width: 200%
+  height: 200%
+  transform: scale(0.5)
+  transform-origin: left top
