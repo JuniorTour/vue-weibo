@@ -1,9 +1,10 @@
 <template>
   <div class="home">
+    <button class="switchPicViewer" v-on:click="switchPicViewer()">switchPicViewer!</button>
     <div class="top-tip" v-if="hasTopTip">
       <a href="#" class="to-top-tip">
         <i class="iconfont icon-huo"></i>
-        <p class="top-tip-content txt-cut">{{topTip.text}}<i class="iconfont icon-down-arrow"></i></p>
+        <p class="top-tip-content txt-cut">{{topTip.text}}<i class="iconfont icon-right-arrow"></i></p>
       </a>
     </div>
     <div class="card able-to-active" v-for="(item,index) in weiboContent.card_group">
@@ -28,9 +29,24 @@
       <section class="card-body">
         <p class="default-content" v-html="item.mblog.text"></p>
         <!--{{item.mblog.pics[0].url}}-->
-        <ul v-if="item.mblog.pics.length!==0" class="pic-list">
+        <div v-if="item.mblog.pics.length===1" class="single-pic">
+          <img :src="item.mblog.pics[0].url">
+        </div>
+        <ul v-if="item.mblog.pics.length>=2" class="pic-list">
           <li v-for="(eachPic,index) in item.mblog.pics"><img :src=eachPic.url></li>
         </ul>
+        <div class="retweet" v-if="item.mblog.retweeted_status!==undefined">
+          <p>
+            <a :href="item.mblog.retweeted_status.user.profile_url"
+               class="retweet-user">@{{item.mblog.retweeted_status.user.screen_name}}</a>：{{item.mblog.retweeted_status.text}}
+          </p>
+          <div v-if="item.mblog.retweeted_status.pics.length===1" class="single-pic">
+            <img :src="item.mblog.retweeted_status.pics[0].url">
+          </div>
+          <ul v-if="item.mblog.retweeted_status.pics.length>=2" class="pic-list">
+            <li v-for="(eachPic,index) in item.mblog.retweeted_status.pics"><img :src=eachPic.url></li>
+          </ul>
+        </div>
       </section>
       <footer class="card-footer txt-s">
         <a class="forward able-to-active">
@@ -53,6 +69,14 @@
 </template>
 
 <script>
+  import pictureViewer from '../../components/pictureViewer/pictureViewer.vue'
+
+  //  let MyComponent = Vue.extend({
+  //    template: '<div>Hello!</div>'
+  //  })
+  //  var component = new MyComponent().$mount()
+  //  document.getElementById('app').appendChild(component.$el)
+
   export default {
     name: 'home',
     data(){
@@ -60,8 +84,18 @@
         //要使用实例的属性，需要在这初始化声明
         topTip: {},
         weiboContent: {},
-        hasTopTip: false
+        hasTopTip: false,
+        toShowPic: true
       }
+    },
+    components: {
+//      'picture-viewer': pictureViewer
+    },
+    beforeMounted: function () {
+//      let body = document.querySelector('body')
+//      let pictureViewer = document.createElement('picture-viewer')
+//      body.appendChild(pictureViewer)
+//      this.insertPictureViewer()
     },
     /*此处也可以在mounted之中用$nextTick调用methods的方法，来初始化weiboContent。详见 http://dwz.cn/65ocqi
      * 但我个人结合生命周期图认为，created早于mounted，用于初始化视图，应该首选created！*/
@@ -78,17 +112,19 @@
           return;
         }
         this.weiboContent = res.data.data  //微博的所有内容
-        console.log('this.weiboContent:', this.weiboContent)
+//        console.log('this.weiboContent:', this.weiboContent)
         let tempTopTip = res.data.data.card_group[0]
         if (tempTopTip.mod_type === 'mod/clientTopTips') {
           this.topTip = res.data.data.card_group.shift() //公告是card_group[0]，用shift方法弹出
           this.hasTopTip = true
-          console.log('this.topTip:', this.topTip)
+//          console.log('this.topTip:', this.topTip)
         }
-        console.log('card_group:', this.weiboContent.card_group)
+//        console.log('card_group:', this.weiboContent.card_group)
 //        console.log('mblog:', this.weiboContent.card_group[2].mblog)
-        console.log('pics[0]:', this.weiboContent.card_group[2].mblog.pics[0])
-        console.log('pics[0].url:', this.weiboContent.card_group[2].mblog.pics[0].url)
+//        console.log('pics[0]:', this.weiboContent.card_group[2].mblog.pics[0])
+//        console.log('pics[0].url:', this.weiboContent.card_group[2].mblog.pics[0].url)
+
+//        this.insertPictureViewer()
       })
     },
     methods: {
@@ -105,8 +141,18 @@
             tempOutcome = 'icon-blue-v'
             break
         }
-        console.log('verifiedType : ' + tempOutcome)
+//        console.log('verifiedType : ' + tempOutcome)
         return tempOutcome
+      },
+      insertPictureViewer: function () {
+        let body = document.querySelector('body')
+        let pictureViewer = document.createElement('picture-viewer')
+        body.appendChild(pictureViewer)
+        console.log('已插入pictureViewer')
+      },
+      switchPicViewer: function () {
+        console.log('Emit switchPicViewer in Home.vue!')
+        pictureViewer.$emit('switchPicViewer')
       }
     }
   }
@@ -131,7 +177,10 @@
       padding 0 .6875rem
       line-height: 1.5rem
       .iconfont
-        font-size: 0.775rem;  //iconfont没选好，文字对不齐
+        margin-left: .5rem
+        font-size: 0.775rem
+
+//iconfont没选好，文字对不齐
 
 .card
   width 100%
@@ -199,6 +248,20 @@
     width 4.75rem
     height 4.75rem
     margin-right .25rem
+
+.single-pic
+  margin-top .3125rem
+  max-height 12.5rem
+  overflow hidden
+  text-align left
+  & img
+    width: 11.25rem
+    vertical-align top
+
+.retweet
+  padding: .625rem
+  margin .4375rem -.75rem -.75rem
+  background-color #f7f7f7
 
 .card-footer
   width: 100%

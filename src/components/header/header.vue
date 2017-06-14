@@ -52,4 +52,6 @@ export default{}
         line-height: 44px
         color: #444
         text-align: center
+        &:active
+          background-color #ebebeb
 </style>

@@ -9,12 +9,12 @@
         <router-link to="/me" class="tab">我</router-link>
       </div>
     </div>
-    <div class="main-body">
+    <div class="main-body"  v-show="!switchPicViewer">
       <transition :name="transitionName">
         <router-view></router-view>
       </transition>
     </div>
-    <picture-viewer v-if="toShowPic"></picture-viewer>
+    <picture-viewer v-show="switchPicViewer"></picture-viewer>
   </div>
 </template>
 
@@ -24,10 +24,17 @@ import pictureViewer from './components/pictureViewer/pictureViewer.vue'
 
 export default {
   name: 'app',
+  created() {
+    pictureViewer.$on('switchPicViewer', () => {
+      console.log('App.vue switchPicViewer!')
+      console.log(this.switchPicViewer)
+      this.$set(this, 'switchPicViewer', !this.switchPicViewer)
+    })
+  },
   data(){
     return {
       transitionName: 'slide-left',
-      toShowPic: true
+      switchPicViewer: false
     }
   },
   components: {
@@ -124,13 +131,5 @@ body
     .me
       background-color yellow
 
-.picture-viewer
-  background-color #000
-  position: absolute
-  z-index 100
-  top 0
-  right 0
-  bottom 0
-  left 0
   /*picture-viewer呈现时，#app需要display:none*/
 </style>
