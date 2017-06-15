@@ -5,6 +5,7 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource)
 import App from './App'
 import router from './router'
+import store from './store'
 
 import './assets/stylus/index.styl'
 
@@ -13,6 +14,7 @@ Vue.config.productionTip = true
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   template: '<App/>',
   components: {App}

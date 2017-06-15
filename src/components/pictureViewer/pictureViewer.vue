@@ -1,38 +1,37 @@
 <template>
 <div class="picture-viewer">
   <div class="picture-window">
-    <img src="../../../static/img/eg-img/green-shade-min.jpg">
+    <img :src="targetPicUrl">
   </div>
   <div class="picture-ctrl-bar">
     <button class="close-viewer" @click.prevent="closePictureViewer">关闭</button>
     1/1
-
-
     <button class="viewer-zan-button"><i class="iconfont icon-like"></i>999</button>
   </div>
 </div>
 </template>
 
 <script>
-  import Vue from 'vue'
-  //Use as a event bus:
-  export default new Vue({
+  export default {
     name: 'pictureViewer',
-    data() {
-      return {}
-    },
     methods: {
-      closePictureViewer: function () {
-        this.$emit('switchPicViewer')
+      closePictureViewer() {
+        console.log('closePicViewer in pictureViewer.vue.')
+        this.$store.commit('closePicViewer')
+      }
+    },
+    computed: {
+      targetPicUrl(){
+        return this.$store.state.viewTargetPicUrl
       }
     }
-  })
+  }
 </script>
 
 <style scoped lang="stylus">
 .picture-viewer
   background-color #000
-  position: absolute
+  position: fixed
   z-index 100
   top 0
   right 0

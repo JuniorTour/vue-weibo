@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <button class="switchPicViewer" v-on:click="switchPicViewer()">switchPicViewer!</button>
     <div class="top-tip" v-if="hasTopTip">
       <a href="#" class="to-top-tip">
         <i class="iconfont icon-huo"></i>
@@ -33,7 +32,7 @@
           <img :src="item.mblog.pics[0].url">
         </div>
         <ul v-if="item.mblog.pics.length>=2" class="pic-list">
-          <li v-for="(eachPic,index) in item.mblog.pics"><img :src=eachPic.url></li>
+          <li v-for="(eachPic,index) in item.mblog.pics" @click="switchPicViewer(eachPic.url)"><img :src=eachPic.url></li>
         </ul>
         <div class="retweet" v-if="item.mblog.retweeted_status!==undefined">
           <p>
@@ -41,7 +40,7 @@
                class="retweet-user">@{{item.mblog.retweeted_status.user.screen_name}}</a>：{{item.mblog.retweeted_status.text}}
           </p>
           <div v-if="item.mblog.retweeted_status.pics.length===1" class="single-pic">
-            <img :src="item.mblog.retweeted_status.pics[0].url">
+            <img :src="item.mblog.retweeted_status.pics[0].url" @click="switchPicViewer(item.mblog.retweeted_status.pics[0].url)">
           </div>
           <ul v-if="item.mblog.retweeted_status.pics.length>=2" class="pic-list">
             <li v-for="(eachPic,index) in item.mblog.retweeted_status.pics"><img :src=eachPic.url></li>
@@ -69,14 +68,6 @@
 </template>
 
 <script>
-  import pictureViewer from '../../components/pictureViewer/pictureViewer.vue'
-
-  //  let MyComponent = Vue.extend({
-  //    template: '<div>Hello!</div>'
-  //  })
-  //  var component = new MyComponent().$mount()
-  //  document.getElementById('app').appendChild(component.$el)
-
   export default {
     name: 'home',
     data(){
@@ -87,15 +78,6 @@
         hasTopTip: false,
         toShowPic: true
       }
-    },
-    components: {
-//      'picture-viewer': pictureViewer
-    },
-    beforeMounted: function () {
-//      let body = document.querySelector('body')
-//      let pictureViewer = document.createElement('picture-viewer')
-//      body.appendChild(pictureViewer)
-//      this.insertPictureViewer()
     },
     /*此处也可以在mounted之中用$nextTick调用methods的方法，来初始化weiboContent。详见 http://dwz.cn/65ocqi
      * 但我个人结合生命周期图认为，created早于mounted，用于初始化视图，应该首选created！*/
@@ -141,18 +123,13 @@
             tempOutcome = 'icon-blue-v'
             break
         }
-//        console.log('verifiedType : ' + tempOutcome)
+        //console.log('verifiedType : ' + tempOutcome)
         return tempOutcome
       },
-      insertPictureViewer: function () {
-        let body = document.querySelector('body')
-        let pictureViewer = document.createElement('picture-viewer')
-        body.appendChild(pictureViewer)
-        console.log('已插入pictureViewer')
-      },
-      switchPicViewer: function () {
-        console.log('Emit switchPicViewer in Home.vue!')
-        pictureViewer.$emit('switchPicViewer')
+      switchPicViewer(targetPicUrl) {
+        console.log('targetPicUrl = ' + targetPicUrl)
+        console.log('switchPicViewer in Home.')
+        this.$store.commit('switchPicViewer', {targetPicUrl: targetPicUrl})
       }
     }
   }

@@ -40,6 +40,11 @@ https://stackoverflow.com/questions/3885018/active-pseudo-class-doesnt-work-in-m
   3.在replace框中："$1"
 $1就是匹配到的捕获组。
 
+#### 9.methods的简洁写法：
+methods: {
+      closePictureViewer() {...}
+}
+
 
 #Bug记录：
 1.卡片footer的两个间隔线在chrome58之中会因为页面宽度不同，呈现不同的宽度？？weibo.cn也是！
