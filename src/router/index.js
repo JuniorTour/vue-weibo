@@ -14,6 +14,7 @@ export default new Router({
   linkExactActiveClass: '', //2.5.0+新增的一个类，暂时设为空，详见：http://router.vuejs.org/en/api/router-link.html
   linkActiveClass: 'active-tab',
   mode: 'history',
+  saveScrollPosition: true,
   routes: [
     {
       path: '/',

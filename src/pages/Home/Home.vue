@@ -1,13 +1,16 @@
 <template>
   <div class="home">
     <div class="top-tip" v-if="hasTopTip">
-      <a href="#" class="to-top-tip">
-        <i class="iconfont icon-huo"></i>
+      <a class="to-top-tip">
+        <i class="iconfont icon-hot"></i>
         <p class="top-tip-content txt-cut">{{topTip.text}}<i class="iconfont icon-right-arrow"></i></p>
       </a>
     </div>
     <div class="card able-to-active" v-for="(item,index) in weiboContent.card_group">
       <header class="card-header">
+        <div class="header-bg" v-if="typeof item.mblog.cardid!=='undefined'">
+          <!--使用 typeof的原因是它不会在一个变量没有被声明的时候抛出一个错误。-->
+        </div>
         <a class="avatar" :href="item.mblog.user.profile_url">
           <div class="avatar-wrapper border-1px">
             <img class="avatar-img" :src="item.mblog.user.profile_image_url">
@@ -27,12 +30,11 @@
       </header>
       <section class="card-body">
         <p class="default-content" v-html="item.mblog.text"></p>
-        <!--{{item.mblog.pics[0].url}}-->
         <div v-if="item.mblog.pics.length===1" class="single-pic">
           <img :src="item.mblog.pics[0].url">
         </div>
         <ul v-if="item.mblog.pics.length>=2" class="pic-list">
-          <li v-for="(eachPic,index) in item.mblog.pics" @click="switchPicViewer(eachPic.url)"><img :src=eachPic.url></li>
+          <li v-for="(eachPic,index) in item.mblog.pics" @click="openPicViewer(eachPic.url)"><img :src=eachPic.url></li>
         </ul>
         <div class="retweet" v-if="item.mblog.retweeted_status!==undefined">
           <p>
@@ -40,7 +42,8 @@
                class="retweet-user">@{{item.mblog.retweeted_status.user.screen_name}}</a>：{{item.mblog.retweeted_status.text}}
           </p>
           <div v-if="item.mblog.retweeted_status.pics.length===1" class="single-pic">
-            <img :src="item.mblog.retweeted_status.pics[0].url" @click="switchPicViewer(item.mblog.retweeted_status.pics[0].url)">
+            <img :src="item.mblog.retweeted_status.pics[0].url"
+                 @click="openPicViewer(item.mblog.retweeted_status.pics[0].url)">
           </div>
           <ul v-if="item.mblog.retweeted_status.pics.length>=2" class="pic-list">
             <li v-for="(eachPic,index) in item.mblog.retweeted_status.pics"><img :src=eachPic.url></li>
@@ -76,7 +79,8 @@
         topTip: {},
         weiboContent: {},
         hasTopTip: false,
-        toShowPic: true
+        showPicViewer: this.$store.state.switchPicViewer,
+        pagePos: 0
       }
     },
     /*此处也可以在mounted之中用$nextTick调用methods的方法，来初始化weiboContent。详见 http://dwz.cn/65ocqi
@@ -103,7 +107,7 @@
         }
 //        console.log('card_group:', this.weiboContent.card_group)
 //        console.log('mblog:', this.weiboContent.card_group[2].mblog)
-//        console.log('pics[0]:', this.weiboContent.card_group[2].mblog.pics[0])
+//        console.log('card_group[2].cardid : ', this.weiboContent.card_group[2].mblog.cardid)
 //        console.log('pics[0].url:', this.weiboContent.card_group[2].mblog.pics[0].url)
 
 //        this.insertPictureViewer()
@@ -126,10 +130,10 @@
         //console.log('verifiedType : ' + tempOutcome)
         return tempOutcome
       },
-      switchPicViewer(targetPicUrl) {
-        console.log('targetPicUrl = ' + targetPicUrl)
-        console.log('switchPicViewer in Home.')
-        this.$store.commit('switchPicViewer', {targetPicUrl: targetPicUrl})
+      openPicViewer(targetPicUrl) {
+//        console.log('targetPicUrl = ' + targetPicUrl)
+//        console.log('openPicViewer in Home.')
+        this.$store.commit('openPicViewer', {targetPicUrl: targetPicUrl})
       }
     }
   }
@@ -144,10 +148,10 @@
     display: flex
     align-items: center
     padding-left .75rem
-    .icon-huo
-      color: #f00
+    .icon-hot
+      color: #ff8200
       margin-top -5px
-      font-size: 20px
+      font-size: 22px
     .top-tip-content
       font-size: .875rem
       color: #FF8200;
@@ -170,6 +174,16 @@
 
 .card-header
   display: flex
+  .header-bg
+    background-image url("../../../static/img/card-header-bg-headline.png")
+    width: 100%
+    height: 60px
+    background-repeat: no-repeat
+    background-position: top right
+    background-size: 100% auto
+    position: absolute
+    top -4px
+    left 0
   .avatar
     margin .75rem 0 .5rem .75rem
     display flex

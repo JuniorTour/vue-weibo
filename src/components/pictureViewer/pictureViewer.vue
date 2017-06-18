@@ -16,7 +16,7 @@
     name: 'pictureViewer',
     methods: {
       closePictureViewer() {
-        console.log('closePicViewer in pictureViewer.vue.')
+//        console.log('closePicViewer in pictureViewer.vue.')
         this.$store.commit('closePicViewer')
       }
     },
@@ -59,7 +59,7 @@
   box-sizing border-box
   text-align center
   line-height 2rem
-  position absolute
+  position fixed
   bottom 30px
   left 0
   padding 0 15px

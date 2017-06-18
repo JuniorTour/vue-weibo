@@ -15,8 +15,8 @@
       "card_type": 9,
       "mblog": {
         "created_at": "刚刚",
-        "id": "4116400258028744",
-        "mid": "4116400258028744",
+        "id": "0",
+        "mid": "0",
         "text": "幸会，很高兴认识你！</br>这是一个用Vue.js全家桶模仿微博网页版（m.weibo.cn）的Demo。</br>欢迎访问相关Github仓库查看详情：<a href='https://github.com/JuniorTour/vue-weibo' data-url=\"\"><span class= \"surl-text \">JuniorTour/vue-weibo</span></a></br>欢迎和我在微博上交流：<a href='https://m.weibo.cn/u/1697676002' data-url=\"\"><span class= \"surl-text \">帅到被人砍___的微博</span></a></br>欢迎访问我的博客：<a href='http://juniortour.net' data-url=\"\"><span class= \"surl-text \">少年游-前端技术博客</span></a></br>总之，欢迎各种交流 (～￣▽￣)～ ",
         "textLength": 16,
         "source": "一个学生",
@@ -33,6 +33,7 @@
         "reposts_count": 0,
         "comments_count": 0,
         "attitudes_count": 0,
+        "cardid": "headline-cover",
         "isLongText": false,
         "pics": []
       }
@@ -41,9 +42,9 @@
       "card_type": 9,
       "mblog": {
         "created_at": "18分钟前",
-        "id": "4116400258028744",
-        "mid": "4116400258028744",
-        "text": "测试网页链接<i class=\"iconfont icon-huo\"></i><a data-url=\"\"><span class= \"surl-text \">这是一个网页链接</span></a>、#关键词：<a class='k' href=''>#关键词#</a>、打开全文跳转链接：...<a href=\"/status/4117386514582475\">全文</a>等功能。​",
+        "id": "0",
+        "mid": "0",
+        "text": "测试网页链接<i class=\"iconfont icon-huo\"></i><a data-url=\"\"><span class= \"surl-text \">这是一个网页链接</span></a>、#关键词：<a class='k' >#关键词#</a>、打开全文跳转链接：...<a>全文</a>等功能。​",
         "textLength": 16,
         "source": "iphone se(高级黑)",
         "favorited": false,
@@ -66,9 +67,9 @@
     {
       "card_type": 9,
       "mblog": {
-        "created_at": "24小时前",
-        "id": "4116400258028744",
-        "mid": "4116400258028744",
+        "created_at": "1小时前",
+        "id": "0",
+        "mid": "0",
         "text": "测试图片列表功能：​",
         "textLength": 16,
         "source": "微博 weibo.com",
@@ -92,7 +93,7 @@
         },
         "reposts_count": 99999,
         "comments_count": 99999,
-        "attitudes_count": 0,
+        "attitudes_count": 99999,
         "isLongText": false,
         "pics": [
            {
@@ -177,9 +178,9 @@
     {
       "card_type": 9,
       "mblog": {
-        "created_at": "59分钟前",
-        "id": "4116400258028744",
-        "mid": "4116400258028744",
+        "created_at": "一天前",
+        "id": "0",
+        "mid": "0",
         "text": "测试转发：​",
         "textLength": 16,
         "source": "iphone se(高级黑)",
@@ -195,8 +196,8 @@
         },
         "retweeted_status":  {
           "created_at": "今天 14:26",
-          "id": "4118547099145152",
-          "mid": "4118547099145152",
+          "id": "0",
+          "mid": "0",
           "text": "来自 iOS11 ​",
           "textLength": 10,
           "source": "微博 HTML5 版",
@@ -233,7 +234,6 @@
           "attitudes_count": 5,
           "isLongText": false,
           "hasActionTypeCard": 0,
-          "cardid": "star_351",
           "gif_ids": "",
           "is_show_bulletin": 2,
           "pics":  [

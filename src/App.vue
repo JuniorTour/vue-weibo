@@ -9,12 +9,12 @@
         <router-link to="/me" class="tab">我</router-link>
       </div>
     </div>
-    <div class="main-body">
+    <div class="main-body" v-show="!switchPicViewer">
       <transition :name="transitionName">
         <router-view></router-view>
       </transition>
     </div>
-    <picture-viewer v-show="switchPicViewer"></picture-viewer>
+    <picture-viewer v-if="switchPicViewer"></picture-viewer>
   </div>
 </template>
 
@@ -26,7 +26,8 @@ export default {
   name: 'app',
   data(){
     return {
-      transitionName: 'slide-left'
+      transitionName: 'slide-left',
+      pagePos: 0
     }
   },
   components: {
@@ -42,12 +43,25 @@ export default {
 
       // 参考vue-router官方文档，根据路由深度，来判断是该从右侧进入还是该从左侧进入
       this.transitionName = toDepth < fromDepth ? 'slide-to-left' : 'slide-to-right'
+    },
+    switchPicViewer: function (val, oldVal) {
+      if (val === false) {
+        //关闭图片时，还原页面位置：
+//        console.log('resetPagePos')
+        this.resetPagePos()
+      } else if (val === true) {
+        //打开图片时，保存当前页面位置：
+        this.pagePos = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+//        console.log('Saved pagePos =', this.pagePos)
+      }
     }
   },
   methods: {
-    addCountByVuex: function () {
-      this.$store.commit('increment')
-      console.log('invoke addCountByVuex().')
+    resetPagePos() {
+//      console.log('window.scrollTo()')
+      this.$nextTick(function () {
+        window.scrollTo(0, this.pagePos)
+      })
     }
   },
   computed: {
