@@ -52,26 +52,36 @@ https://stackoverflow.com/questions/3885018/active-pseudo-class-doesnt-work-in-m
   -webkit-mask: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(0, 0, 0, 0)),color-stop(30%,#000),color-stop(70%,#000),color-stop(100%,rgba(0, 0, 0, 0)))
   -webkit-mask: -webkit-linear-gradient(top,rgba(0, 0, 0, 0),#000 30%,#000 70%,rgba(0, 0, 0, 0) 100%)
 
-.border-top-1px
+
+.border-1px
+  border none
   position: relative
+  &:before
+    position: absolute
+    left 0
+    content ' '
+    width: 100%
+    height .0625rem
+    background-color #dadada
+
 .border-top-1px:before
-  position: absolute
-  top: 0
-  left 0
-  content ' '
-  width: 100%
-  height .0625rem
-  background-color #dadada
+  top 0
+
+.border-bottom-1px:before
+  bottom 0
+
 
 @media (-webkit-min-device-pixel-ratio: 2), not all
   .border-top-1px:before
     transform scaleY(0.5)
+  .border-bottom-1px:before
+    transform scaleY(0.5)
   .separate-line
     transform scaleX(0.5)
 
-.border-1px
+.border-around-1px
   position: relative
-.border-1px:before
+.border-around-1px:before
   /*border-1px-hack
   http://jinlong.github.io/2015/05/24/css-retina-hairlines/*/
   content: ' '

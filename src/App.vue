@@ -139,10 +139,6 @@ body
     padding 94px 0 0 0
     position relative
     overflow hidden
-    .home
-      /*background-color blue*/
-    .message
-      background-color red
     .discovery
       background-color green
     .me

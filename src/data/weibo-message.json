@@ -1,0 +1,73 @@
+{
+  "mod_type": "mod/pagelist",
+  "maxPage": 8,
+  "page": 1,
+  "url": "/msg/index?",
+  "previous_cursor": "",
+  "next_cursor": "",
+  "loadMore": true,
+  "card_group":  [
+   {
+    "mod_type": "mod/message/item",
+    "type": "at",
+    "title": "@我的",
+    "scheme": "/msg/atme?subtype=allWB",
+    "unread": 0,
+    "display_arrow": 1
+  },
+   {
+    "mod_type": "mod/message/item",
+    "type": "comments",
+    "title": "评论",
+    "scheme": "/msg/cmts?subtype=allPL",
+    "unread": 0,
+    "display_arrow": 1
+  },
+   {
+    "mod_type": "mod/message/item",
+    "type": "good",
+    "title": "赞",
+    "scheme": "/msg/like",
+    "unread": 0,
+    "display_arrow": 1
+  },
+   {
+    "mod_type": "mod/message/item",
+    "type": "box",
+    "title": "未关注人私信",
+    "scheme": "/msg/notes",
+    "unread": 0,
+    "display_arrow": 1
+  },
+   {
+    "mod_type": "mod/message/item",
+    "user":  {
+    "id": 5500491427,
+    "avatar_large": "http://tvax1.sinaimg.cn/crop.0.0.180.180.180/0060fv5Fly8fgood1v5g5j3050050aa6.jpg",
+    "screen_name": "游戏时光VGtime",
+    "remark": "",
+    "verified": true,
+    "verified_type": 2
+  },
+  "created_at": "0617 18:25",
+  "scheme": "/msg/chat?uid=5500491427",
+  "unread": 0,
+  "text": "专业严谨有趣 欢迎关注「游戏时光VGtime」"
+  },
+   {
+    "mod_type": "mod/message/item",
+    "user":  {
+    "id": 1644225642,
+    "avatar_large": "http://tva3.sinaimg.cn/crop.0.0.180.180.180/6200e46ajw1e8qgp5bmzyj2050050aa8.jpg",
+    "screen_name": "美国国家地理",
+    "remark": "",
+    "verified": true,
+    "verified_type": 3
+  },
+  "created_at": "06-15 10:48",
+  "scheme": "/msg/chat?uid=1644225642",
+  "unread": 0,
+  "text": "感谢您关注我！想看到更多精彩独家内容，就订阅我吧，回复DY即可。"
+  }
+  ]
+}

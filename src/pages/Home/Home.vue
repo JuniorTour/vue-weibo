@@ -12,7 +12,7 @@
           <!--使用 typeof的原因是它不会在一个变量没有被声明的时候抛出一个错误。-->
         </div>
         <a class="avatar" :href="item.mblog.user.profile_url">
-          <div class="avatar-wrapper border-1px">
+          <div class="avatar-wrapper border-around-1px">
             <img class="avatar-img" :src="item.mblog.user.profile_image_url">
             <i class="iconfont" :class="calculateVerifiedClass(item.mblog.user.verified_type)"></i>
           </div>
@@ -50,7 +50,7 @@
           </ul>
         </div>
       </section>
-      <footer class="card-footer txt-s">
+      <footer class="card-footer border-1px border-top-1px txt-s">
         <a class="forward able-to-active">
           <i class="iconfont icon-forward"></i>
           {{item.mblog.reposts_count}}
@@ -105,13 +105,11 @@
           this.hasTopTip = true
 //          console.log('this.topTip:', this.topTip)
         }
+      })
 //        console.log('card_group:', this.weiboContent.card_group)
 //        console.log('mblog:', this.weiboContent.card_group[2].mblog)
 //        console.log('card_group[2].cardid : ', this.weiboContent.card_group[2].mblog.cardid)
 //        console.log('pics[0].url:', this.weiboContent.card_group[2].mblog.pics[0].url)
-
-//        this.insertPictureViewer()
-      })
     },
     methods: {
       calculateVerifiedClass: function (verifiedType) {
