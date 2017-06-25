@@ -1,19 +1,32 @@
 <template>
   <div class="header">
-    <div class="user-and-group">
+    <div v-if="pagePos==='Home'" class="user-and-group">
       <p class="user-title txt-cut">帅到被人砍___</p>
       <i class="iconfont icon-down-arrow"></i>
+    </div>
+    <div v-if="pagePos==='Message'" class="msg-header">
+      <h1>消息</h1>
     </div>
     <div class="icon-group">
       <a class="iconfont icon-compose"></a>
       <a class="iconfont icon-search"></a>
-      <a class="iconfont icon-refresh"></a>
+      <a v-if="pagePos==='Home'" class="iconfont icon-refresh"></a>
+      <a v-if="pagePos==='Message'" class="iconfont icon-msg"></a>
+      <a v-if="pagePos==='Me'" class="iconfont icon-gear"></a>
     </div>
   </div>
 </template>
 
 <script>
-export default{}
+  export default{
+    name: 'header',
+    computed: {
+      //值须为函数
+      pagePos() {
+        return this.$store.state.pagePos
+      }
+    }
+  }
 </script>
 
 <style lang="stylus" scoped>

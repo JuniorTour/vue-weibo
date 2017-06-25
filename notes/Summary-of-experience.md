@@ -45,6 +45,8 @@ methods: {
       closePictureViewer() {...}
 }
 
+#### 10注意分清$router和$route！！！
+
 
 #Bug记录：
 1.卡片footer的两个间隔线在chrome58之中会因为页面宽度不同，呈现不同的宽度？？weibo.cn也是！

@@ -14,7 +14,7 @@
         <router-view></router-view>
       </transition>
     </div>
-    <picture-viewer v-if="switchPicViewer"></picture-viewer>
+    <picture-viewer v-show="switchPicViewer"></picture-viewer>
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
   data(){
     return {
       transitionName: 'slide-left',
-      pagePos: 0
+      pageVerticalPos: 0
     }
   },
   components: {
@@ -45,14 +45,16 @@ export default {
       this.transitionName = toDepth < fromDepth ? 'slide-to-left' : 'slide-to-right'
     },
     switchPicViewer: function (val, oldVal) {
+      console.log(this.$router.name)
+      console.log(this.pageName)
       if (val === false) {
         //关闭图片时，还原页面位置：
 //        console.log('resetPagePos')
         this.resetPagePos()
       } else if (val === true) {
         //打开图片时，保存当前页面位置：
-        this.pagePos = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
-//        console.log('Saved pagePos =', this.pagePos)
+        this.pageVerticalPos = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+//        console.log('Saved pageVerticalPos =', this.pageVerticalPos)
       }
     }
   },
@@ -60,13 +62,17 @@ export default {
     resetPagePos() {
 //      console.log('window.scrollTo()')
       this.$nextTick(function () {
-        window.scrollTo(0, this.pagePos)
+        window.scrollTo(0, this.pageVerticalPos)
       })
     }
   },
   computed: {
     switchPicViewer() {
       return this.$store.state.switchPicViewer
+    },
+    pageName() {
+      this.$store.commit('switchPagePos', {pageName: this.$route.name})
+      return this.$route.name
     }
   }
 }
