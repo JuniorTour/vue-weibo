@@ -1,5 +1,6 @@
 <template>
   <div class="message">
+    <loading v-show="isLoading"></loading>
     <div class="data-content">
       <section class="card-list">
         <div v-for="(item, index) in msgGroup" class="msg-card border-1px border-bottom-1px">
@@ -30,13 +31,19 @@
 </template>
 
 <script>
+  import loading from '../../components/loading/loading.vue'
+
   export default {
     name: 'message',
     data() {
       return {
         weiboMsg: {},
-        msgGroup: {}
+        msgGroup: {},
+        isLoading: true
       }
+    },
+    components: {
+      loading
     },
     created() {
       this.$http.get('apis/weibo-msg', {id: 1}).then(res => {
@@ -46,7 +53,11 @@
         }
         this.weiboMsg = res.data.data  //微博的所有内容
         this.msgGroup = res.data.data.card_group
-        console.log('this.msgGroup : ', this.msgGroup)
+//        console.log('this.msgGroup : ', this.msgGroup)
+        setTimeout(() => {
+          //故意推迟，以显示加载动画效果
+          this.isLoading = false
+        }, 1000)
       })
     }
   }
@@ -54,22 +65,22 @@
 
 <style scoped lang="stylus">
   .msg-card
-    display: flex
+    display flex
     background-color #fff
 
   .msg-icon-btn,.msg-user-avatar
-    display: block
+    display block
     width 3rem
     height 3rem
-    line-height: 3rem
-    text-align: center
-    margin: .5rem 0 .5rem .5rem
+    line-height 3rem
+    text-align center
+    margin .5rem 0 .5rem .5rem
     & img
       width 48px
       height 48px
     .iconfont
-      color: #fff
-      font-size: 28px
+      color #fff
+      font-size 28px
 
   .at-icon-wrapper
     background-color #5bb4da
@@ -81,24 +92,24 @@
     background-color #5b99ee
 
   .msg-box
-    display: flex
+    display flex
     flex 1
-    width: 100%
+    width 100%
     flex-direction column
     justify-content center
-    overflow: hidden
+    overflow hidden
     padding .5rem .6875rem
     .user-msg-text
       padding 5px 20px 0 0
 
   .plus-content
-    display: flex
-    align-items: center
+    display flex
+    align-items center
     margin-right .75rem
 
   .created-at
-    width: 5rem
-    position: absolute
+    width 5rem
+    position absolute
     top 15px
     right 7px
   .unread-num
@@ -107,7 +118,7 @@
     height 1rem
     line-height 1rem
     background-color #fe6431
-    font-size: 9px
+    font-size 9px
     text-align center
     color #fff
     border-radius 50%

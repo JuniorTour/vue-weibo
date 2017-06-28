@@ -5,7 +5,6 @@ Vue.use(Vuex)
 //使用常量替代 Mutation 事件类型，多人协作的大型项目中，这会很有帮助。
 const OPEN_PICTURE_VIEWER = 'openPicViewer'
 const CLOSE_PICTURE_VIEWER = 'closePicViewer'
-const SWITCH_PAGE_POS = 'switchPagePos'
 
 //在发布环境下关闭严格模式，以避免性能损失：
 const debug = process.env.NODE_ENV !== 'production'
@@ -14,8 +13,7 @@ export default new Vuex.Store({
   strict: debug,
   state: {
     switchPicViewer: false,
-    viewTargetPicUrl: '',
-    pagePos: ''
+    viewTargetPicUrl: ''
   },
   mutations: {
     [OPEN_PICTURE_VIEWER](state, payload){
@@ -27,10 +25,6 @@ export default new Vuex.Store({
     [CLOSE_PICTURE_VIEWER](state){
       // console.log('close PicViewer in store/index.js')
       state.switchPicViewer = false
-    },
-    [SWITCH_PAGE_POS](state, payload){
-      // console.log('get pageName in store/index.js', payload.pageName)
-      state.pagePos = payload.pageName
     }
   }
 })

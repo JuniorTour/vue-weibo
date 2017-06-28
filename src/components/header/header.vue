@@ -1,18 +1,18 @@
 <template>
   <div class="header">
-    <div v-if="pagePos==='Home'" class="user-and-group">
+    <div v-show="pageName==='Home'" class="user-and-group">
       <p class="user-title txt-cut">帅到被人砍___</p>
       <i class="iconfont icon-down-arrow"></i>
     </div>
-    <div v-if="pagePos==='Message'" class="msg-header">
-      <h1>消息</h1>
+    <div v-show="pageName!=='Home'" class="common-header">
+      <h1>{{processPageName}}</h1>
     </div>
     <div class="icon-group">
       <a class="iconfont icon-compose"></a>
       <a class="iconfont icon-search"></a>
-      <a v-if="pagePos==='Home'" class="iconfont icon-refresh"></a>
-      <a v-if="pagePos==='Message'" class="iconfont icon-msg"></a>
-      <a v-if="pagePos==='Me'" class="iconfont icon-gear"></a>
+      <a v-show="pageName==='Home'" class="iconfont icon-refresh"></a>
+      <a v-show="pageName==='Message'" class="iconfont icon-msg"></a>
+      <a v-show="pageName==='Me'" class="iconfont icon-gear"></a>
     </div>
   </div>
 </template>
@@ -22,8 +22,26 @@
     name: 'header',
     computed: {
       //值须为函数
-      pagePos() {
-        return this.$store.state.pagePos
+      pageName() {
+//        console.log('current route name is : ', this.$route.name)
+        return this.$route.name
+        //不需要vuex了...
+        //return this.$store.state.pageName
+      },
+      processPageName() {
+        let ret = this.$route.name
+        switch (ret) {
+          case 'Message':
+            ret = '消息'
+            break;
+          case 'Discovery':
+            ret = '发现'
+            break;
+          case 'Me':
+            ret = '我'
+            break;
+        }
+        return ret
       }
     }
   }
@@ -36,6 +54,14 @@
     line-height 44px
     color #333
     background-color #fff
+    .common-header
+      display: inline-block
+      color #5d5d5d
+      background-image url("../../../static/img/favicon.png")
+      background-repeat no-repeat
+      background-size 29px auto
+      background-position 12px 9px
+      padding-left 50px
 
     .user-and-group
       max-width 40%

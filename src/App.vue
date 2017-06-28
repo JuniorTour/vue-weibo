@@ -69,10 +69,6 @@ export default {
   computed: {
     switchPicViewer() {
       return this.$store.state.switchPicViewer
-    },
-    pageName() {
-      this.$store.commit('switchPagePos', {pageName: this.$route.name})
-      return this.$route.name
     }
   }
 }

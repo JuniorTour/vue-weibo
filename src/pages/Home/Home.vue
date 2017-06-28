@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <loading v-show="isLoading"></loading>
     <div class="top-tip" v-if="hasTopTip">
       <a class="to-top-tip">
         <i class="iconfont icon-hot"></i>
@@ -71,6 +72,8 @@
 </template>
 
 <script>
+  import loading from '../../components/loading/loading.vue'
+
   export default {
     name: 'home',
     data(){
@@ -80,8 +83,12 @@
         weiboContent: {},
         hasTopTip: false,
         showPicViewer: this.$store.state.switchPicViewer,
-        pagePos: 0
+        pagePos: 0,
+        isLoading: true
       }
+    },
+    components: {
+      loading
     },
     /*此处也可以在mounted之中用$nextTick调用methods的方法，来初始化weiboContent。详见 http://dwz.cn/65ocqi
      * 但我个人结合生命周期图认为，created早于mounted，用于初始化视图，应该首选created！*/
@@ -105,6 +112,10 @@
           this.hasTopTip = true
 //          console.log('this.topTip:', this.topTip)
         }
+        setTimeout(() => {
+          //故意推迟，以显示加载动画效果
+          this.isLoading = false
+        }, 1000)
       })
 //        console.log('card_group:', this.weiboContent.card_group)
 //        console.log('mblog:', this.weiboContent.card_group[2].mblog)
