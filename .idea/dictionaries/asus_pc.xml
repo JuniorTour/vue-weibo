@@ -2,6 +2,7 @@
   <dictionary name="asus-pc">
     <words>
       <w>apis</w>
+      <w>debounce</w>
       <w>ontouchstart</w>
       <w>retweet</w>
       <w>vuex</w>

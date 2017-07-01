@@ -2,12 +2,13 @@
 <div class="discovery">
   <!--没必要再搭建一个API了，所以只用了静态文本：-->
   <div class="search-bar-wrapper">
+    <i class="iconfont icon-search"></i>
     <form class="search-form" action="" method="get">
-      <i class="iconfont icon-search"></i>
-      <input type="search" class="search-bar" placeholder="搜索">
+      <input @focus="focusSearchBar" :class="{'search-bar-active':searchBarOnFocus}" type="search" class="search-bar" placeholder="搜索">
+      <button @click.prevent="blurSearchBar" v-show="searchBarOnFocus" class="cancel-search-btn">取消</button>
     </form>
   </div>
-  <div class="hot-search card">
+  <div v-show="searchBarOnFocus" class="hot-search card">
     <header class="card-header card-4">
       <a>
         <i class="iconfont icon-hot"></i>
@@ -30,92 +31,109 @@
       </ul>
     </section>
   </div>
-  <div class="hot-topic card">
-    <section class="list-card">
-      <!--没必要再搭建一个API了，所以只用了静态文本：-->
-      <ul>
-        <li class="hot-search-li"><a>#热门话题#</a></li>
-        <li class="hot-search-li"><a>#热门话题#</a></li>
-        <li class="hot-search-li"><a>#热门话题#</a></li>
-        <li class="hot-search-li"><a>#热门话题#</a></li>
-      </ul>
-    </section>
-  </div>
-  <div class="card">
-    <header class="card-header card-4">
-      <a>
-        <i class="iconfont icon-hot icon-red-hot"></i>
-        <div class="content">热门微博</div>
-        <i class="iconfont icon-right-arrow"></i>
-      </a>
-    </header>
-    <header class="card-header card-4">
-      <a>
-        <i class="iconfont icon-friends"></i>
-        <div class="content">名人</div>
-        <i class="iconfont icon-right-arrow"></i>
-      </a>
-    </header>
-  </div>
-  <div class="card">
-    <header class="card-header card-4">
-      <a>
-        <i class="iconfont icon-t"></i>
-        <div class="content">微博头条</div>
-        <i class="iconfont icon-right-arrow"></i>
-      </a>
-    </header>
-    <header class="card-header card-4">
-      <a>
-        <i class="iconfont icon-film"></i>
-        <div class="content">电影</div>
-        <i class="iconfont icon-right-arrow"></i>
-      </a>
-    </header>
-    <header class="card-header card-4">
-      <a>
-        <i class="iconfont icon-music"></i>
-        <div class="content">音乐</div>
-        <i class="iconfont icon-right-arrow"></i>
-      </a>
-    </header>
-    <header class="card-header card-4">
-      <a>
-        <i class="iconfont icon-charity"></i>
-        <div class="content">微公益</div>
-        <i class="iconfont icon-right-arrow"></i>
-      </a>
-    </header>
-  </div>
-  <div class="card">
-    <header class="card-header card-4">
-      <a>
-        <i class="iconfont icon-crown"></i>
-        <div class="content">会员</div>
-        <i class="iconfont icon-right-arrow"></i>
-      </a>
-    </header>
-    <header class="card-header card-4">
-      <a>
-        <i class="iconfont icon-album"></i>
-        <div class="content">相册</div>
-        <i class="iconfont icon-right-arrow"></i>
-      </a>
-    </header>
-    <header class="card-header card-4">
-      <a>
-        <i class="iconfont icon-famous-people"></i>
-        <div class="content">找Doge</div>
-        <i class="iconfont icon-right-arrow"></i>
-      </a>
-    </header>
+  <div v-show="!searchBarOnFocus" class="discovery-main-content">
+    <div class="hot-topic card">
+      <section class="list-card">
+        <!--没必要再搭建一个API了，所以只用了静态文本：-->
+        <ul>
+          <li class="hot-search-li"><a>#热门话题#</a></li>
+          <li class="hot-search-li"><a>#热门话题#</a></li>
+          <li class="hot-search-li"><a>#热门话题#</a></li>
+          <li class="hot-search-li"><a>#热门话题#</a></li>
+        </ul>
+      </section>
+    </div>
+    <div class="card">
+      <header class="card-header card-4">
+        <a>
+          <i class="iconfont icon-hot icon-red-hot"></i>
+          <div class="content">热门微博</div>
+          <i class="iconfont icon-right-arrow"></i>
+        </a>
+      </header>
+      <header class="card-header card-4">
+        <a>
+          <i class="iconfont icon-friends"></i>
+          <div class="content">名人</div>
+          <i class="iconfont icon-right-arrow"></i>
+        </a>
+      </header>
+    </div>
+    <div class="card">
+      <header class="card-header card-4">
+        <a>
+          <i class="iconfont icon-t"></i>
+          <div class="content">微博头条</div>
+          <i class="iconfont icon-right-arrow"></i>
+        </a>
+      </header>
+      <header class="card-header card-4">
+        <a>
+          <i class="iconfont icon-film"></i>
+          <div class="content">电影</div>
+          <i class="iconfont icon-right-arrow"></i>
+        </a>
+      </header>
+      <header class="card-header card-4">
+        <a>
+          <i class="iconfont icon-music"></i>
+          <div class="content">音乐</div>
+          <i class="iconfont icon-right-arrow"></i>
+        </a>
+      </header>
+      <header class="card-header card-4">
+        <a>
+          <i class="iconfont icon-charity"></i>
+          <div class="content">微公益</div>
+          <i class="iconfont icon-right-arrow"></i>
+        </a>
+      </header>
+    </div>
+    <div class="card">
+      <header class="card-header card-4">
+        <a>
+          <i class="iconfont icon-crown"></i>
+          <div class="content">会员</div>
+          <i class="iconfont icon-right-arrow"></i>
+        </a>
+      </header>
+      <header class="card-header card-4">
+        <a>
+          <i class="iconfont icon-album"></i>
+          <div class="content">相册</div>
+          <i class="iconfont icon-right-arrow"></i>
+        </a>
+      </header>
+      <header class="card-header card-4">
+        <a>
+          <i class="iconfont icon-famous-people"></i>
+          <div class="content">找Doge</div>
+          <i class="iconfont icon-right-arrow"></i>
+        </a>
+      </header>
+    </div>
   </div>
 </div>
 </template>
 
 <script>
 export default {
-  name: 'discovery'
+  name: 'discovery',
+  data() {
+    return {
+      searchBarOnFocus: false
+    }
+  },
+  methods: {
+    focusSearchBar() {
+      this.searchBarOnFocus = true
+    },
+    blurSearchBar() {
+      this.searchBarOnFocus = false
+      let searchBar = document.querySelector('.search-bar')
+      searchBar.blur()
+    }
+  }
 }
 </script>
 
@@ -149,24 +167,16 @@ export default {
     font-size: 20px;
     margin-right .625rem
 
-  .icon-friends
+  .icon-friends, .icon-charity
     background-color #FF8C16
-  .icon-hot
+  .icon-hot, .icon-crown, .icon-film
     background-color #FF8200
-  .icon-red-hot
+  .icon-red-hot, .icon-famous-people
     background-color #F2695F
   .icon-t
     background-color #DB192D
-  .icon-film
-    background-color #FF8200
   .icon-music,.icon-album
     background-color #35B87C
-  .icon-charity
-    background-color #FF8C16
-  .icon-crown
-    background-color #FF8200
-  .icon-famous-people
-    background-color #F2695F
 
   .icon-right-arrow
     font-size:16px
@@ -178,23 +188,39 @@ export default {
   padding 7px 6px 7px 7px
   border: #dadada solid 1px
   margin -10px 0 10px 0
+  .search-form
+    display: flex
   .icon-search
     font-size:16px
     color: #828282
     position: absolute
-    top 11px
+    top 13px
     left 18px
   .search-bar
+    flex 1
     width:100%
     box-sizing border-box
     font-size: .875rem
-    line-height: 24px
+    line-height: 26px
     color #000
     background-color #fff
     padding-left 35px
     border-radius 3px
     -webkit-appearance: none
-
+  .search-bar-active
+    width:80%
+  .cancel-search-btn
+    width: 60px
+    height 100%
+    font-size: 1.0625rem
+    color #929292
+    text-shadow 0 1px 0 #fff
+    background-color transparent
+    padding 0
+    border none
+    border-radius 3px
+    margin-left 6px
+    -webkit-tap-highlight-color rgba(0, 0, 0, 0)
 
 .list-card
   font-size:0   //解决：换行的空白符也会占据位置，导致50%宽度两个list无法并列

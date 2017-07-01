@@ -7,7 +7,11 @@
 #### 2. 过渡的四个类必须全部设置后，过渡效果才能使用，否则不会自动切换class
 v-enter,v-enter-active,v-leave,v-leave-active
 
-#### 3. watch的是'$route'而非'$router'
+#### 3. 低级错误记录：
+1. watch的是'$route'而非'$router'
+2. 注意分清$router和$route！！！
+3. 看清分号的范围，不要把method写到了methods{}之外，QAQ。
+4. 不要多删除了export的{}！
 
 #### 4. build/dev-server.js和相应的api请求json更新后都需要重启服务器
 
@@ -51,8 +55,6 @@ methods: {
 }
 这其实是es2015的新特性！
 
-#### 10. 注意分清$router和$route！！！
-
 #### 11. vue-resource的interceptors：
 
 Vue.http.interceptors.push(function (request, next) {
@@ -75,6 +77,16 @@ https://stackoverflow.com/questions/44683756/vue-resource-not-passing-token-in-r
 #### 13. stylus的mixin用法：
 首先：需要在用到的组件import相应的mixin。
 其次写入css声明时，需要带括号：border-bottom-1px()
+
+#### 14. 高度相关js方法和属性：
+> Window.innerHeight：浏览器窗口的视口（viewport）高度（以像素为单位），如果存在水平滚动条，则包括它。这个属性的值一直不变，都是667（iPhone6）
+
+> Window.scrollY ：返回文档在垂直方向已滚动的像素值。
+
+> window.scrollY + window.innerHeight ：当前文档底部到达的像素值。
+
+> Element.clientHeight：返回元素内部的高度(单位像素)，包含内边距，但不包括水平滚动条、边框和外边距。clientHeight 可以通过 CSS height + CSS padding - 水平滚动条高度 (如果存在)来计算.
+https://stackoverflow.com/questions/9430070/get-page-height-in-js-cross-browser
 
 
 #Bug记录：

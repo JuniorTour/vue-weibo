@@ -68,6 +68,7 @@
         </a>
       </footer>
     </div>
+    <button @click.prevent="pushContent">Push content</button>
   </div>
 </template>
 
@@ -89,6 +90,13 @@
     },
     components: {
       loading
+    },
+    mounted() {
+      let _this = this
+      _this.myDebounce()
+//      window.onscroll = _this.myDebounce(_this.handleScroll, 500)
+//      window.addEventListener('scroll', this.handleScroll)
+      window.addEventListener('scroll', _this.myDebounce(_this.handleScroll, 500))
     },
     /*此处也可以在mounted之中用$nextTick调用methods的方法，来初始化weiboContent。详见 http://dwz.cn/65ocqi
      * 但我个人结合生命周期图认为，created早于mounted，用于初始化视图，应该首选created！*/
@@ -143,6 +151,44 @@
 //        console.log('targetPicUrl = ' + targetPicUrl)
 //        console.log('openPicViewer in Home.')
         this.$store.commit('openPicViewer', {targetPicUrl: targetPicUrl})
+      },
+      handleScroll() {
+        //console.log('scrolling...', window.scrollY)
+        // Either scroll[Width/Height] or offset[Width/Height], whichever is greater
+        let pageHeight = Math.max(
+          document.documentElement.clientHeight,
+          document.body.scrollHeight, document.documentElement.scrollHeight,
+          document.body.offsetHeight, document.documentElement.offsetHeight)
+        if (window.scrollY + window.innerHeight > pageHeight - 100) {
+          console.log('To push content')
+          this.pushContent()
+        }
+      },
+      pushContent() {
+        /*procedure:
+         1.get the next next_cursor from weiboContent.
+         2.use as query attach to url.
+         3.judge whether or not has new weibo
+         4.if has new weibo , invoke ajax by vue-resource*/
+        let nextCursor = 2
+        let targetUrl = '/apis/weibo-content' + '?nextCursor=' + nextCursor
+        this.$http.get(targetUrl).then((res) => {
+//          console.log('targetUrl = ' + targetUrl)
+          if (res.body.errorNum !== 0) {
+            console.log('Get data error!')
+            return;
+          }
+          console.log('res.data.data.card_group = ', res.data.data.card_group)
+          this.weiboContent.card_group.push(res.data.data.card_group[0])
+        })
+      },
+      myDebounce(func, wait) {
+        console.log('set my debounce')
+        let timeout;
+        return function () {
+          clearTimeout(timeout)
+          timeout = setTimeout(func, wait);
+        }
       }
     }
   }

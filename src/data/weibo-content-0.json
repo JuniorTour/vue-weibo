@@ -2,7 +2,7 @@
   "mod_type": "mod/pagelist",
   "maxPage": 50,
   "page": 1,
-  "previous_cursor": 1,
+  "previous_cursor": 0,
   "next_cursor": 2,
   "loadMore": false,
   "card_group": [

@@ -27,14 +27,23 @@ var compiler = webpack(webpackConfig)
 
 //模拟动态数据：
 //https://segmentfault.com/q/1010000006915580
-var weiboContent=require('../src/data/weibo-content.json')
 var weiboMsg=require('../src/data/weibo-message.json')
 var apiRouters = express.Router() //定义router
 apiRouters.get('/weibo-content',function (req, res) {
+  console.log('req.query.nextCursor = '+req.query.nextCursor)
+  /*根据查询字符串- nextCursor 确定返回的对象*/
+  var weiboContentUrl=''
+  if (req.query.nextCursor!==undefined) {
+    weiboContentUrl='../src/data/weibo-content-'+req.query.nextCursor+'.json'
+  } else {
+    weiboContentUrl='../src/data/weibo-content-0.json'
+  }
+  var tergetWeiboContent=require(weiboContentUrl)
   res.json({
     errorNum:0,
-    data:weiboContent
+    data:tergetWeiboContent
   })
+  console.log('Successfully deliver weibo content!')
 })
 apiRouters.get('/weibo-msg',function (req, res) {
   res.json({
