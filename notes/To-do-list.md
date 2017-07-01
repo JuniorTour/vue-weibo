@@ -32,7 +32,11 @@
 滚动到底部后，根据上一次ajax之中的next_cursor: 4123631984750535，
 来进行下一次请求：https://m.weibo.cn/feed/friends?version=v4&next_cursor=4123648333524769&page=1
 
-7. 登录页
+DOM的更新：我觉得可以通过给this.weiboContent
+push()新内容来实现。
+
+7. 登录页和404页面：
+怎么独立成一个页面呢？
 
 8. 卡片头部背景：
 实现了，但是没有搞清楚json中的cardid:"star-035"字段和相应的图片url结果，是如何计算出来的？
@@ -46,3 +50,5 @@
 实现了！在Message之中，但是没有做到显示加载比例，似乎vue-resource不便于实现记载进度？
 
 12. 点击扩散的背景效果
+
+13. 尝试使用local storage 或其他缓存方案，模仿原生App，支持添加至桌面。

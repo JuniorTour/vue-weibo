@@ -24,25 +24,21 @@ export default new Router({
     {
       path: '/home',
       name: 'Home',
-      // component: Login
       component: Home
     },
     {
       path: '/message',
       name: 'Message',
-      // component: Login
       component: Message
     },
     {
       path: '/discovery',
       name: 'Discovery',
-      // component: Login
       component: Discovery
     },
     {
       path: '/me',
       name: 'Me',
-      // component: Login
       component: Me
     },
     {

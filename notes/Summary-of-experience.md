@@ -70,8 +70,18 @@ https://stackoverflow.com/questions/44683756/vue-resource-not-passing-token-in-r
 
 又在网上搜索了一下“加载进度”的技术，其实很多实现方式都是“伪装的、假的、不精确”进度
 
+#### 12. css很需要规范！
+
+#### 13. stylus的mixin用法：
+首先：需要在用到的组件import相应的mixin。
+其次写入css声明时，需要带括号：border-bottom-1px()
+
 
 #Bug记录：
-1.卡片footer的两个间隔线在chrome58之中会因为页面宽度不同，呈现不同的宽度？？weibo.cn也是！
+1. 卡片footer的两个间隔线在chrome58之中会因为页面宽度不同，呈现不同的宽度？？weibo.cn也是！
 
-2.header的上下两栏之中，始终会有细微的距离，无法紧密贴合。weibo.cn也是！
+2. header的上下两栏之中，始终会有细微的距离，无法紧密贴合。weibo.cn也是！
+
+3. 在IOS的Safari中，type="search"的input默认有50%的圆角？？？：
+https://developer.mozilla.org/zh-CN/docs/Web/CSS/-moz-appearance：
+-webkit-appearance: none，粗鲁地解决了

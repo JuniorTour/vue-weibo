@@ -1,0 +1,68 @@
+border-bottom-1px()
+  position: relative
+  &:after
+    width:100%
+    height 1px
+    content ''
+    left 0
+    bottom  0
+    position absolute
+    background-image linear-gradient(to bottom,rgba(0, 0, 0, 0) 50%,#dadada 50%,#dadada 100%)
+    background-size 100% 1px
+    background-repeat no-repeat
+    background-position bottom
+
+line-around()
+  position: relative;
+  &:before
+    width:100%
+    height 1px
+    content ''
+    left 0
+    top  0
+    position absolute
+    background-image linear-gradient(to bottom,rgba(0, 0, 0, 0) 50%,#dadada 50%,#dadada 100%)
+    background-size 100% 1px
+    background-repeat no-repeat
+    background-position bottom
+  &:after
+    width:100%
+    height 1px
+    content ''
+    left 0
+    bottom  0
+    position absolute
+    background-image linear-gradient(to bottom,rgba(0, 0, 0, 0) 50%,#dadada 50%,#dadada 100%)
+    background-size 100% 1px
+    background-repeat no-repeat
+    background-position bottom
+
+list-separator-horizontal()
+  position: relative
+  border none
+  &:before
+    width 1px
+    height 80%
+    content ''
+    position absolute
+    top  10%
+    right 0
+    background-image linear-gradient(to right,rgba(0, 0, 0, 0) 50%,#dadada 50%,#dadada 100%)
+    background-size 1px 100%
+    background-repeat no-repeat
+    background-position right
+
+list-separator-vertical()
+  position: relative
+  border none
+  &:after
+    width 92%
+    height 1px
+    content ''
+    position absolute
+    left 4%
+    bottom 0
+    background-image linear-gradient(to bottom,rgba(0, 0, 0, 0) 50%,#dadada 50%,#dadada 100%)
+    background-size 100% 1px
+    background-repeat no-repeat
+    background-position bottom

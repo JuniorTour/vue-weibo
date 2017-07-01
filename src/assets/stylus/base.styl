@@ -3,6 +3,7 @@ body, html
   font-weight: 200
   font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif
 a
+  cursor pointer
   color #598abf
 
 .clearfix
@@ -64,25 +65,30 @@ https://stackoverflow.com/questions/3885018/active-pseudo-class-doesnt-work-in-m
 .border-1px
   border none
   position: relative
-  &:before
+
+.border-top-1px:before
     position: absolute
+    top 0
     left 0
     content ' '
     width: 100%
     height .0625rem
     background-color #dadada
 
-.border-top-1px:before
-  top 0
-
-.border-bottom-1px:before
-  bottom 0
+.border-bottom-1px:after
+    position: absolute
+    left 0
+    bottom 0
+    content ' '
+    width: 100%
+    height .0625rem
+    background-color #dadada
 
 
 @media (-webkit-min-device-pixel-ratio: 2), not all
   .border-top-1px:before
     transform scaleY(0.5)
-  .border-bottom-1px:before
+  .border-bottom-1px:after
     transform scaleY(0.5)
   .separate-line
     transform scaleX(0.5)

@@ -141,10 +141,4 @@ body
     padding 94px 0 0 0
     position relative
     overflow hidden
-    .discovery
-      background-color green
-    .me
-      background-color yellow
-
-  /*picture-viewer呈现时，#app需要display:none*/
 </style>
