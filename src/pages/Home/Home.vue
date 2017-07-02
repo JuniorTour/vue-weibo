@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <loading v-show="isLoading"></loading>
+    <loading v-show="topIsLoading"></loading>
     <div class="top-tip" v-if="hasTopTip">
       <a class="to-top-tip">
         <i class="iconfont icon-hot"></i>
@@ -9,9 +9,9 @@
     </div>
     <div class="card able-to-active" v-for="(item,index) in weiboContent.card_group">
       <header class="card-header">
-        <div class="header-bg" v-if="typeof item.mblog.cardid!=='undefined'">
-          <!--使用 typeof的原因是它不会在一个变量没有被声明的时候抛出一个错误。-->
-        </div>
+        <!--<div class="header-bg" v-if="typeof item.mblog.cardid!=='undefined'">-->
+        <!--&lt;!&ndash;使用 typeof的原因是它不会在一个变量没有被声明的时候抛出一个错误。&ndash;&gt;-->
+        <!--</div>-->
         <a class="avatar" :href="item.mblog.user.profile_url">
           <div class="avatar-wrapper border-around-1px">
             <img class="avatar-img" :src="item.mblog.user.profile_image_url">
@@ -68,7 +68,7 @@
         </a>
       </footer>
     </div>
-    <button @click.prevent="pushContent">Push content</button>
+    <loading v-show="bottomIsLoading"></loading>
   </div>
 </template>
 
@@ -85,18 +85,14 @@
         hasTopTip: false,
         showPicViewer: this.$store.state.switchPicViewer,
         pagePos: 0,
-        isLoading: true
+        topIsLoading: true,
+        bottomIsLoading: true
       }
     },
     components: {
       loading
     },
     mounted() {
-      let _this = this
-      _this.myDebounce()
-//      window.onscroll = _this.myDebounce(_this.handleScroll, 500)
-//      window.addEventListener('scroll', this.handleScroll)
-      window.addEventListener('scroll', _this.myDebounce(_this.handleScroll, 500))
     },
     /*此处也可以在mounted之中用$nextTick调用methods的方法，来初始化weiboContent。详见 http://dwz.cn/65ocqi
      * 但我个人结合生命周期图认为，created早于mounted，用于初始化视图，应该首选created！*/
@@ -106,7 +102,7 @@
        * 要么另起web服务serve这个目录，要么放在static目录里，因为dev-server对该目录文件实现了http访问。*/
       // this.$http.get('static/data/weibo-content.json', {id: 0}).then(res => {
       //等价于：
-      this.$http.get('apis/weibo-content', {id: 0}).then(res => {
+      this.$http.get('apis/weibo-content?nextCursor=1', {id: 0}).then(res => {
         /*res.body.data和res.data.data，哪一个才是最佳实践？*/
         if (res.body.errorNum !== 0) {
           console.log('Get data error!')
@@ -114,6 +110,8 @@
         }
         this.weiboContent = res.data.data  //微博的所有内容
 //        console.log('this.weiboContent:', this.weiboContent)
+        console.log('this.weiboContent.previous_cursor:', this.weiboContent.previous_cursor)
+        console.log('this.weiboContent.next_cursor:', this.weiboContent.next_cursor)
         let tempTopTip = res.data.data.card_group[0]
         if (tempTopTip.mod_type === 'mod/clientTopTips') {
           this.topTip = res.data.data.card_group.shift() //公告是card_group[0]，用shift方法弹出
@@ -122,13 +120,15 @@
         }
         setTimeout(() => {
           //故意推迟，以显示加载动画效果
-          this.isLoading = false
+          this.topIsLoading = false
         }, 1000)
       })
 //        console.log('card_group:', this.weiboContent.card_group)
 //        console.log('mblog:', this.weiboContent.card_group[2].mblog)
 //        console.log('card_group[2].cardid : ', this.weiboContent.card_group[2].mblog.cardid)
 //        console.log('pics[0].url:', this.weiboContent.card_group[2].mblog.pics[0].url)
+
+      this.addScrollEvent()
     },
     methods: {
       calculateVerifiedClass: function (verifiedType) {
@@ -152,6 +152,11 @@
 //        console.log('openPicViewer in Home.')
         this.$store.commit('openPicViewer', {targetPicUrl: targetPicUrl})
       },
+      addScrollEvent() {
+        /*可以通过以下两句分别对比使用事件防抖前后的效果：*/
+//      window.addEventListener('scroll', this.handleScroll)
+        window.addEventListener('scroll', this.myDebounce(this.handleScroll, 300))
+      },
       handleScroll() {
         //console.log('scrolling...', window.scrollY)
         // Either scroll[Width/Height] or offset[Width/Height], whichever is greater
@@ -161,33 +166,44 @@
           document.body.offsetHeight, document.documentElement.offsetHeight)
         if (window.scrollY + window.innerHeight > pageHeight - 100) {
           console.log('To push content')
-          this.pushContent()
+          this.getContent()
         }
       },
-      pushContent() {
+      getContent() {
         /*procedure:
          1.get the next next_cursor from weiboContent.
          2.use as query attach to url.
          3.judge whether or not has new weibo
          4.if has new weibo , invoke ajax by vue-resource*/
-        let nextCursor = 2
-        let targetUrl = '/apis/weibo-content' + '?nextCursor=' + nextCursor
-        this.$http.get(targetUrl).then((res) => {
+        let nextCursor = this.weiboContent.next_cursor
+        if (nextCursor !== -1) {
+          let targetUrl = '/apis/weibo-content' + '?nextCursor=' + nextCursor
+          this.$http.get(targetUrl).then((res) => {
 //          console.log('targetUrl = ' + targetUrl)
-          if (res.body.errorNum !== 0) {
-            console.log('Get data error!')
-            return;
-          }
-          console.log('res.data.data.card_group = ', res.data.data.card_group)
-          this.weiboContent.card_group.push(res.data.data.card_group[0])
-        })
+            if (res.body.errorNum === 0) {
+              console.log('res.data.data.card_group = ', res.data.data.card_group)
+              this.weiboContent.card_group = this.weiboContent.card_group.concat(res.data.data.card_group)
+              this.weiboContent.previous_cursor = res.data.data.previous_cursor
+              this.weiboContent.next_cursor = res.data.data.next_cursor
+            } else if (res.body.errorNum === -1) {
+              console.log('No new content.')
+              this.bottomIsLoading = false
+            } else {
+              console.log('Get data error!')
+            }
+          })
+        } else {
+          console.log('nextCursor === -1 ,no date request.')
+          this.bottomIsLoading = false
+        }
       },
       myDebounce(func, wait) {
-        console.log('set my debounce')
+//        console.log('set my debounce')
         let timeout;
         return function () {
           clearTimeout(timeout)
-          timeout = setTimeout(func, wait);
+          timeout = setTimeout(func, wait)
+          /*一个事件发生wait毫秒后，不再触发该事件，才执行相应的处理函数。*/
         }
       }
     }

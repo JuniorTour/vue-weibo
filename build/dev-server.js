@@ -31,19 +31,32 @@ var weiboMsg=require('../src/data/weibo-message.json')
 var apiRouters = express.Router() //定义router
 apiRouters.get('/weibo-content',function (req, res) {
   console.log('req.query.nextCursor = '+req.query.nextCursor)
+  console.log('typeof req.query.nextCursor = '+typeof req.query.nextCursor)
   /*根据查询字符串- nextCursor 确定返回的对象*/
-  var weiboContentUrl=''
-  if (req.query.nextCursor!==undefined) {
-    weiboContentUrl='../src/data/weibo-content-'+req.query.nextCursor+'.json'
-  } else {
-    weiboContentUrl='../src/data/weibo-content-0.json'
+  var errorNum=0,weiboContentUrl='',nextCursor=parseInt(req.query.nextCursor)
+  switch (nextCursor) {
+    case -1:
+      console.log('No new content.')
+      /*没有新内容时：*/
+      errorNum=-1
+      break
+    default:
+      console.log('get weiboContentUrl.')
+      console.log('req.query.nextCursor = '+req.query.nextCursor)
+      weiboContentUrl='../src/data/weibo-content-'+req.query.nextCursor+'.json'
   }
-  var tergetWeiboContent=require(weiboContentUrl)
+  // if (req.query.nextCursor!==undefined) {
+  //   weiboContentUrl='../src/data/weibo-content-'+req.query.nextCursor+'.json'
+  // } else {
+  //   weiboContentUrl='../src/data/weibo-content-0.json'
+  // }
+  var tergetWeiboContent=weiboContentUrl!==''?require(weiboContentUrl):'empty'
+  console.log('get tergetWeiboContent.')
   res.json({
-    errorNum:0,
+    errorNum:errorNum,
     data:tergetWeiboContent
   })
-  console.log('Successfully deliver weibo content!')
+  console.log('Successfully deliver weibo content!\n')
 })
 apiRouters.get('/weibo-msg',function (req, res) {
   res.json({
