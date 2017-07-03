@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="head-part">
-      <top-header></top-header>
+      <top-header @toUpdateWeibo="updateWeibo()"></top-header>
       <div class="tab-group">
         <router-link to="/home" class="tab">首页</router-link>
         <router-link to="/message" class="tab">消息</router-link>
@@ -11,7 +11,7 @@
     </div>
     <div class="main-body" v-show="!switchPicViewer">
       <transition :name="transitionName">
-        <router-view></router-view>
+        <router-view ref="home"></router-view>
       </transition>
     </div>
     <picture-viewer v-show="switchPicViewer"></picture-viewer>
@@ -64,6 +64,17 @@ export default {
       this.$nextTick(function () {
         window.scrollTo(0, this.pageVerticalPos)
       })
+    },
+    updateWeibo() {
+      //父组件接收到header子组件传来的更新事件后，调用home子组件的updateContent方法
+//      console.log('updateWeibo()')
+      //参考：https://cn.vuejs.org/v2/guide/components.html#子组件索引
+      this.$refs.home.updateContent()
+      /*这种方法确实可行，但个人感觉不是很优雅。
+       文档里也提到：“$refs 只在组件渲染完成后才填充，并且它是非响应式的。
+       它仅仅作为一个直接访问子组件的应急方案——应当避免在模版或计算属性中使用 $refs 。”，
+       来自 ： https://cn.vuejs.org/v2/guide...子组件索引
+       不知道还有没有更优雅的方式？*/
     }
   },
   computed: {

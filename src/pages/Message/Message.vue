@@ -3,19 +3,19 @@
     <loading v-show="isLoading"></loading>
     <div class="data-content">
       <section class="card-list">
-        <div v-for="(item, index) in msgGroup" class="msg-card border-1px border-bottom-1px">
+        <div v-for="(item, index) in msgGroup" class="avatar-card border-1px border-bottom-1px">
           <a v-if="item.user===undefined" class="msg-icon-btn" :class="item.type+'-icon-wrapper'">
             <i class="iconfont" :class="'icon-'+item.type"></i>
           </a>
-          <a v-else="" class="msg-user-avatar">
+          <a v-else="" class="card-avatar">
             <img :src="item.user.avatar_large">
           </a>
-          <a v-if="item.user===undefined"  class="msg-box txt-cut">
+          <a v-if="item.user===undefined"  class="avatar-card-content txt-cut">
             <h3 v-if="item.title" class="txt-xl mct-a txt-cut">{{item.title}}</h3>
           </a>
-          <a v-else=""  class="msg-box txt-cut">
+          <a v-else=""  class="avatar-card-content txt-cut">
             <h3 class="txt-xl mct-a txt-cut">{{item.user.screen_name}}</h3>
-            <p class="user-msg-text txt-m mct-d txt-cut">{{item.text}}</p>
+            <p class="sub-text txt-m mct-d txt-cut">{{item.text}}</p>
           </a>
           <span v-if="item.display_arrow===1" class="plus-content">
             <i class="iconfont icon-right-arrow"></i>
@@ -64,20 +64,13 @@
 </script>
 
 <style scoped lang="stylus">
-  .msg-card
-    display flex
-    background-color #fff
-
-  .msg-icon-btn,.msg-user-avatar
+  .msg-icon-btn
     display block
     width 3rem
     height 3rem
     line-height 3rem
     text-align center
     margin .5rem 0 .5rem .5rem
-    & img
-      width 48px
-      height 48px
     .iconfont
       color #fff
       font-size 28px
@@ -90,22 +83,6 @@
     background-color #ffa200
   .box-icon-wrapper
     background-color #5b99ee
-
-  .msg-box
-    display flex
-    flex 1
-    width 100%
-    flex-direction column
-    justify-content center
-    overflow hidden
-    padding .5rem .6875rem
-    .user-msg-text
-      padding 5px 20px 0 0
-
-  .plus-content
-    display flex
-    align-items center
-    margin-right .75rem
 
   .created-at
     width 5rem

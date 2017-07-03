@@ -10,7 +10,7 @@
     <div class="icon-group">
       <a class="iconfont icon-compose"></a>
       <a class="iconfont icon-search"></a>
-      <a v-show="pageName==='Home'" class="iconfont icon-refresh"></a>
+      <a v-show="pageName==='Home'" class="iconfont icon-refresh" @click.prevent="updateContent()"></a>
       <a v-show="pageName==='Message'" class="iconfont icon-msg"></a>
       <a v-show="pageName==='Me'" class="iconfont icon-gear"></a>
     </div>
@@ -20,6 +20,13 @@
 <script>
   export default{
     name: 'header',
+    methods: {
+      updateContent() {
+        //子组件向父组件发射自定义事件，用于向父组件传递更新的消息。
+        this.$emit('toUpdateWeibo')
+//        console.log('emit toUpdateWeibo')
+      }
+    },
     computed: {
       //值须为函数
       pageName() {

@@ -23,5 +23,4 @@
       background-size 19px auto
       padding-left 25px
       margin 14px 0
-
 </style>

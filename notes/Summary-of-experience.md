@@ -12,6 +12,7 @@ v-enter,v-enter-active,v-leave,v-leave-active
 2. 注意分清$router和$route！！！
 3. 看清分号的范围，不要把method写到了methods{}之外，QAQ。
 4. 不要多删除了export的{}！
+5. 注意===判断时的类型，'1'!===1，字符1并不等于数字1。
 
 #### 4. build/dev-server.js和相应的api请求json更新后都需要重启服务器
 
@@ -85,10 +86,17 @@ https://stackoverflow.com/questions/44683756/vue-resource-not-passing-token-in-r
 
 > window.scrollY + window.innerHeight ：当前文档底部到达的像素值。
 
-> Element.clientHeight：返回元素内部的高度(单位像素)，包含内边距，但不包括水平滚动条、边框和外边距。clientHeight 可以通过 CSS height + CSS padding - 水平滚动条高度 (如果存在)来计算.
+> HTMLElement.offsetHeight 是一个只读属性，它返回**该元素的**像素高度，包括元素的边框、垂直内边距和元素的水平滚动条（如果存在且渲染的话）和元素的CSS高度。
+
+> Element.scrollHeight是计量元素**内容**高度的只读属性，包括overflow样式属性导致的视图中不可见内容。没有垂直滚动条的情况下，scrollHeight值与元素视图填充所有内容所需要的最小值clientHeight相同。包括元素的padding，但不包括元素的margin。
+
+> Element.clientHeight返回元素**内部**的高度(单位像素)，包含内边距，但不包括水平滚动条、边框和外边距。clientHeight 可以通过 CSS height + CSS padding - 水平滚动条高度 (如果存在)来计算.
+
 https://stackoverflow.com/questions/9430070/get-page-height-in-js-cross-browser
 
-
+> Element.getBoundingClientRect()方法返回元素的大小及其相对于**视口**的位置。
+返回值是一个 DOMRect 对象，DOMRect 对象包含了一组用于描述边框的只读属性——left、top、right和bottom，单位为像素。除了 width 和 height 外的属性都是相对于视口的左上角位置而言的。
+![DOMRect 对象](https://mdn.mozillademos.org/files/15087/rect.png)
 #Bug记录：
 1. 卡片footer的两个间隔线在chrome58之中会因为页面宽度不同，呈现不同的宽度？？weibo.cn也是！
 

@@ -1,6 +1,9 @@
 <template>
   <div class="home">
     <loading v-show="topIsLoading"></loading>
+    <div class="content-tip no-text-select" v-show="noNew">
+      <span>这会儿还没有新微博，等会再来刷刷看吧(｡･ω･｡)！</span>
+    </div>
     <div class="top-tip" v-if="hasTopTip">
       <a class="to-top-tip">
         <i class="iconfont icon-hot"></i>
@@ -51,7 +54,7 @@
           </ul>
         </div>
       </section>
-      <footer class="card-footer border-1px border-top-1px txt-s">
+      <footer class="card-footer border-1px border-top-1px txt-s no-text-select">
         <a class="forward able-to-active">
           <i class="iconfont icon-forward"></i>
           {{item.mblog.reposts_count}}
@@ -69,6 +72,10 @@
       </footer>
     </div>
     <loading v-show="bottomIsLoading"></loading>
+    <div class="content-tip able-to-active no-text-select" v-show="noMore" @click="updateContent()">
+      <span>没有更多微博了QAQ，点我刷新看看吧！</span>
+      <a class="iconfont icon-refresh"></a>
+    </div>
   </div>
 </template>
 
@@ -86,13 +93,13 @@
         showPicViewer: this.$store.state.switchPicViewer,
         pagePos: 0,
         topIsLoading: true,
-        bottomIsLoading: true
+        bottomIsLoading: true,
+        noMore: false,
+        noNew: false
       }
     },
     components: {
       loading
-    },
-    mounted() {
     },
     /*此处也可以在mounted之中用$nextTick调用methods的方法，来初始化weiboContent。详见 http://dwz.cn/65ocqi
      * 但我个人结合生命周期图认为，created早于mounted，用于初始化视图，应该首选created！*/
@@ -102,7 +109,7 @@
        * 要么另起web服务serve这个目录，要么放在static目录里，因为dev-server对该目录文件实现了http访问。*/
       // this.$http.get('static/data/weibo-content.json', {id: 0}).then(res => {
       //等价于：
-      this.$http.get('apis/weibo-content?nextCursor=1', {id: 0}).then(res => {
+      this.$http.get('apis/weibo-content?targetCursor=1', {id: 0}).then(res => {
         /*res.body.data和res.data.data，哪一个才是最佳实践？*/
         if (res.body.errorNum !== 0) {
           console.log('Get data error!')
@@ -155,7 +162,7 @@
       addScrollEvent() {
         /*可以通过以下两句分别对比使用事件防抖前后的效果：*/
 //      window.addEventListener('scroll', this.handleScroll)
-        window.addEventListener('scroll', this.myDebounce(this.handleScroll, 300))
+        window.addEventListener('scroll', this.myDebounce(this.handleScroll, 500))
       },
       handleScroll() {
         //console.log('scrolling...', window.scrollY)
@@ -173,29 +180,66 @@
         /*procedure:
          1.get the next next_cursor from weiboContent.
          2.use as query attach to url.
-         3.judge whether or not has new weibo
-         4.if has new weibo , invoke ajax by vue-resource*/
+         3.judge whether or not has new weibo.
+         4.if has new weibo , invoke ajax by vue-resource.*/
         let nextCursor = this.weiboContent.next_cursor
         if (nextCursor !== -1) {
-          let targetUrl = '/apis/weibo-content' + '?nextCursor=' + nextCursor
+          let targetUrl = '/apis/weibo-content' + '?targetCursor=' + nextCursor
           this.$http.get(targetUrl).then((res) => {
 //          console.log('targetUrl = ' + targetUrl)
             if (res.body.errorNum === 0) {
-              console.log('res.data.data.card_group = ', res.data.data.card_group)
+//              console.log('res.data.data.card_group = ', res.data.data.card_group)
+              //把已有的微博和加载的微博合并
               this.weiboContent.card_group = this.weiboContent.card_group.concat(res.data.data.card_group)
-              this.weiboContent.previous_cursor = res.data.data.previous_cursor
+              //只更新下一个目标的指向，避免影响前一个目标的加载
               this.weiboContent.next_cursor = res.data.data.next_cursor
-            } else if (res.body.errorNum === -1) {
-              console.log('No new content.')
-              this.bottomIsLoading = false
             } else {
               console.log('Get data error!')
             }
           })
         } else {
-          console.log('nextCursor === -1 ,no date request.')
+          console.log('targetCursor === -1 ,No new content.')
           this.bottomIsLoading = false
+          this.noMore = true
         }
+      },
+      updateContent() {
+        this.scrollToTop()
+        let previousCursor = this.weiboContent.previous_cursor
+        this.topIsLoading = true
+        if (previousCursor !== -1) {
+          let targetUrl = '/apis/weibo-content' + '?targetCursor=' + previousCursor
+          this.$http.get(targetUrl).then((res) => {
+//          console.log('targetUrl = ' + targetUrl)
+            if (res.body.errorNum === 0) {
+              console.log('res.data.data.card_group = ', res.data.data.card_group)
+              //把新的微博和已有的微博合并
+              let _this = this
+              this.weiboContent.card_group = res.data.data.card_group.concat(_this.weiboContent.card_group)
+              //只更新前一个目标的指向，避免影响下一个目标的加载
+              this.weiboContent.previous_cursor = res.data.data.previous_cursor
+              //故意延迟消失，以显示效果
+              setTimeout(() => {
+                this.topIsLoading = false
+              }, 500)
+            } else {
+              console.log('Get data error!')
+            }
+          })
+        } else {
+          console.log('targetCursor === -1 ,No new content.')
+          setTimeout(() => {
+            this.topIsLoading = false
+            this.noNew = true
+          }, 500)
+          //3s后，隐藏没有新微博的提示
+          setTimeout(() => {
+            this.noNew = false
+          }, 3000)
+        }
+      },
+      scrollToTop() {
+        window.scrollTo(0, 0)
       },
       myDebounce(func, wait) {
 //        console.log('set my debounce')
@@ -234,15 +278,6 @@
 
 //iconfont没选好，文字对不齐
 
-.card
-  width 100%
-  background-color #fff
-  margin-bottom .5625rem
-  position: relative
-
-.card a
-  color: #598abf
-
 .card-header
   display: flex
   .header-bg
@@ -258,7 +293,7 @@
   .avatar
     margin .75rem 0 .5rem .75rem
     display flex
-    position relative;
+    position relative
     .avatar-img
       width 2.125rem
       border-radius 50%
@@ -267,9 +302,9 @@
     .no-verified
       display none
     .icon-yellow-v,.icon-blue-v
-      position: absolute;
-      right: -.125rem;
-      bottom: -.125rem;
+      position: absolute
+      right: -.125rem
+      bottom: -.125rem
 
 .user-info
   max-width 16rem /*避免名字过长*/
@@ -331,19 +366,31 @@
   align-items center
   background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#dadada),color-stop(50%,#dadada),color-stop(50%,rgba(0, 0, 0, 0)))
   background-image: -webkit-linear-gradient(top,#dadada 0,#dadada 50%,rgba(0, 0, 0, 0) 50%)
-  background-image: linear-gradient(to bottom,#dadada 0,#dadada 50%,rgba(0, 0, 0, 0) 50%);
+  background-image: linear-gradient(to bottom, #dadada 0, #dadada 50%, rgba(0, 0, 0, 0) 50%)
   /*从上到下，在1px的高度之中，从#dadada开始，直到0.5px时，将剩余的下半部分0.5px设置为透明，
   从而实现视觉上的0.5px。*/
-  -webkit-background-size: 100% 1px;
-  background-size: 100% 1px;
-  background-repeat: no-repeat;
-  background-position: top;
+  -webkit-background-size: 100% 1px
+  background-size: 100% 1px
+  background-repeat: no-repeat
+  background-position: top
   & > a
     color #929292
     flex:1
     text-align center
     padding: .375rem 0
-    display: inline-block;
-    height: 1.5rem;
+    display: inline-block
+    height: 1.5rem
     line-height: 1.5rem
+
+.content-tip
+  width 100%
+  text-align center
+  min-height 50px
+  margin-bottom .5625rem
+  span
+    display inline-block
+    font-size .75rem
+    line-height 19px
+    color #7c7c7c
+    margin 14px 0
 </style>
