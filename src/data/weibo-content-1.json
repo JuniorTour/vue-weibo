@@ -9,7 +9,7 @@
     {
       "mod_type": "mod\/clientTopTips",
       "scheme": "http:\/\/weibo.cn\/appurl?scheme=sinaweibo%3A%2F%2Fsearchall%3Fq%3D%E5%BF%83%E7%96%BC%E6%B5%99%E6%B1%9F%E8%80%83%E7%94%9F%26luicode%3D20000174%26lfid%3Dhotword%26featurecode%3D20000320&luicode=20000174&lfid=hotword&featurecode=20000320",
-      "text": "公告：春日游，杏花吹满头~"
+      "text": "公告：几回花下坐吹箫，银汉红墙入望遥。"
     },
     {
       "card_type": 9,
@@ -17,7 +17,7 @@
         "created_at": "刚刚",
         "id": "0",
         "mid": "0",
-        "text": "幸会，很高兴认识你！</br>这是一个用Vue.js全家桶模仿微博网页版（m.weibo.cn）的Demo。</br>欢迎访问相关Github仓库查看详情：<a href='https://github.com/JuniorTour/vue-weibo' data-url=\"\"><i class=\"iconfont icon-link\"></i><span class= \"surl-text \">JuniorTour/vue-weibo</span></a></br>欢迎和我在微博上交流：<a href='https://m.weibo.cn/u/1697676002' data-url=\"\"><i class=\"iconfont icon-link\"></i><span class= \"surl-text \">帅到被人砍___的微博</span></a></br>欢迎访问我的博客：<a href='http://juniortour.net' data-url=\"\"><i class=\"iconfont icon-link\"></i><span class= \"surl-text \">少年游-前端技术博客</span></a></br>总之，欢迎各种交流 (～￣▽￣)～ ",
+        "text": "幸会，很高兴认识你！</br>这是一个用Vue.js全家桶模仿微博网页版（m.weibo.cn）的Demo。</br>欢迎访问相关Github仓库查看详情：<a href='https://github.com/JuniorTour/vue-weibo' data-url=\"\"><i class=\"iconfont icon-link\"></i><span class= \"surl-text \">JuniorTour/vue-weibo</span></a></br>欢迎和我在微博上交流：<a href='https://m.weibo.cn/u/1697676002' data-url=\"\"><i class=\"iconfont icon-link\"></i><span class= \"surl-text \">帅到被人砍___的微博</span></a></br>欢迎访问我的博客：<a href='http://juniortour.net' data-url=\"\"><i class=\"iconfont icon-link\"></i><span class= \"surl-text \">少年游-前端技术博客</span></a></br>总之，很高兴认识你，欢迎各种交流！ (～￣▽￣)～ ",
         "textLength": 16,
         "source": "一个学生",
         "favorited": false,
@@ -198,7 +198,7 @@
           "created_at": "今天 14:26",
           "id": "0",
           "mid": "0",
-          "text": "来自 iOS11 ​",
+          "text": "测试转发",
           "textLength": 10,
           "source": "微博 HTML5 版",
           "favorited": false,
@@ -210,24 +210,13 @@
           "original_pic": "http://wx3.sinaimg.cn/large/48adb7cely1fgkpoudvs4j21jk222wgi.jpg",
           "user":  {
             "id": 1219344334,
-            "screen_name": "刘巍峰",
-            "profile_image_url": "https://tva3.sinaimg.cn/crop.0.0.254.254.180/48adb7cetw1ede5kk9acpj207407874p.jpg",
-            "profile_url": "http://m.weibo.cn/u/1219344334?uid=1219344334&luicode=20000174&featurecode=20000180",
+            "screen_name": "帅到被人砍___",
+            "profile_image_url": "static/img/avatar/my-weibo-avatar.jpg",
+            "profile_url": "https://m.weibo.cn/u/1697676002",
             "statuses_count": 40792,
             "verified": true,
             "verified_type": 0,
-            "verified_type_ext": 0,
-            "verified_reason": "新浪微博前端开发工程师 知名互联网资讯博主 微博头条文章作者",
-            "description": "愿你走出半生，归来仍是少年。",
-            "gender": "m",
-            "mbtype": 12,
-            "urank": 46,
-            "mbrank": 6,
-            "follow_me": false,
-            "following": true,
-            "followers_count": 17336,
-            "follow_count": 1770,
-            "cover_image_phone": "https://tva2.sinaimg.cn/crop.0.0.640.640.640/4be1438djw1eyfunztuc6j20hs0hsdij.jpg"
+            "verified_type_ext": 0
           },
           "reposts_count": 1,
           "comments_count": 1,

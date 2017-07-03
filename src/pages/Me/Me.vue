@@ -36,7 +36,7 @@
       </a>
     </footer>
   </div>
-  <div class="card">
+  <div class="card-line-group">
     <section class="card-line card-4">
       <a>
         <i class="iconfont icon-friends"></i>
@@ -45,7 +45,7 @@
       </a>
     </section>
   </div>
-  <div class="card">
+  <div class="card-line-group">
     <section class="card-line card-4">
       <a>
         <i class="iconfont icon-level"></i>
@@ -54,7 +54,7 @@
       </a>
     </section>
   </div>
-  <div class="card">
+  <div class="card-line-group">
     <section class="card-line card-4">
       <a>
         <i class="iconfont icon-album"></i>
@@ -77,7 +77,7 @@
       </a>
     </section>
   </div>
-  <div class="card">
+  <div class="card-line-group">
     <section class="card-line card-4">
       <a>
         <i class="iconfont icon-gear"></i>

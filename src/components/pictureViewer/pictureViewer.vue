@@ -1,5 +1,5 @@
 <template>
-<div class="picture-viewer">
+<div class="picture-viewer" @click.prevent="closePictureViewer">
   <div class="picture-window">
     <img :src="targetPicUrl">
   </div>
@@ -51,8 +51,11 @@
     border none
     border-radius 2px
 
-.picture-window img
+.picture-window
+  width: 100%
+  img
     max-width 100%
+    width: 100%
 
 .picture-ctrl-bar
   width 100%

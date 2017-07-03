@@ -43,7 +43,7 @@
         </ul>
       </section>
     </div>
-    <div class="card">
+    <div class="card-line-group">
       <section class="card-line card-4">
         <a>
           <i class="iconfont icon-hot icon-red-hot"></i>
@@ -59,7 +59,7 @@
         </a>
       </section>
     </div>
-    <div class="card">
+    <div class="card-line-group">
       <section class="card-line card-4">
         <a>
           <i class="iconfont icon-t"></i>
@@ -89,7 +89,7 @@
         </a>
       </section>
     </div>
-    <div class="card">
+    <div class="card-line-group">
       <section class="card-line card-4">
         <a>
           <i class="iconfont icon-crown"></i>
@@ -170,6 +170,7 @@ export default {
   .search-bar
     flex 1
     width:100%
+    height 26px //for ie11
     box-sizing border-box
     font-size: .875rem
     line-height: 26px

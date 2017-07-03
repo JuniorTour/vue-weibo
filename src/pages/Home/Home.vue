@@ -28,7 +28,7 @@
             <span class="publish-source">来自{{item.mblog.source}}</span>
           </div>
         </div>
-        <a class="card-operate able-to-active">
+        <a class="card-operate">
           <i class="iconfont icon-down-arrow"></i>
         </a>
       </header>
@@ -55,24 +55,24 @@
         </div>
       </section>
       <footer class="card-footer border-1px border-top-1px txt-s no-text-select">
-        <a class="forward able-to-active">
+        <a class="forward">
           <i class="iconfont icon-forward"></i>
           {{item.mblog.reposts_count}}
         </a>
         <i class="separate-line"></i>
-        <a class="comment able-to-active">
+        <a class="comment">
           <i class="iconfont icon-comment"></i>
           {{item.mblog.comments_count}}
         </a>
         <i class="separate-line"></i>
-        <a class="like able-to-active">
+        <a class="like">
           <i class="iconfont icon-like"></i>
           {{item.mblog.attitudes_count}}
         </a>
       </footer>
     </div>
     <loading v-show="bottomIsLoading"></loading>
-    <div class="content-tip able-to-active no-text-select" v-show="noMore" @click="updateContent()">
+    <div class="content-tip no-text-select" v-show="noMore" @click="updateContent()">
       <span>没有更多微博了QAQ，点我刷新看看吧！</span>
       <a class="iconfont icon-refresh"></a>
     </div>
@@ -117,8 +117,8 @@
         }
         this.weiboContent = res.data.data  //微博的所有内容
 //        console.log('this.weiboContent:', this.weiboContent)
-        console.log('this.weiboContent.previous_cursor:', this.weiboContent.previous_cursor)
-        console.log('this.weiboContent.next_cursor:', this.weiboContent.next_cursor)
+//        console.log('this.weiboContent.previous_cursor:', this.weiboContent.previous_cursor)
+//        console.log('this.weiboContent.next_cursor:', this.weiboContent.next_cursor)
         let tempTopTip = res.data.data.card_group[0]
         if (tempTopTip.mod_type === 'mod/clientTopTips') {
           this.topTip = res.data.data.card_group.shift() //公告是card_group[0]，用shift方法弹出
@@ -163,6 +163,7 @@
         /*可以通过以下两句分别对比使用事件防抖前后的效果：*/
 //      window.addEventListener('scroll', this.handleScroll)
         window.addEventListener('scroll', this.myDebounce(this.handleScroll, 500))
+        console.log('Scroll event added!')
       },
       handleScroll() {
         //console.log('scrolling...', window.scrollY)
@@ -171,7 +172,10 @@
           document.documentElement.clientHeight,
           document.body.scrollHeight, document.documentElement.scrollHeight,
           document.body.offsetHeight, document.documentElement.offsetHeight)
-        if (window.scrollY + window.innerHeight > pageHeight - 100) {
+        let windowScrollHeight = window.scrollY || window.pageYOffset
+//        console.log('window.scrollY = ', window.scrollY)
+//        console.log('window.pageYOffset  = ', window.pageYOffset)
+        if (windowScrollHeight + window.innerHeight > pageHeight - 100) {
           console.log('To push content')
           this.getContent()
         }
@@ -186,10 +190,10 @@
         if (nextCursor !== -1) {
           let targetUrl = '/apis/weibo-content' + '?targetCursor=' + nextCursor
           this.$http.get(targetUrl).then((res) => {
-//          console.log('targetUrl = ' + targetUrl)
+//            console.log('targetUrl = ' + targetUrl)
             if (res.body.errorNum === 0) {
 //              console.log('res.data.data.card_group = ', res.data.data.card_group)
-              //把已有的微博和加载的微博合并
+              //把已有的微博和加载的旧微博合并
               this.weiboContent.card_group = this.weiboContent.card_group.concat(res.data.data.card_group)
               //只更新下一个目标的指向，避免影响前一个目标的加载
               this.weiboContent.next_cursor = res.data.data.next_cursor
@@ -296,6 +300,7 @@
     position relative
     .avatar-img
       width 2.125rem
+      height 2.125rem
       border-radius 50%
       vertical-align top
       display block
@@ -387,6 +392,8 @@
   text-align center
   min-height 50px
   margin-bottom .5625rem
+  &:active
+    background-color #ebebeb
   span
     display inline-block
     font-size .75rem

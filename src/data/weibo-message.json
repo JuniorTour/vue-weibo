@@ -43,61 +43,30 @@
       "mod_type": "mod/message/item",
       "user":  {
         "id": 1904769205,
-        "avatar_large": "http://tva2.sinaimg.cn/crop.0.0.1024.1024.180/718878b5jw8esr2geokzkj20sg0sg0ts.jpg",
-        "screen_name": "知乎",
+        "avatar_large": "static/img/avatar/shixiangyun.jpg",
+        "screen_name": "史湘云",
         "remark": "",
         "verified": true,
         "verified_type": 2
       },
-      "created_at": "06-17 18:25",
+      "created_at": "昨日 寅时",
       "scheme": "/msg/chat?uid=5500491427",
       "unread": 6,
-      "text": "郎朗在知乎和你一起聊，这 30 年音乐教给他的事。独家讲述自己的学琴经历和对古典乐的鉴赏方法论。点击链接：http://t.cn/RoxVkxe送福利咯， 500 张知乎 Live 赠票免费领，手慢无！"
+      "text": "爱哥哥好~~~(*￣∇￣*) "
     },
     {
       "mod_type": "mod/message/item",
       "user":  {
-        "id": 1655363172,
-        "avatar_large": "http://tva2.sinaimg.cn/crop.0.0.249.249.180/62aad664jw1edat5mvyucj206y06y3yp.jpg",
-        "screen_name": "故宫博物院",
+        "avatar_large": "static/img/avatar/caoxueqin.jpg",
+        "screen_name": "曹雪芹",
         "remark": "",
         "verified": true,
         "verified_type": 1
       },
-      "created_at": "06-15 10:48",
+      "created_at": "二百年前",
       "scheme": "/msg/chat?uid=1644225642",
       "unread": 0,
-      "text": "感谢您关注我！想看到更多精彩独家内容，就订阅我吧，回复DY即可。"
-    },
-   {
-    "mod_type": "mod/message/item",
-    "user":  {
-      "id": 1904769205,
-      "avatar_large": "http://tva2.sinaimg.cn/crop.0.0.1024.1024.180/718878b5jw8esr2geokzkj20sg0sg0ts.jpg",
-      "screen_name": "知乎",
-      "remark": "",
-      "verified": true,
-      "verified_type": 2
-    },
-    "created_at": "06-17 18:25",
-    "scheme": "/msg/chat?uid=5500491427",
-    "unread": 6,
-    "text": "郎朗在知乎和你一起聊，这 30 年音乐教给他的事。独家讲述自己的学琴经历和对古典乐的鉴赏方法论。点击链接：http://t.cn/RoxVkxe送福利咯， 500 张知乎 Live 赠票免费领，手慢无！"
-  },
-   {
-    "mod_type": "mod/message/item",
-    "user":  {
-      "id": 1655363172,
-      "avatar_large": "http://tva2.sinaimg.cn/crop.0.0.249.249.180/62aad664jw1edat5mvyucj206y06y3yp.jpg",
-      "screen_name": "故宫博物院",
-      "remark": "",
-      "verified": true,
-      "verified_type": 1
-    },
-    "created_at": "06-15 10:48",
-    "scheme": "/msg/chat?uid=1644225642",
-    "unread": 0,
-    "text": "感谢您关注我！想看到更多精彩独家内容，就订阅我吧，回复DY即可。"
+      "text": "陋室空堂，当年笏满床；衰草枯杨，曾为歌舞场。蛛丝儿结满雕梁，绿纱今又在篷窗上。说什么脂正浓，粉正香，如何两鬓又成霜昨日黄土陇头送白骨，今宵红灯帐底卧鸳鸯。金满箱，银满箱，转眼乞丐人皆谤。正叹他人命不长，那知自己归来丧！训有方，保不定日后作强梁；择膏粱，谁承望流落在烟花巷！因嫌纱帽小，致使锁枷扛；昨怜破袄寒，今嫌紫蟒长。乱哄哄，你方唱罢我登场，反认他乡是故乡。甚荒唐，到头来，都是为他人做嫁衣裳！"
     }
   ]
 }

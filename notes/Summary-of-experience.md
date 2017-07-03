@@ -82,7 +82,7 @@ https://stackoverflow.com/questions/44683756/vue-resource-not-passing-token-in-r
 #### 14. 高度相关js方法和属性：
 > Window.innerHeight：浏览器窗口的视口（viewport）高度（以像素为单位），如果存在水平滚动条，则包括它。这个属性的值一直不变，都是667（iPhone6）
 
-> Window.scrollY ：返回文档在垂直方向已滚动的像素值。
+> Window.scrollY ：返回文档在垂直方向已滚动的像素值。**IE11尚不支持，window.pageYOffset可以用作替代。**
 
 > window.scrollY + window.innerHeight ：当前文档底部到达的像素值。
 
