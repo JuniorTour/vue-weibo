@@ -61,6 +61,7 @@
     line-height 44px
     color #333
     background-color #fff
+    overflow hidden
     .common-header
       display: inline-block
       color #5d5d5d

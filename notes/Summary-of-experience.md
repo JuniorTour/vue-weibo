@@ -97,6 +97,30 @@ https://stackoverflow.com/questions/9430070/get-page-height-in-js-cross-browser
 > Element.getBoundingClientRect()方法返回元素的大小及其相对于**视口**的位置。
 返回值是一个 DOMRect 对象，DOMRect 对象包含了一组用于描述边框的只读属性——left、top、right和bottom，单位为像素。除了 width 和 height 外的属性都是相对于视口的左上角位置而言的。
 ![DOMRect 对象](https://mdn.mozillademos.org/files/15087/rect.png)
+
+15. express.Router():
+http://lostjs.com/2014/04/24/router-in-express-4/
+http://expressjs.com/en/4x/api.html#router
+"express.Router 可以认为是一个微型的只用来处理中间件与控制器的 app，它拥有和 app 类似的方法，例如 get、post、all、use 等等。"
+
+16. build后的gzip：
+修改config/index.js , productionGzip: true,
+https://stackoverflow.com/questions/38587698/webpack-gzip-vs-express-gzip
+
+17. node.js的path模块
+
+path是node.js内置的package，用来处理路径的。
+
+path 的 api 可见：
+https://nodejs.org/api/path.html#path_path_resolve_paths
+http://www.runoob.com/nodejs/nodejs-path-module.html
+
+简单摘抄下：
+path.join([path1][, path2][, ...])
+用于连接路径。该方法的主要用途在于，会正确使用当前系统的路径分隔符，Unix系统是/，Windows系统是\。
+path.resolve([from ...], to)
+将 to 参数解析为绝对路径。
+
 #Bug记录：
 1. 卡片footer的两个间隔线在chrome58之中会因为页面宽度不同，呈现不同的宽度？？weibo.cn也是！
 

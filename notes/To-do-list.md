@@ -40,13 +40,15 @@ push()新内容来实现。
 7. 登录页和404页面：
 怎么独立成一个页面呢？
 
+2017年7月4日13:27:15，想到了一个办法，在prod-server.js之中添加静态页面！
+
 ~~8. 卡片头部背景：~~
 **实现了**，但是没有搞清楚json中的cardid:"star-035"字段和相应的图片url结果，是如何计算出来的？
 难不成要在.vue之中，用switch语句判断？太复杂了吧！
 
 9. 图片浏览器的缩放，长图滑动功能，以及图片数量索引功能
 
-10. 禁止卡片footer文字选择
+~~10. 禁止卡片footer文字选择~~
 
 ~~11. 加载中动画~~
 **实现了！**在Message之中，但是没有做到**显示加载比例**，似乎vue-resource不便于实现记载进度？
@@ -59,3 +61,14 @@ push()新内容来实现。
 ~~14. 事件防抖：debounce~~
 https://github.com/mqyqingfeng/Blog/issues/22
 简单地在Home更新中**用上了**，效果显著！！！
+
+15. 生产环境下后端url直接访问支持 history 模式，如http://localhost:8080/home
+http://router.vuejs.org/en/essentials/history-mode.html:
+
+当你使用 history 模式时，URL 就像正常的 url，例如 http://yoursite.com/user/id，也好看！
+
+不过这种模式要玩好，还需要后台配置支持。因为我们的应用是个单页客户端应用，如果后台没有正确的配置，当用户在浏览器直接访问 http://oursite.com/user/id 就会返回 404，这就不好看了。
+
+所以呢，你要在服务端增加一个覆盖所有情况的候选资源：如果 URL 匹配不到任何静态资源，则应该返回同一个 index.html 页面，这个页面就是你 app 依赖的页面。
+
+16. 图片浏览支持缩放等各种手势

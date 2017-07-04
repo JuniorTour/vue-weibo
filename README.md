@@ -27,7 +27,7 @@ git clone https://github.com/JuniorTour/vue-weibo.git
 cd vue-weibo
 npm install   //推荐使用 cnpm 淘宝NPM镜像安装更快！
 npm run dev //开发环境中运行，构建完成后，自动访问http://localhost:8080/
-npm run build //或生产环境中运行
+node prod-server.js //或生产环境中运行
 ```
 
 # 配套教程
@@ -38,6 +38,7 @@ npm run build //或生产环境中运行
 
 # To-do List:
 
+0. 点赞动画特效！
 1. 滑动删除消息
 2. 图片预览手势支持
 3. 配套教程文章

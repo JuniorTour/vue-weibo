@@ -126,6 +126,7 @@ body
     display flex
     /*flex-flow nowrap row*/
     z-index 1
+    overflow hidden
     .tab
       flex 1
       display: block
