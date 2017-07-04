@@ -61,6 +61,7 @@ node prod-server.js   //或生产环境中运行，资源经过压缩，访问�
 ├── config/
 │   ├── index.js                # main project config
 │   └── ...
+├── dist/                       # npm run build 生成的生产环境资源
 ├── notes/
 │   └── ...                       # 制作过程中的一些笔记。
 ├── src/
@@ -85,6 +86,7 @@ node prod-server.js   //或生产环境中运行，资源经过压缩，访问�
 ├── .eslintrc.js                # eslint config
 ├── .editorconfig               # editor config
 ├── index.html                  # index.html template
-└── package.json                # build scripts and dependencies
+├── prod-server.js              # 生产环境所用的服务器文件
+└── package.json                # build scripts and dependencies
 ```
 
