@@ -43,11 +43,12 @@
   & button
     width 72px
     height 32px
-    line-height 30px
+    line-height 32px
     text-align center
     font-size 16px
     color #fff
     background-color rgba(128,128,128,.4)
+    padding 0
     border none
     border-radius 2px
 
