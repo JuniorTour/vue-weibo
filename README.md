@@ -25,9 +25,11 @@
 ``` nodejs
 git clone https://github.com/JuniorTour/vue-weibo.git
 cd vue-weibo
-npm install   //推荐使用 cnpm 淘宝NPM镜像安装更快！
-npm run dev //开发环境中运行，构建完成后，自动访问http://localhost:8080/
-node prod-server.js //或生产环境中运行
+npm install       //推荐使用 cnpm 淘宝NPM镜像安装更快！
+
+npm run dev     //开发环境中运行，构建完成后，自动访问http://localhost:8080/，自带热更新，便于开发。
+
+node prod-server.js   //或生产环境中运行，资源经过压缩，访问更快。
 ```
 
 # 配套教程
