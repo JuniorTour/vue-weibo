@@ -1,10 +1,12 @@
 # vue-weibo
 
+### [vue-weibo的GitHub仓库地址](https://github.com/JuniorTour/vue-weibo)
+
 这是一个用Vue.js及相关插件模仿制作[新浪微博网页版](m.weibo.cn)的项目。
 
 使用了`vue-cli`作为搭建工具，主要使用了`vue.js@2.3.3`,`vue-resource@1.3.4`,`vue-router@2.3.1`,`vuex@2.3.1`等工具。
 
-欢迎Issue、PR、邮件、微博等等各种交流！
+欢迎Issue、PR、邮件、微博等等各种交流！更欢迎给我点个赞以示鼓励，谢谢你！
 
 # 预览demo：
 
