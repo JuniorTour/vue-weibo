@@ -77,5 +77,6 @@ app.listen(app.get('port'), function (err) {
     console.log(err)
     return
   }
-  console.log('vue-weibo started on http://localhost:' + app.get('port') + '\n' + 'Press Ctrl-C to terminate.')
+  //\x1b[32m%s\x1b[0m 用于给终端里的文字设置颜色。
+  console.log('\x1b[32m%s\x1b[0m', 'vue-weibo started on http://localhost:' + app.get('port') + '\n' + 'Press Ctrl-C to terminate.')
 })
