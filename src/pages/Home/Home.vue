@@ -10,7 +10,7 @@
         <p class="top-tip-content txt-cut">{{topTip.text}}<i class="iconfont icon-right-arrow"></i></p>
       </a>
     </div>
-    <div class="card able-to-active" v-for="(item,index) in weiboContent.card_group">
+    <div class="card" v-for="(item,index) in weiboContent.card_group">
       <header class="card-header">
         <!--<div class="header-bg" v-if="typeof item.mblog.cardid!=='undefined'">-->
         <!--&lt;!&ndash;使用 typeof的原因是它不会在一个变量没有被声明的时候抛出一个错误。&ndash;&gt;-->
@@ -93,7 +93,7 @@
         showPicViewer: this.$store.state.switchPicViewer,
         pagePos: 0,
         topIsLoading: true,
-        bottomIsLoading: true,
+        bottomIsLoading: false,
         noMore: false,
         noNew: false
       }
@@ -125,6 +125,8 @@
           this.hasTopTip = true
 //          console.log('this.topTip:', this.topTip)
         }
+        //主要内容加载完成后，在开始显示底部加载动画：
+        this.bottomIsLoading = true
         setTimeout(() => {
           //故意推迟，以显示加载动画效果
           this.topIsLoading = false
@@ -282,6 +284,10 @@
 
 //iconfont没选好，文字对不齐
 
+// BUG!!会和footer的active覆盖！
+/*.card:active*/
+  /*background-color #ebebeb*/
+
 .card-header
   display: flex
   .header-bg
@@ -386,6 +392,8 @@
     display: inline-block
     height: 1.5rem
     line-height: 1.5rem
+    &:active
+      background-color #ebebeb
 
 .content-tip
   width 100%

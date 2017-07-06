@@ -2,7 +2,7 @@
 
 ### [vue-weibo的GitHub仓库地址](https://github.com/JuniorTour/vue-weibo)
 
-这是一个用Vue.js及相关插件模仿制作[新浪微博网页版](m.weibo.cn)的项目。
+这是一个用Vue.js及相关插件模仿制作[新浪微博移动版](m.weibo.cn)的项目。
 
 使用了`vue-cli`作为搭建工具，主要使用了`vue.js@2.3.3`,`vue-resource@1.3.4`,`vue-router@2.3.1`,`vuex@2.3.1`等工具。
 
@@ -20,18 +20,20 @@
 
 # 基本功能：
 
-刷新微博、加载旧微博、简单图片预览（准备实现缩放等手势功能）、Tab页面切换、后台模拟数据等...
+刷新微博、加载旧微博、简单图片预览（准备实现缩放等手势功能）、Tab页面切换、后台模拟数据、生产环境服务器支持、登录页面、404页面等...
 
 # 运行项目：
 
 ``` nodejs
 git clone https://github.com/JuniorTour/vue-weibo.git
+
 cd vue-weibo
+
 npm install       //推荐使用 cnpm 淘宝NPM镜像安装更快！
 
 npm run dev     //开发环境中运行，构建完成后，自动访问http://localhost:8080/，自带热更新，便于开发。
 
-node prod-server.js   //或生产环境中运行，资源经过压缩，访问更快。
+npm run prod  //或生产环境中运行，资源经过压缩，访问更快。
 ```
 
 # 配套教程
@@ -48,7 +50,8 @@ node prod-server.js   //或生产环境中运行，资源经过压缩，访问�
 3. 配套教程文章
 4. local storage
 5. 手机添加至桌面功能
-4. ......
+~~6. 登录页面、404页面及相应的路由~~
+7. ......
 
 # 项目结构：
 

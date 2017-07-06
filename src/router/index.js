@@ -17,13 +17,6 @@ export default new Router({
   saveScrollPosition: true,
   routes: [
     {
-      path: '/',
-      name: 'Home',
-      component: Home
-      // name: 'Login',
-      // component: Login
-    },
-    {
       path: '/home',
       name: 'Home',
       component: Home

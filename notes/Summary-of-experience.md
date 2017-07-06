@@ -122,26 +122,42 @@ path.resolve([from ...], to)
 将 to 参数解析为绝对路径。
 
 18. git使用经验：
-1. `git clone <url>`
+    1. `git clone <url>`
 
-2. `git config --global user.name "name" 设置你的用户名`
-   `git config --global user.email "emil" 设置用户的email账号`
-   这一步可选，但如果以后想要提交commi，还得设置。
+    2. `git config --global user.name "name" //设置你的用户名`
+       `git config --global user.email "emil" //设置用户的email账号`
+       这一步可选，但以后提交commit时，还得设置。
 
-3. 修改一些文件
+    3. 修改一些文件
 
-4. `git add <file_path>  //update what will be committed` 或 `git checkout -- file.txt //丢弃工作区的修改`
-    `git add .  //更新所有修改！`
+    4. `git add <file_path>  //update what will be committed`
+        或 `git checkout -- file.txt //丢弃工作区的修改`
+        `git add .  //更新所有修改！`
 
-5. `git commit`
+    5. `git commit`
 
-6. 在vim中编辑修改信息，**退出编辑时：按下ctrl-c，输入`:q`或`:x`退出**
-https://stackoverflow.com/questions/11828270/how-to-exit-the-vim-editor
+    6. 在vim中编辑修改信息，**退出编辑时：按下ctrl-c，输入`:q`或`:x`退出**
+    https://stackoverflow.com/questions/11828270/how-to-exit-the-vim-editor
 
-修改信息成功commit了在本地仓库。
+    修改信息成功commit了到本地仓库。
 
-7. `git push`
-会提示登录github，之后便会自动push到远程仓库，完成一次修改。
+    7. `git push`
+    会提示登录github，之后便会自动push到远程仓库，完成一次修改。
+
+    如果此时，本地和远程不同步的话，就会拒绝 push，并提示：
+     > To https://github.com/JuniorTour/vue-weibo.git
+       ! [rejected]        master -> master (fetch first)
+      error: failed to push some refs to 'https://github.com/JuniorTour/vue-weibo.git'
+      hint: Updates were rejected because the remote contains work that you do
+      hint: not have locally. This is usually caused by another repository pushing
+      hint: to the same ref. You may want to first integrate the remote changes
+      hint: (e.g., 'git pull ...') before pushing again.
+      hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+
+19. __dirname returns the directory that the currently executing script is in.
+
+
 
 #Bug记录：
 1. 卡片footer的两个间隔线在chrome58之中会因为页面宽度不同，呈现不同的宽度？？weibo.cn也是！
