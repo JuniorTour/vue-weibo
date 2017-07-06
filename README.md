@@ -38,9 +38,11 @@ npm run prod  //或生产环境中运行，资源经过压缩，访问更快。
 
 # 配套教程
 
-目前代码关键部分中已经有相应的注释介绍，稍后，我会详细地写出从0构建这个项目的过程，敬请期待！
+目前代码关键部分中已经有相应的注释介绍，并且这个仓库页详细记录了从零开始的commit，欢迎用作参考。
 
-如果你对此有任何意见和想法，都欢迎通过各种方式和我交流！ヾ(✿ﾟ▽ﾟ)ノ
+稍后，我还会详细地写出从0构建这个项目的过程，敬请期待！
+
+如果你有任何意见和想法，都欢迎通过各种方式和我交流！ヾ(✿ﾟ▽ﾟ)ノ
 
 # To-do List:
 
@@ -62,6 +64,7 @@ npm run prod  //或生产环境中运行，资源经过压缩，访问更快。
 ├── config/
 │   ├── index.js                # main project config
 │   └── ...
+├── dist/                       # npm run build 生成的生产环境资源
 ├── notes/
 │   └── ...                       # 制作过程中的一些笔记。
 ├── src/
@@ -86,6 +89,7 @@ npm run prod  //或生产环境中运行，资源经过压缩，访问更快。
 ├── .eslintrc.js                # eslint config
 ├── .editorconfig               # editor config
 ├── index.html                  # index.html template
-└── package.json                # build scripts and dependencies
+├── prod-server.js              # 生产环境所用的服务器文件
+└── package.json                # build scripts and dependencies
 ```
 
