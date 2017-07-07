@@ -4,12 +4,12 @@
   <div class="search-bar-wrapper">
     <i class="iconfont icon-search"></i>
     <form class="search-form" action="" method="get">
-      <input @focus="focusSearchBar" :class="{'search-bar-active':searchBarOnFocus}" type="search" class="search-bar" placeholder="搜索">
+      <input v-ripple @focus="focusSearchBar" :class="{'search-bar-active':searchBarOnFocus}" type="search" class="search-bar" placeholder="搜索">
       <button @click.prevent="blurSearchBar" v-show="searchBarOnFocus" class="cancel-search-btn">取消</button>
     </form>
   </div>
   <div v-show="searchBarOnFocus" class="hot-search card">
-    <section class="card-line card-4">
+    <section class="card-line card-4" v-ripple>
       <a>
         <i class="iconfont icon-hot"></i>
         <div class="content">微博热搜榜<span class="mct-b txt-xs">每分钟更新一次</span></div>
@@ -44,14 +44,14 @@
       </section>
     </div>
     <div class="card-line-group">
-      <section class="card-line card-4">
+      <section class="card-line card-4" v-ripple>
         <a>
           <i class="iconfont icon-hot icon-red-hot"></i>
           <div class="content">热门微博</div>
           <i class="iconfont icon-right-arrow"></i>
         </a>
       </section>
-      <section class="card-line card-4">
+      <section class="card-line card-4" v-ripple>
         <a>
           <i class="iconfont icon-friends"></i>
           <div class="content">名人</div>
@@ -60,28 +60,28 @@
       </section>
     </div>
     <div class="card-line-group">
-      <section class="card-line card-4">
+      <section class="card-line card-4" v-ripple>
         <a>
           <i class="iconfont icon-t"></i>
           <div class="content">微博头条</div>
           <i class="iconfont icon-right-arrow"></i>
         </a>
       </section>
-      <section class="card-line card-4">
+      <section class="card-line card-4" v-ripple>
         <a>
           <i class="iconfont icon-film"></i>
           <div class="content">电影</div>
           <i class="iconfont icon-right-arrow"></i>
         </a>
       </section>
-      <section class="card-line card-4">
+      <section class="card-line card-4" v-ripple>
         <a>
           <i class="iconfont icon-music"></i>
           <div class="content">音乐</div>
           <i class="iconfont icon-right-arrow"></i>
         </a>
       </section>
-      <section class="card-line card-4">
+      <section class="card-line card-4" v-ripple>
         <a>
           <i class="iconfont icon-charity"></i>
           <div class="content">微公益</div>
@@ -90,21 +90,21 @@
       </section>
     </div>
     <div class="card-line-group">
-      <section class="card-line card-4">
+      <section class="card-line card-4" v-ripple>
         <a>
           <i class="iconfont icon-crown"></i>
           <div class="content">会员</div>
           <i class="iconfont icon-right-arrow"></i>
         </a>
       </section>
-      <section class="card-line card-4">
+      <section class="card-line card-4" v-ripple>
         <a>
           <i class="iconfont icon-album"></i>
           <div class="content">相册</div>
           <i class="iconfont icon-right-arrow"></i>
         </a>
       </section>
-      <section class="card-line card-4">
+      <section class="card-line card-4" v-ripple>
         <a>
           <i class="iconfont icon-famous-people"></i>
           <div class="content">找Doge</div>

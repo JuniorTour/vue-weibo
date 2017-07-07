@@ -40,13 +40,15 @@ body {
   border: none;
 }
 .iconfont {
+  float: left;
   color: #aaa;
   font-style: normal;
   display: inline-block;
   width: 70px;
+  margin: 10px 15px 0 0;
 }
 .login-form input {
-  padding: 12px 50px 12px 12px;
+  padding: 12px 0;
 }
 
 .btn {

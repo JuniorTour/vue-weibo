@@ -11,6 +11,10 @@ import './assets/stylus/index.styl'
 
 Vue.config.productionTip = true
 
+import Ripple from 'vue-ripple-directive'
+
+Vue.directive('ripple', Ripple);
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

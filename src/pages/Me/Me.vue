@@ -1,7 +1,7 @@
 <template>
 <div class="me">
   <div class="profile-card card">
-    <div class="avatar-card border-1px border-bottom-1px">
+    <div class="avatar-card border-1px border-bottom-1px" v-ripple>
       <a class="card-avatar">
         <img src="../../../static/img/avatar/my-weibo-avatar.jpg">
       </a>
@@ -37,7 +37,7 @@
     </footer>
   </div>
   <div class="card-line-group">
-    <section class="card-line card-4">
+    <section class="card-line card-4" v-ripple>
       <a>
         <i class="iconfont icon-friends"></i>
         <div class="content">新的好友</div>
@@ -46,7 +46,7 @@
     </section>
   </div>
   <div class="card-line-group">
-    <section class="card-line card-4">
+    <section class="card-line card-4" v-ripple>
       <a>
         <i class="iconfont icon-level"></i>
         <div class="content">微博等级<span class="mct-b txt-xs">Lv9</span></div>
@@ -55,21 +55,21 @@
     </section>
   </div>
   <div class="card-line-group">
-    <section class="card-line card-4">
+    <section class="card-line card-4" v-ripple>
       <a>
         <i class="iconfont icon-album"></i>
         <div class="content">我的相册<span class="mct-b txt-xs">(8)</span></div>
         <i class="iconfont icon-right-arrow"></i>
       </a>
     </section>
-    <section class="card-line card-4">
+    <section class="card-line card-4" v-ripple>
       <a>
         <i class="iconfont icon-collect"></i>
         <div class="content">我的收藏<span class="mct-b txt-xs">(5)</span></div>
         <i class="iconfont icon-right-arrow"></i>
       </a>
     </section>
-    <section class="card-line card-4">
+    <section class="card-line card-4" v-ripple>
       <a>
         <i class="iconfont icon-like"></i>
         <div class="content">赞<span class="mct-b txt-xs">(1218)</span></div>
@@ -78,7 +78,7 @@
     </section>
   </div>
   <div class="card-line-group">
-    <section class="card-line card-4">
+    <section class="card-line card-4" v-ripple>
       <a>
         <i class="iconfont icon-gear"></i>
         <div class="content">设置</div>

@@ -3,7 +3,7 @@
     <loading v-show="isLoading"></loading>
     <div class="data-content">
       <section class="card-list">
-        <div v-for="(item, index) in msgGroup" class="avatar-card border-1px border-bottom-1px">
+        <div v-ripple v-for="(item, index) in msgGroup" class="avatar-card border-1px border-bottom-1px">
           <a v-if="item.user===undefined" class="msg-icon-btn" :class="item.type+'-icon-wrapper'">
             <i class="iconfont" :class="'icon-'+item.type"></i>
           </a>

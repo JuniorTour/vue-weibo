@@ -6,7 +6,6 @@ import Home from '@/pages/Home/Home.vue'
 import Message from '@/pages/Message/Message.vue'
 import Discovery from '@/pages/Discovery/Discovery.vue'
 import Me from '@/pages/Me/Me.vue'
-import NotFound from '@/pages/NotFound/NotFound.vue'
 
 Vue.use(Router)
 
@@ -35,11 +34,6 @@ export default new Router({
       path: '/me',
       name: 'Me',
       component: Me
-    },
-    {
-      path: '*',
-      name: NotFound,
-      component: NotFound
     }
   ]
 })
