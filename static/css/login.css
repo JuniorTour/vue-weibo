@@ -39,16 +39,19 @@ body {
 .login-input-wrapper p:last-of-type {
   border: none;
 }
+.login-form label {
+  position: relative;
+}
 .iconfont {
-  float: left;
   color: #aaa;
   font-style: normal;
   display: inline-block;
   width: 70px;
-  margin: 10px 15px 0 0;
+  position: absolute;
+  top: 10%;
 }
 .login-form input {
-  padding: 12px 0;
+  padding: 12px 12px 12px 70px;
 }
 
 .btn {
