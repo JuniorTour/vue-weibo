@@ -12,8 +12,7 @@ import './assets/stylus/index.styl'
 Vue.config.productionTip = true
 
 import Ripple from 'vue-ripple-directive'
-
-Vue.directive('ripple', Ripple);
+Vue.directive('ripple', Ripple)
 
 /* eslint-disable no-new */
 new Vue({
@@ -23,3 +22,4 @@ new Vue({
   template: '<App/>',
   components: {App}
 })
+

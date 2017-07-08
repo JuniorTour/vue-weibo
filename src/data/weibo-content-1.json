@@ -44,7 +44,7 @@
         "created_at": "18分钟前",
         "id": "0",
         "mid": "0",
-        "text": "测试<a href=\"/not-found\"><i class=\"iconfont icon-link\"></i><span class= \"surl-text \">404-not-found</span></a>、测试网页链接<a data-url=\"\"><i class=\"iconfont icon-link\"></i><span class= \"surl-text \">这是一个网页链接</span></a>、#关键词：<a class='k' >#关键词#</a>、打开全文跳转链接：...<a>全文</a>等功能。​",
+        "text": "测试网页链接<a data-url=\"\"><i class=\"iconfont icon-link\"></i><span class= \"surl-text \">这是一个网页链接</span></a>、#关键词：<a class='k' >#关键词#</a>、打开全文跳转链接：...<a>全文</a>等功能。​",
         "textLength": 16,
         "source": "iphone se(高级黑)",
         "favorited": false,

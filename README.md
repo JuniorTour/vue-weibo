@@ -2,7 +2,7 @@
 
 ### [vue-weibo的GitHub仓库地址](https://github.com/JuniorTour/vue-weibo)
 
-这是一个用Vue.js及相关插件模仿制作[新浪微博移动版](m.weibo.cn)的项目。
+这是一个用Vue.js及相关插件模仿制作[新浪微博移动版(m.weibo.cn)](m.weibo.cn)的项目。
 
 使用了`vue-cli`作为搭建工具，主要使用了`vue.js@2.3.3`,`vue-resource@1.3.4`,`vue-router@2.3.1`,`vuex@2.3.1`等工具。
 
@@ -38,11 +38,9 @@ npm run prod  //或生产环境中运行，资源经过压缩，访问更快。
 
 # 配套教程
 
-目前代码关键部分中已经有相应的注释介绍，并且这个仓库页详细记录了从零开始的commit，欢迎用作参考。
+目前代码关键部分中已经有相应的注释介绍，稍后，我会详细地写出从0构建这个项目的过程，敬请期待！
 
-稍后，我还会详细地写出从0构建这个项目的过程，敬请期待！
-
-如果你有任何意见和想法，都欢迎通过各种方式和我交流！ヾ(✿ﾟ▽ﾟ)ノ
+如果你对此有任何意见和想法，都欢迎通过各种方式和我交流！ヾ(✿ﾟ▽ﾟ)ノ
 
 # To-do List:
 
@@ -51,10 +49,10 @@ npm run prod  //或生产环境中运行，资源经过压缩，访问更快。
 2. 图片预览手势支持
 3. 配套教程文章
 4. local storage
-5. 手机添加至桌面功能
-~~6. 登录页面、404页面及相应的路由~~
-~~7. ripple effect~~
-8. ......
+5. ~~IOS手机添加至桌面功能~~ -2017/7/8
+6. ~~登录页面、404页面及相应的路由~~ -2017/7/6
+7. ~~ripple effect~~  -2017/7/8
+7. ......
 
 # 项目结构：
 
@@ -65,7 +63,6 @@ npm run prod  //或生产环境中运行，资源经过压缩，访问更快。
 ├── config/
 │   ├── index.js                # main project config
 │   └── ...
-├── dist/                       # npm run build 生成的生产环境资源
 ├── notes/
 │   └── ...                       # 制作过程中的一些笔记。
 ├── src/
@@ -90,7 +87,6 @@ npm run prod  //或生产环境中运行，资源经过压缩，访问更快。
 ├── .eslintrc.js                # eslint config
 ├── .editorconfig               # editor config
 ├── index.html                  # index.html template
-├── prod-server.js              # 生产环境所用的服务器文件
-└── package.json                # build scripts and dependencies
+└── package.json                # build scripts and dependencies
 ```
 

@@ -15,6 +15,10 @@
       </transition>
     </div>
     <picture-viewer v-show="switchPicViewer"></picture-viewer>
+    <div v-show="showAddTip" class="addToHomeTip txt-cut">
+      <i class="close-add-tip-icon" @click.prevent="hideAddTip()">x</i>
+      <section class="icon-block"></section>
+      <span>添加到主屏幕，不会迷路哦~</span></div>
   </div>
 </template>
 
@@ -27,7 +31,9 @@ export default {
   data(){
     return {
       transitionName: 'slide-left',
-      pageVerticalPos: 0
+      pageVerticalPos: 0,
+      /*iOS中浏览器直接访问站点时，navigator.standalone为false,从主屏启动webapp 时，navigator.standalone为true， 我们可以通过navigator.standalone这个属性获知用户当前是否是从主屏访 问我们的webapp的。*/
+      showAddTip: navigator.standalone !== undefined ? !navigator.standalone : false
     }
   },
   components: {
@@ -75,6 +81,10 @@ export default {
        它仅仅作为一个直接访问子组件的应急方案——应当避免在模版或计算属性中使用 $refs 。”，
        来自 ： https://cn.vuejs.org/v2/guide...子组件索引
        不知道还有没有更优雅的方式？*/
+    },
+    hideAddTip() {
+      console.log('this.showAddTip = false')
+      this.showAddTip = false
     }
   },
   computed: {
@@ -153,4 +163,45 @@ body
     padding 94px 0 0 0
     position relative
     overflow hidden
+
+  .addToHomeTip
+    position: fixed
+    bottom 10px
+    left 50%
+    transform: translateX(-50%)
+    font-size: .9275rem
+    background-color #f8f8f8
+    text-align: center
+    line-height: 50px
+    padding 0 10px 0 60px
+    border: 1px solid #d2caca
+    border-radius 5px
+    z-index: 21
+    overflow visible
+    .close-add-tip-icon
+      width: 18px
+      line-height: 18px
+      font-size: 12px
+      position: absolute
+      top 0
+      right 0
+    .icon-block
+      width 40px
+      height 40px
+      background url("../static/img/favicon-min.jpg") 0 0 / contain no-repeat
+      border-radius 5px
+      position: absolute
+      top 5px
+      left 10px
+    &:after
+      content ''
+      width 0
+      height 0
+      border solid rgba(0,0,0,0)
+      border-width 10px
+      border-top-color #d2caca
+      position: absolute
+      bottom -21px
+      left 50%
+      transform: translateX(-11px)
 </style>

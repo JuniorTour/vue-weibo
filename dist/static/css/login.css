@@ -36,22 +36,21 @@ body {
 .login-input-wrapper p {
   border-bottom:1px solid #d7d7d7;
 }
+.login-input-wrapper label {
+  position: relative;
+}
 .login-input-wrapper p:last-of-type {
   border: none;
-}
-.login-form label {
-  position: relative;
 }
 .iconfont {
   color: #aaa;
   font-style: normal;
-  display: inline-block;
   width: 70px;
   position: absolute;
-  top: 10%;
+  top: 0;
 }
 .login-form input {
-  padding: 12px 12px 12px 70px;
+  padding: 12px 10px 12px 75px;
 }
 
 .btn {
@@ -79,6 +78,9 @@ body {
   color: #7c7c7c;
 }
 
+.third-part-login a:active, footer a:active {
+  background-color: #5bb4da;
+}
 .other-options {
   font-size:.875rem;
   text-align: center;
@@ -87,9 +89,6 @@ body {
 .other-options a:first-of-type {
   margin-right: 30px;
   position: relative;
-}
-.other-options a:active {
-  background-color: #9EC3FD;
 }
 .other-options a:first-of-type:after {
   content: ' ';

@@ -4,7 +4,7 @@
   <div class="search-bar-wrapper">
     <i class="iconfont icon-search"></i>
     <form class="search-form" action="" method="get">
-      <input v-ripple @focus="focusSearchBar" :class="{'search-bar-active':searchBarOnFocus}" type="search" class="search-bar" placeholder="搜索">
+      <input @focus="focusSearchBar" :class="{'search-bar-active':searchBarOnFocus}" type="search" class="search-bar" placeholder="搜索">
       <button @click.prevent="blurSearchBar" v-show="searchBarOnFocus" class="cancel-search-btn">取消</button>
     </form>
   </div>
