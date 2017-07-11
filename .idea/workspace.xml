@@ -2,11 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc4d7261-f1f3-41eb-a77e-691de4f99c14" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/css/app.586ca12f69d83f04d33fe5764abd14b7.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/css/app.586ca12f69d83f04d33fe5764abd14b7.css.gz" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/css/app.586ca12f69d83f04d33fe5764abd14b7.css.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/js/app.f5add742a838483900cd.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/js/app.f5add742a838483900cd.js.gz" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/js/app.f5add742a838483900cd.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/js/manifest.51bd81046fa16260a130.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/static/js/manifest.51bd81046fa16260a130.js.map" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notes/Summary-of-experience.md" afterPath="$PROJECT_DIR$/notes/Summary-of-experience.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/404.html" afterPath="$PROJECT_DIR$/dist/404.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/index.html" afterPath="$PROJECT_DIR$/dist/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/login.html" afterPath="$PROJECT_DIR$/dist/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/static/css/login.css" afterPath="$PROJECT_DIR$/dist/static/css/login.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/static/js/vendor.89a063fb5fbd70e6a859.js" afterPath="$PROJECT_DIR$/dist/static/js/vendor.89a063fb5fbd70e6a859.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data/weibo-content-1.json" afterPath="$PROJECT_DIR$/src/data/weibo-content-1.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/Home/Home.vue" afterPath="$PROJECT_DIR$/src/pages/Home/Home.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/login.css" afterPath="$PROJECT_DIR$/static/css/login.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,12 +32,12 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="499">
-                <caret line="54" column="20" lean-forward="false" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
+              <first_editor relative-caret-position="91">
+                <caret line="50" column="16" lean-forward="false" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
                 <folding />
               </first_editor>
               <second_editor>
@@ -41,7 +52,7 @@
       <file leaf-file-name="App.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="827">
+            <state relative-caret-position="793">
               <caret line="34" column="147" lean-forward="false" selection-start-line="34" selection-start-column="147" selection-end-line="34" selection-end-column="147" />
               <folding>
                 <element signature="e#1408#1475#0" expanded="false" />
@@ -56,7 +67,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Home.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Home.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/Home/Home.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
@@ -92,16 +103,26 @@
       <file leaf-file-name="weibo-content-1.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/data/weibo-content-1.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1958">
-              <caret line="200" column="40" lean-forward="false" selection-start-line="200" selection-start-column="40" selection-end-line="200" selection-end-column="40" />
+            <state relative-caret-position="156">
+              <caret line="183" column="37" lean-forward="false" selection-start-line="183" selection-start-column="37" selection-end-line="183" selection-end-column="37" />
               <folding>
                 <element signature="e#149#487#0" expanded="false" />
                 <element signature="e#532#1758#0" expanded="false" />
                 <element signature="e#1311#1578#0" expanded="false" />
                 <element signature="e#3900#6273#0" expanded="false" />
                 <element signature="e#5256#5358#0" expanded="false" />
-                <element signature="e#7092#7154#0" expanded="false" />
+                <element signature="e#7108#7170#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -275,12 +296,12 @@
         <option value="$PROJECT_DIR$/login.html" />
         <option value="$PROJECT_DIR$/dist/login.html" />
         <option value="$USER_HOME$/Desktop/Hello World/My-Study-Of-Front-End/Demos/search-of-front-end/search-notes.md" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/App.vue" />
         <option value="$PROJECT_DIR$/static/css/login.css" />
         <option value="$PROJECT_DIR$/notes/Summary-of-experience.md" />
-        <option value="$PROJECT_DIR$/src/data/weibo-content-1.json" />
         <option value="$PROJECT_DIR$/src/pages/Home/Home.vue" />
+        <option value="$PROJECT_DIR$/src/data/weibo-content-1.json" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -529,24 +550,24 @@
       <workItem from="1499393776023" duration="19169000" />
       <workItem from="1499764091828" duration="339000" />
       <workItem from="1499767031023" duration="727000" />
-      <workItem from="1499781534932" duration="3438000" />
+      <workItem from="1499781534932" duration="3994000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="275979000" />
+    <option name="totallyTimeSpent" value="276535000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15104167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15104167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27188465" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27188465" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32955715" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -761,13 +782,6 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Desktop/audio-player-summary.md" />
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/vue-ripple-directive/src/ripple.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="657">
@@ -857,24 +871,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="499">
-            <caret line="54" column="20" lean-forward="false" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
-            <folding />
-          </first_editor>
-          <second_editor>
-            <js_state>
-              <onLoadScroll type="JSON" value="{&quot;x&quot;:0,&quot;y&quot;:1600}" />
-            </js_state>
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="827">
+        <state relative-caret-position="793">
           <caret line="34" column="147" lean-forward="false" selection-start-line="34" selection-start-column="147" selection-end-line="34" selection-end-column="147" />
           <folding>
             <element signature="e#1408#1475#0" expanded="false" />
@@ -893,7 +892,7 @@
         <state relative-caret-position="408">
           <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#21#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -929,21 +928,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/weibo-content-1.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1958">
-          <caret line="200" column="40" lean-forward="false" selection-start-line="200" selection-start-column="40" selection-end-line="200" selection-end-column="40" />
-          <folding>
-            <element signature="e#149#487#0" expanded="false" />
-            <element signature="e#532#1758#0" expanded="false" />
-            <element signature="e#1311#1578#0" expanded="false" />
-            <element signature="e#3900#6273#0" expanded="false" />
-            <element signature="e#5256#5358#0" expanded="false" />
-            <element signature="e#7092#7154#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/Home/Home.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -972,6 +956,44 @@
             <element signature="e#10339#10572#0" expanded="false" />
             <marker date="1499784939668" expanded="false" signature="14197:14420" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/weibo-content-1.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="183" column="37" lean-forward="false" selection-start-line="183" selection-start-column="37" selection-end-line="183" selection-end-column="37" />
+          <folding>
+            <element signature="e#149#487#0" expanded="false" />
+            <element signature="e#532#1758#0" expanded="false" />
+            <element signature="e#1311#1578#0" expanded="false" />
+            <element signature="e#3900#6273#0" expanded="false" />
+            <element signature="e#5256#5358#0" expanded="false" />
+            <element signature="e#7108#7170#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="91">
+            <caret line="50" column="16" lean-forward="false" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
+            <folding />
+          </first_editor>
+          <second_editor>
+            <js_state>
+              <onLoadScroll type="JSON" value="{&quot;x&quot;:0,&quot;y&quot;:1600}" />
+            </js_state>
+          </second_editor>
         </state>
       </provider>
     </entry>

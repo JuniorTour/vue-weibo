@@ -48,6 +48,8 @@ body {
   width: 70px;
   position: absolute;
   top: 0;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 .login-form input {
   padding: 12px 10px 12px 75px;
