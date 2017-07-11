@@ -169,3 +169,10 @@ https://developer.mozilla.org/zh-CN/docs/Web/CSS/-moz-appearance：
 -webkit-appearance: none，粗鲁地解决了
 
 4. vue-ripple-effect中的ripple.js的第5行const props声明会导致ios 9.3的Safari无法呈现页面，改为var即修复。
+
+5. :active 相互覆盖问题：
+.card的:active会和footer的active覆盖！
+   .card:active
+     background-color #ebebeb
+
+是否只能用data-act-type加事件委托来实现:active？

@@ -65,11 +65,14 @@
           {{item.mblog.comments_count}}
         </a>
         <i class="separate-line"></i>
-        <a class="like">
+        <a class="like" @click.prevent="likeIt(item)" :class="{'liked': item.mblog.favorited===true}">
           <i class="iconfont icon-like"></i>
           {{item.mblog.attitudes_count}}
         </a>
       </footer>
+    </div>
+    <div class="like-animation-wrapper" v-show="showLikeAnimationWrapper">
+      <div class="like">Like</div>
     </div>
     <loading v-show="bottomIsLoading"></loading>
     <div class="content-tip no-text-select" v-show="noMore" @click="updateContent()">
@@ -95,7 +98,8 @@
         topIsLoading: true,
         bottomIsLoading: false,
         noMore: false,
-        noNew: false
+        noNew: false,
+        showLikeAnimationWrapper: false
       }
     },
     components: {
@@ -125,7 +129,7 @@
           this.hasTopTip = true
 //          console.log('this.topTip:', this.topTip)
         }
-        //主要内容加载完成后，在开始显示底部加载动画：
+        //主要内容加载完成后，才开始显示底部加载动画：
         this.bottomIsLoading = true
         setTimeout(() => {
           //故意推迟，以显示加载动画效果
@@ -255,6 +259,21 @@
           timeout = setTimeout(func, wait)
           /*一个事件发生wait毫秒后，不再触发该事件，才执行相应的处理函数。*/
         }
+      },
+      likeIt(item) {
+        if (item.mblog.favorited === false) {
+          this.$set(item.mblog, 'attitudes_count', item.mblog.attitudes_count + 1)
+          this.$set(item.mblog, 'favorited', true)
+        } else {
+          this.$set(item.mblog, 'attitudes_count', item.mblog.attitudes_count - 1)
+          this.$set(item.mblog, 'favorited', false)
+        }
+
+        //显示点赞动画：
+//        this.showLikeAnimationWrapper = true
+//        setTimeout(() => {
+//          this.showLikeAnimationWrapper = false
+//        }, 600)
       }
     }
   }
@@ -395,6 +414,19 @@
     &:active
       background-color #ebebeb
 
+
+.liked
+  color red !important
+
+.like-animation-wrapper
+  width: 200px
+  height 200px
+  background-color red
+  position: fixed
+  top 50%
+  left 30%
+  animation likeAnimation linear .3s 1
+
 .content-tip
   width 100%
   text-align center
@@ -408,4 +440,13 @@
     line-height 19px
     color #7c7c7c
     margin 14px 0
+
+@keyframes likeAnimation {
+  50% {
+    transform: rotate(30deg)
+  }
+  100% {
+    transform: rotate(-30deg)
+  }
+}
 </style>

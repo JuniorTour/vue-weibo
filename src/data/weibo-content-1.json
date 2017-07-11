@@ -44,7 +44,7 @@
         "created_at": "18分钟前",
         "id": "0",
         "mid": "0",
-        "text": "测试网页链接<a data-url=\"\"><i class=\"iconfont icon-link\"></i><span class= \"surl-text \">这是一个网页链接</span></a>、#关键词：<a class='k' >#关键词#</a>、打开全文跳转链接：...<a>全文</a>等功能。​",
+        "text": "测试404路由和页面<a href=\"/not-found-404\"><i class=\"iconfont icon-link\"></i><span class= \"surl-text \">not-found-404</span></a>、测试网页链接<a data-url=\"\"><i class=\"iconfont icon-link\"></i><span class= \"surl-text \">这是一个网页链接</span></a>、#关键词：<a class='k' >#关键词#</a>、打开全文跳转链接：...<a>全文</a>等功能。​",
         "textLength": 16,
         "source": "iphone se(高级黑)",
         "favorited": false,
@@ -198,7 +198,7 @@
           "created_at": "今天 14:26",
           "id": "0",
           "mid": "0",
-          "text": "测试转发",
+          "text": "扫一扫，即可在手机上访问vue-weibo！",
           "textLength": 10,
           "source": "微博 HTML5 版",
           "favorited": false,
@@ -228,7 +228,7 @@
           "pics":  [
             {
               "pid": "48adb7cely1fgkpoudvs4j21jk222wgi",
-              "url": "static/img/eg-img/green-shade-min.jpg",
+              "url": "static/img/vue-weibo-qr-code.png",
               "size": "thumb180",
               "geo":  {
               "width": 180,
@@ -237,7 +237,7 @@
             },
             "large":  {
               "size": "large",
-              "url": "static/img/eg-img/green-shade-min.jpg",
+              "url": "static/img/vue-weibo-qr-code.png",
               "geo":  {
                 "width": "2000",
                 "height": "2666",
