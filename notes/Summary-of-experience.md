@@ -157,6 +157,20 @@ path.resolve([from ...], to)
 
 19. __dirname returns the directory that the currently executing script is in.
 
+20. 居中常用思路：
+  1.
+  ``` css
+  p:a
+  left:50%
+  transform: translateX(-50%)
+  ```
+  2.
+  ``` css
+  p:a
+  left:50%
+  margin-left: -(元素的一半宽度)
+  ```
+  3. flex布局
 
 
 #Bug记录：

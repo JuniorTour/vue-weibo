@@ -11,7 +11,7 @@
     </div>
     <div class="main-body" v-show="!switchPicViewer">
       <transition :name="transitionName">
-        <router-view ref="home"></router-view>
+        <router-view ref="home" @hideAppAddTip="hideAddTip()"></router-view>
       </transition>
     </div>
     <picture-viewer v-show="switchPicViewer"></picture-viewer>
@@ -83,8 +83,10 @@ export default {
        不知道还有没有更优雅的方式？*/
     },
     hideAddTip() {
+      /*设置成了当Home中开始加载内容或更新内容时，通过父子组件事件传递，隐藏该提示。*/
       console.log('this.showAddTip = false')
       this.showAddTip = false
+//      alert('hided hideAppAddTip')
     }
   },
   computed: {

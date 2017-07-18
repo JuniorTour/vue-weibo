@@ -65,15 +65,20 @@
           {{item.mblog.comments_count}}
         </a>
         <i class="separate-line"></i>
-        <a class="like" @click.prevent="likeIt(item)" :class="{'liked': item.mblog.favorited===true}">
+        <a class="like" @click.prevent="likeIt($event, item)" :class="{'liked': item.mblog.favorited===true}">
           <i class="iconfont icon-like"></i>
           {{item.mblog.attitudes_count}}
         </a>
       </footer>
     </div>
-    <div class="like-animation-wrapper" v-show="showLikeAnimationWrapper">
-      <div class="like">Like</div>
-    </div>
+    <transition name="like"
+                v-on:before-enter="beforeLikeEnter"
+                v-on:enter="likeEnter"
+                v-on:after-enter="afterLikeEnter">
+      <div class="like-animation-wrapper" v-show="showLikeAnimationWrapper">
+        <i class="iconfont icon-like"></i>
+      </div>
+    </transition>
     <loading v-show="bottomIsLoading"></loading>
     <div class="content-tip no-text-select" v-show="noMore" @click="updateContent()">
       <span>没有更多微博了QAQ，点我刷新看看吧！</span>
@@ -99,7 +104,11 @@
         bottomIsLoading: false,
         noMore: false,
         noNew: false,
-        showLikeAnimationWrapper: false
+        showLikeAnimationWrapper: false,
+        clickedLikeBtnPos: {
+          pageX: 0,
+          pageY: 0
+        }
       }
     },
     components: {
@@ -182,6 +191,7 @@
 //        console.log('window.scrollY = ', window.scrollY)
 //        console.log('window.pageYOffset  = ', window.pageYOffset)
         if (windowScrollHeight + window.innerHeight > pageHeight - 100) {
+          this.hideAppAddTip()
           console.log('To push content')
           this.getContent()
         }
@@ -214,6 +224,7 @@
         }
       },
       updateContent() {
+        this.hideAppAddTip()
         this.scrollToTop()
         let previousCursor = this.weiboContent.previous_cursor
         this.topIsLoading = true
@@ -260,20 +271,49 @@
           /*一个事件发生wait毫秒后，不再触发该事件，才执行相应的处理函数。*/
         }
       },
-      likeIt(item) {
+      likeIt(e, item) {
+        //获取点击位置，用于设置动画的起始位置：
+        console.log('clickedLikeBtnPos = ', e)
+        this.clickedLikeBtnPos.pageX = e.pageX - parseInt(window.scrollX)
+        this.clickedLikeBtnPos.pageY = e.pageY - parseInt(window.scrollY)
+        console.log('this.clickedLikeBtnPos.pageY = ', this.clickedLikeBtnPos.pageY)
         if (item.mblog.favorited === false) {
+          //显示点赞动画：
+          this.showLikeAnimationWrapper = true
           this.$set(item.mblog, 'attitudes_count', item.mblog.attitudes_count + 1)
           this.$set(item.mblog, 'favorited', true)
         } else {
           this.$set(item.mblog, 'attitudes_count', item.mblog.attitudes_count - 1)
           this.$set(item.mblog, 'favorited', false)
         }
-
-        //显示点赞动画：
-//        this.showLikeAnimationWrapper = true
-//        setTimeout(() => {
-//          this.showLikeAnimationWrapper = false
-//        }, 600)
+      },
+      beforeLikeEnter(el) {
+        /*在动画块呈现之前，，将其位置设置到点赞的位置上：*/
+        el.style.transform = 'scale(0.1)'
+        el.style.top = this.clickedLikeBtnPos.pageY + 'px'
+        el.style.left = this.clickedLikeBtnPos.pageX + 'px'
+        console.log('beforeLikeEnter : this.clickedLikeBtnPos.pageY = ', this.clickedLikeBtnPos.pageY)
+      },
+      likeEnter(el, done) {
+        /* eslint-disable no-unused-vars*/
+        /*很神奇！必须要触发一次重绘才能实现位置移动的过渡效果？？？
+        * 正在查资料搞清楚这个问题！*/
+        let rf = el.offsetHeight
+        el.style.transform = 'scale(1)'
+        el.style.top = '190px'
+        el.style.left = '50%'
+        done()
+      },
+      afterLikeEnter(el) {
+        //动画结束后，隐藏该动画块（需要enter钩子中调用done()）：
+        /*一个坑：enter钩子中调用了done()的话，动画效果就没有了？？？
+        * 这和css中动画声明的class有关。*/
+        this.showLikeAnimationWrapper = false
+        console.log('动画结束后，隐藏该动画块.')
+      },
+      hideAppAddTip() {
+        this.$emit('hideAppAddTip')
+//        alert('emit hideAppAddTip')
       }
     }
   }
@@ -419,13 +459,22 @@
   color red !important
 
 .like-animation-wrapper
-  width: 200px
-  height 200px
-  background-color red
+  width: 50px
+  height 50px
+  line-height 50px
+  text-align center
+  color: #ff8200
+  background-color: #f5f5f5
+  border: 1px solid #eee
+  border-radius 50%
   position: fixed
-  top 50%
-  left 30%
-  animation likeAnimation linear .3s 1
+  /*top 90px*/
+  /*left 50%*/
+  /*水平居中成问题啊！*/
+  transition all .3s linear
+  margin-left -25px
+  .icon-like
+    font-size 32px
 
 .content-tip
   width 100%
@@ -441,12 +490,25 @@
     color #7c7c7c
     margin 14px 0
 
-@keyframes likeAnimation {
-  50% {
+.like-enter-to
+  animation: like .8s .4s
+/*动画性能有待优化，看起来帧数有些低？！*/
+
+/*.like-enter-active*/
+/*animation: like .4s .4s*/
+
+@keyframes like {
+  0% {
     transform: rotate(30deg)
   }
-  100% {
+  20% {
     transform: rotate(-30deg)
+  }
+  40% {
+    transform: rotate(30deg)
+  }
+  60% {
+    transform: rotate(0deg)
   }
 }
 </style>
