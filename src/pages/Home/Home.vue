@@ -396,6 +396,8 @@
   right: 0
   width: 3.75rem
   height: 3.375rem
+  &:active
+    background-color #ebebeb
   .icon-down-arrow
     position: absolute
     top .5rem

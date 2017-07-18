@@ -15,8 +15,11 @@
 
 ## 动图预览：
 
+### 基本功能：
 ![vue-weibo动图预览](./notes/vue-weibo-demonstration.gif)
 
+### 路由、点赞动画、涟漪效果等演示：
+![vue-weibo动图预览-2](./notes/vue-weibo-demonstration-2.gif)
 
 # 基本功能：
 
@@ -44,7 +47,7 @@ npm run prod  //或生产环境中运行，资源经过压缩，访问更快。
 
 # To-do List:
 
-~~0. 点赞动画特效！~~  -2017/7/18
+0. ~~点赞动画特效！~~  -2017/7/18
 1. 滑动删除消息
 2. 图片预览手势支持
 3. 配套教程文章
