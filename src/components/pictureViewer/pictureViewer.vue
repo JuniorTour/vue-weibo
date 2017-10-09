@@ -1,6 +1,8 @@
 <template>
-<div class="picture-viewer" @click.prevent="closePictureViewer">
-  <div class="picture-window">
+<div class="picture-viewer">
+  <div class="picture-window"
+       v-finger:tap="tap"
+       v-finger:swipe="swipe">
     <img :src="targetPicUrl">
   </div>
   <div class="picture-ctrl-bar">
@@ -12,12 +14,24 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+  import AlloyFinger from 'alloyfinger'
+  import AlloyFingerVue from 'alloyfinger/vue/alloy_finger.vue.js'
+  Vue.use(AlloyFingerVue, { AlloyFinger: AlloyFinger });
+
   export default {
     name: 'pictureViewer',
     methods: {
       closePictureViewer() {
 //        console.log('closePicViewer in pictureViewer.vue.')
         this.$store.commit('closePicViewer')
+      },
+      tap() {
+        console.log('alloyfinger tapped')
+      },
+      swipe: function(evt) {
+        console.log("swipe" + evt.direction);
+        console.log('onSwipe');
       }
     },
     computed: {

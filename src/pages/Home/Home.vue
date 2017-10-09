@@ -114,9 +114,9 @@
     components: {
       loading
     },
-    /*此处也可以在mounted之中用$nextTick调用methods的方法，来初始化weiboContent。详见 http://dwz.cn/65ocqi
-     * 但我个人结合生命周期图认为，created早于mounted，用于初始化视图，应该首选created！*/
     created() {
+      /*此处也可以在mounted之中用$nextTick调用methods的方法，来初始化weiboContent。详见 http://dwz.cn/65ocqi
+       * 但我个人结合生命周期图认为，created早于mounted，用于初始化视图，应该首选created！*/
       /*https://segmentfault.com/q/1010000006915580
        * 放在目录里并不意味能通过http访问。
        * 要么另起web服务serve这个目录，要么放在static目录里，因为dev-server对该目录文件实现了http访问。*/

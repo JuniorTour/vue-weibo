@@ -190,3 +190,5 @@ https://developer.mozilla.org/zh-CN/docs/Web/CSS/-moz-appearance：
      background-color #ebebeb
 
 是否只能用data-act-type加事件委托来实现:active？
+
+6. 图片查看组件在路由跳转（如微信中的返回）时，没有关闭！
