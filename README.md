@@ -6,11 +6,14 @@
 
 使用了`vue-cli`作为搭建工具，主要使用了`vue.js@2.3.3`,`vue-resource@1.3.4`,`vue-router@2.3.1`,`vuex@2.3.1`等工具。
 
-欢迎Issue、PR、邮件、微博等等各种交流！更欢迎给我点个赞以示鼓励，谢谢你！
+欢迎Issue、PR、邮件、微博等等各种交流！更欢迎给我点个`Star`:star2:以示鼓励，谢谢你！
 
 # 预览demo：
 
-### [vue-weibo在线demo地址](http://juniortour.net:8080)
+### [点击访问vue-weibo在线demo](http://juniortour.net:8080)
+
+或扫码预览：
+
 ![vue-weibo在线地址二维码](./notes/vue-weibo-qr-cod.png)
 
 ## 动图预览：
@@ -34,9 +37,9 @@ cd vue-weibo
 
 npm install       //推荐使用 cnpm 淘宝NPM镜像安装更快！
 
-npm run dev     //开发环境中运行，构建完成后，自动访问http://localhost:8080/，自带热更新，便于开发。
+npm run dev       //开发环境中运行，构建完成后，自动访问http://localhost:8080/，自带热更新，便于开发。
 
-npm run prod  //或生产环境中运行，资源经过压缩，访问更快。
+npm run prod      //或生产环境中运行，资源经过压缩，访问更快。
 ```
 
 # 配套教程
@@ -55,33 +58,34 @@ npm run prod  //或生产环境中运行，资源经过压缩，访问更快。
 5. ~~IOS手机添加至桌面功能~~ -2017/7/8
 6. ~~登录页面、404页面及相应的路由~~ -2017/7/6
 7. ~~ripple effect~~  -2017/7/8~
-8. ......
+8. 优化整理代码
+9. ......
 
 # 项目结构：
 
 ```
 .
-├── build/                      # webpack config files
+├── build/              # webpack config files
 │   └── ...
 ├── config/
-│   ├── index.js                # main project config
+│   ├── index.js        # main project config
 │   └── ...
 ├── notes/
-│   └── ...                       # 制作过程中的一些笔记。
+│   └── ...             # 制作过程中的一些笔记。
 ├── src/
-│   ├── assets/             # 字体、样式等module 资源 (会被webpack处理)
+│   ├── assets/         # 字体、样式等module 资源 (会被webpack处理)
 │   │   └── ...
 │   ├── components/     # 局部组件
 │   │   └── ...
-│   ├── data/                 # 模拟数据
+│   ├── data/           # 模拟数据
 │   │   └── ...
-│   ├── pages/               # 主要页面组件
+│   ├── pages/          # 主要页面组件
 │   │   └── ...
-│   ├── main.js                # app 入口文件
-│   ├── App.vue              # 主要app组件
-├── static/                      # 图片等纯静态资源
+│   ├── main.js         # app 入口文件
+│   ├── App.vue         # 主要app组件
+├── static/             # 图片等纯静态资源
 ├── test/
-│   └── unit/                   # unit tests
+│   └── unit/                  # unit tests
 │      ├── specs/              # test spec files
 │      ├── index.js            # test build entry file
 │      └── karma.conf.js       # test runner config file
