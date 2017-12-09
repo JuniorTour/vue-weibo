@@ -12,9 +12,7 @@
     </div>
     <div class="card" v-for="(item,index) in weiboContent.card_group">
       <header class="card-header">
-        <!--<div class="header-bg" v-if="typeof item.mblog.cardid!=='undefined'">-->
-        <!--&lt;!&ndash;使用 typeof的原因是它不会在一个变量没有被声明的时候抛出一个错误。&ndash;&gt;-->
-        <!--</div>-->
+        <div class="header-bg" v-if="typeof item.mblog.cardid!=='undefined'"></div>
         <a class="avatar" :href="item.mblog.user.profile_url">
           <div class="avatar-wrapper border-around-1px">
             <img class="avatar-img" :src="item.mblog.user.profile_image_url">
@@ -72,9 +70,9 @@
       </footer>
     </div>
     <transition name="like"
-                v-on:before-enter="beforeLikeEnter"
-                v-on:enter="likeEnter"
-                v-on:after-enter="afterLikeEnter">
+                           v-on:before-enter="beforeLikeEnter"
+                           v-on:enter="likeEnter"
+                           v-on:after-enter="afterLikeEnter">
       <div class="like-animation-wrapper" v-show="showLikeAnimationWrapper">
         <i class="iconfont icon-like"></i>
       </div>
@@ -95,9 +93,9 @@
     data(){
       return {
         //要使用实例的属性，需要在这初始化声明
+        hasTopTip: false,
         topTip: {},
         weiboContent: {},
-        hasTopTip: false,
         showPicViewer: this.$store.state.switchPicViewer,
         pagePos: 0,
         topIsLoading: true,
@@ -115,40 +113,25 @@
       loading
     },
     created() {
-      /*此处也可以在mounted之中用$nextTick调用methods的方法，来初始化weiboContent。详见 http://dwz.cn/65ocqi
-       * 但我个人结合生命周期图认为，created早于mounted，用于初始化视图，应该首选created！*/
-      /*https://segmentfault.com/q/1010000006915580
-       * 放在目录里并不意味能通过http访问。
-       * 要么另起web服务serve这个目录，要么放在static目录里，因为dev-server对该目录文件实现了http访问。*/
-      // this.$http.get('static/data/weibo-content.json', {id: 0}).then(res => {
-      //等价于：
       this.$http.get('apis/weibo-content?targetCursor=1', {id: 0}).then(res => {
         /*res.body.data和res.data.data，哪一个才是最佳实践？*/
         if (res.body.errorNum !== 0) {
-          console.log('Get data error!')
+          console.log('Get data error at created()!')
           return;
         }
         this.weiboContent = res.data.data  //微博的所有内容
-//        console.log('this.weiboContent:', this.weiboContent)
-//        console.log('this.weiboContent.previous_cursor:', this.weiboContent.previous_cursor)
-//        console.log('this.weiboContent.next_cursor:', this.weiboContent.next_cursor)
+
         let tempTopTip = res.data.data.card_group[0]
         if (tempTopTip.mod_type === 'mod/clientTopTips') {
-          this.topTip = res.data.data.card_group.shift() //公告是card_group[0]，用shift方法弹出
+          this.topTip = res.data.data.card_group.shift()
           this.hasTopTip = true
-//          console.log('this.topTip:', this.topTip)
         }
-        //主要内容加载完成后，才开始显示底部加载动画：
         this.bottomIsLoading = true
         setTimeout(() => {
-          //故意推迟，以显示加载动画效果
+          //故意推迟，以展示加载动画效果
           this.topIsLoading = false
-        }, 1000)
+        }, 600)
       })
-//        console.log('card_group:', this.weiboContent.card_group)
-//        console.log('mblog:', this.weiboContent.card_group[2].mblog)
-//        console.log('card_group[2].cardid : ', this.weiboContent.card_group[2].mblog.cardid)
-//        console.log('pics[0].url:', this.weiboContent.card_group[2].mblog.pics[0].url)
 
       this.addScrollEvent()
     },
@@ -166,94 +149,74 @@
             tempOutcome = 'icon-blue-v'
             break
         }
-        //console.log('verifiedType : ' + tempOutcome)
         return tempOutcome
       },
       openPicViewer(targetPicUrl) {
-//        console.log('targetPicUrl = ' + targetPicUrl)
-//        console.log('openPicViewer in Home.')
         this.$store.commit('openPicViewer', {targetPicUrl: targetPicUrl})
       },
       addScrollEvent() {
-        /*可以通过以下两句分别对比使用事件防抖前后的效果：*/
+        /*可以通过以下两句分别对比使用事件防抖前后的事件触发次数：*/
 //      window.addEventListener('scroll', this.handleScroll)
         window.addEventListener('scroll', this.myDebounce(this.handleScroll, 500))
-        console.log('Scroll event added!')
       },
       handleScroll() {
-        //console.log('scrolling...', window.scrollY)
-        // Either scroll[Width/Height] or offset[Width/Height], whichever is greater
-        let pageHeight = Math.max(
-          document.documentElement.clientHeight,
+        let pageHeight = Math.max(document.documentElement.clientHeight,
           document.body.scrollHeight, document.documentElement.scrollHeight,
           document.body.offsetHeight, document.documentElement.offsetHeight)
+
         let windowScrollHeight = window.scrollY || window.pageYOffset
-//        console.log('window.scrollY = ', window.scrollY)
-//        console.log('window.pageYOffset  = ', window.pageYOffset)
         if (windowScrollHeight + window.innerHeight > pageHeight - 100) {
           this.hideAppAddTip()
-          console.log('To push content')
           this.getContent()
         }
       },
       getContent() {
-        /*procedure:
-         1.get the next next_cursor from weiboContent.
-         2.use as query attach to url.
-         3.judge whether or not has new weibo.
-         4.if has new weibo , invoke ajax by vue-resource.*/
         let nextCursor = this.weiboContent.next_cursor
         if (nextCursor !== -1) {
           let targetUrl = '/apis/weibo-content' + '?targetCursor=' + nextCursor
           this.$http.get(targetUrl).then((res) => {
-//            console.log('targetUrl = ' + targetUrl)
             if (res.body.errorNum === 0) {
-//              console.log('res.data.data.card_group = ', res.data.data.card_group)
               //把已有的微博和加载的旧微博合并
               this.weiboContent.card_group = this.weiboContent.card_group.concat(res.data.data.card_group)
-              //只更新下一个目标的指向，避免影响前一个目标的加载
+              // 更新下一个目标的id，用于后续更新
               this.weiboContent.next_cursor = res.data.data.next_cursor
             } else {
-              console.log('Get data error!')
+              console.log('getContent() error!')
             }
           })
         } else {
-          console.log('targetCursor === -1 ,No new content.')
-          this.bottomIsLoading = false
           this.noMore = true
+          this.bottomIsLoading = false
         }
       },
       updateContent() {
+        this.topIsLoading = true
         this.hideAppAddTip()
         this.scrollToTop()
+
         let previousCursor = this.weiboContent.previous_cursor
-        this.topIsLoading = true
         if (previousCursor !== -1) {
           let targetUrl = '/apis/weibo-content' + '?targetCursor=' + previousCursor
           this.$http.get(targetUrl).then((res) => {
-//          console.log('targetUrl = ' + targetUrl)
             if (res.body.errorNum === 0) {
-              console.log('res.data.data.card_group = ', res.data.data.card_group)
+              // console.log('res.data.data.card_group = ', res.data.data.card_group)
               //把新的微博和已有的微博合并
               let _this = this
               this.weiboContent.card_group = res.data.data.card_group.concat(_this.weiboContent.card_group)
-              //只更新前一个目标的指向，避免影响下一个目标的加载
               this.weiboContent.previous_cursor = res.data.data.previous_cursor
-              //故意延迟消失，以显示效果
+              //故意延迟消失，以展示效果
               setTimeout(() => {
                 this.topIsLoading = false
               }, 500)
             } else {
-              console.log('Get data error!')
+              console.log('updateContent() error!')
             }
           })
         } else {
-          console.log('targetCursor === -1 ,No new content.')
           setTimeout(() => {
-            this.topIsLoading = false
             this.noNew = true
+            this.topIsLoading = false
           }, 500)
-          //3s后，隐藏没有新微博的提示
           setTimeout(() => {
             this.noNew = false
           }, 3000)
@@ -263,7 +226,6 @@
         window.scrollTo(0, 0)
       },
       myDebounce(func, wait) {
-//        console.log('set my debounce')
         let timeout;
         return function () {
           clearTimeout(timeout)
@@ -273,10 +235,9 @@
       },
       likeIt(e, item) {
         //获取点击位置，用于设置动画的起始位置：
-        console.log('clickedLikeBtnPos = ', e)
         this.clickedLikeBtnPos.pageX = e.pageX - parseInt(window.scrollX)
         this.clickedLikeBtnPos.pageY = e.pageY - parseInt(window.scrollY)
-        console.log('this.clickedLikeBtnPos.pageY = ', this.clickedLikeBtnPos.pageY)
+
         if (item.mblog.favorited === false) {
           //显示点赞动画：
           this.showLikeAnimationWrapper = true
@@ -288,11 +249,10 @@
         }
       },
       beforeLikeEnter(el) {
-        /*在动画块呈现之前，，将其位置设置到点赞的位置上：*/
+        /*在动画块呈现之前，将其位置设置到点赞的位置上：*/
         el.style.transform = 'scale(0.1)'
         el.style.top = this.clickedLikeBtnPos.pageY + 'px'
         el.style.left = this.clickedLikeBtnPos.pageX + 'px'
-        console.log('beforeLikeEnter : this.clickedLikeBtnPos.pageY = ', this.clickedLikeBtnPos.pageY)
       },
       likeEnter(el, done) {
         /* eslint-disable no-unused-vars*/
@@ -309,11 +269,9 @@
         /*一个坑：enter钩子中调用了done()的话，动画效果就没有了？？？
         * 这和css中动画声明的class有关。*/
         this.showLikeAnimationWrapper = false
-        console.log('动画结束后，隐藏该动画块.')
       },
       hideAppAddTip() {
         this.$emit('hideAppAddTip')
-//        alert('emit hideAppAddTip')
       }
     }
   }
@@ -341,9 +299,7 @@
         margin-left: .5rem
         font-size: 0.775rem
 
-//iconfont没选好，文字对不齐
-
-// BUG!!会和footer的active覆盖！
+//  TODO:BUG 会和card-footer的active覆盖！
 /*.card:active*/
   /*background-color #ebebeb*/
 
@@ -377,7 +333,7 @@
       bottom: -.125rem
 
 .user-info
-  max-width 16rem /*避免名字过长*/
+  max-width 16rem
   display: flex
   justify-content center
   flex-direction column
@@ -470,9 +426,6 @@
   border: 1px solid #eee
   border-radius 50%
   position: fixed
-  /*top 90px*/
-  /*left 50%*/
-  /*水平居中成问题啊！*/
   transition all .3s linear
   margin-left -25px
   .icon-like
@@ -494,10 +447,6 @@
 
 .like-enter-to
   animation: like .8s .4s
-/*动画性能有待优化，看起来帧数有些低？！*/
-
-/*.like-enter-active*/
-/*animation: like .4s .4s*/
 
 @keyframes like {
   0% {

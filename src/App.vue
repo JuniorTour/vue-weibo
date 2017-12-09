@@ -32,7 +32,7 @@ export default {
     return {
       transitionName: 'slide-left',
       pageVerticalPos: 0,
-      /*iOS中浏览器直接访问站点时，navigator.standalone为false,从主屏启动webapp 时，navigator.standalone为true， 我们可以通过navigator.standalone这个属性获知用户当前是否是从主屏访 问我们的webapp的。*/
+      // 通过navigator.standalone判断是否已是主屏访问
       showAddTip: navigator.standalone !== undefined ? !navigator.standalone : false
     }
   },
@@ -42,51 +42,39 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-        //用数组的索引标记路由的深度
+        // 用数组的索引标记路由的深度
       const routerOrder = ['/home', '/message', '/discovery', '/me']
       const toDepth = routerOrder.indexOf(to.path)
       const fromDepth = routerOrder.indexOf(from.path)
 
-      // 参考vue-router官方文档，根据路由深度，来判断是该从右侧进入还是该从左侧进入
+      //  根据路由深度来判断该显示哪个方向的过渡动画
       this.transitionName = toDepth < fromDepth ? 'slide-to-left' : 'slide-to-right'
     },
     switchPicViewer: function (val, oldVal) {
-      console.log(this.$router.name)
-      console.log(this.pageName)
       if (val === false) {
-        //关闭图片时，还原页面位置：
-//        console.log('resetPagePos')
         this.resetPagePos()
       } else if (val === true) {
-        //打开图片时，保存当前页面位置：
         this.pageVerticalPos = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
-//        console.log('Saved pageVerticalPos =', this.pageVerticalPos)
       }
     }
   },
   methods: {
     resetPagePos() {
-//      console.log('window.scrollTo()')
       this.$nextTick(function () {
         window.scrollTo(0, this.pageVerticalPos)
       })
     },
     updateWeibo() {
-      //父组件接收到header子组件传来的更新事件后，调用home子组件的updateContent方法
-//      console.log('updateWeibo()')
       //参考：https://cn.vuejs.org/v2/guide/components.html#子组件索引
       this.$refs.home.updateContent()
       /*这种方法确实可行，但个人感觉不是很优雅。
        文档里也提到：“$refs 只在组件渲染完成后才填充，并且它是非响应式的。
        它仅仅作为一个直接访问子组件的应急方案——应当避免在模版或计算属性中使用 $refs 。”，
-       来自 ： https://cn.vuejs.org/v2/guide...子组件索引
+      ·
        不知道还有没有更优雅的方式？*/
     },
     hideAddTip() {
-      /*设置成了当Home中开始加载内容或更新内容时，通过父子组件事件传递，隐藏该提示。*/
-      console.log('this.showAddTip = false')
       this.showAddTip = false
-//      alert('hided hideAppAddTip')
     }
   },
   computed: {
@@ -114,13 +102,10 @@ export default {
   .slide-to-right-leave-active
     transform translate(-80%)
     opacity 0
-    /*仍有bug，当向右滑动时，页面会自动变宽。
-    用给父元素声明overflow hidden解决了。*/
 
 body
   background-color #f2f2f2
 #app
-  /*display none*/
   .head-part
     position: fixed
     top 0
@@ -134,9 +119,7 @@ body
     background-color #f5f5f5
     -webkit-box-shadow 0 1px 2px rgba(0,0,0,.15)
     box-shadow 0 1px 2px rgba(0,0,0,.15)
-    display -wbekit-flex
     display flex
-    /*flex-flow nowrap row*/
     z-index 1
     overflow hidden
     .tab

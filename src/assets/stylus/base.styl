@@ -10,7 +10,6 @@ a
 
 .clearfix
   zoom 1
-  //加上before，避免上外边距出界。相当于为父元素添加了boder和padding
   &:before,&:after
     display: table
     content: ""
@@ -115,9 +114,9 @@ https://stackoverflow.com/questions/3885018/active-pseudo-class-doesnt-work-in-m
 .able-to-active:active
   background-color #ebebeb
 .no-text-select
-  -webkit-user-select: none /* Chrome all , Safari all */
-  -moz-user-select: none /* Firefox all */
-  -ms-user-select: none /* IE 10+ */
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
   -o-user-select: none
   user-select: none
 

@@ -22,18 +22,12 @@
     name: 'header',
     methods: {
       updateContent() {
-        //子组件向父组件发射自定义事件，用于向父组件传递更新的消息。
         this.$emit('toUpdateWeibo')
-//        console.log('emit toUpdateWeibo')
       }
     },
     computed: {
-      //值须为函数
       pageName() {
-//        console.log('current route name is : ', this.$route.name)
         return this.$route.name
-        //不需要vuex了...
-        //return this.$store.state.pageName
       },
       processPageName() {
         let ret = this.$route.name
@@ -89,7 +83,6 @@
 
     .icon-group
       float: right;
-      /*padding 0 12px*/
       a.iconfont
         vertical-align: top
         display inline-block

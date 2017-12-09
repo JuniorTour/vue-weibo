@@ -172,6 +172,17 @@ path.resolve([from ...], to)
   ```
   3. flex布局
 
+21. Home.vue中的 created() {}
+
+      /*此处也可以在mounted之中用$nextTick调用methods的方法，来初始化weiboContent。详见 http://dwz.cn/65ocqi
+       * 但我个人结合生命周期图认为，created早于mounted，用于初始化视图，应该首选created！*/
+      /*https://segmentfault.com/q/1010000006915580
+       * 放在目录里并不意味能通过http访问。
+       * 要么另起web服务serve这个目录，要么放在static目录里，因为dev-server对该目录文件实现了http访问。*/
+      // this.$http.get('static/data/weibo-content.json', {id: 0}).then(res => {
+      //等价于：目前的写法
+
+22.  '@'的路径设置，见build/webpack.base.conf.js
 
 #Bug记录：
 1. 卡片footer的两个间隔线在chrome58之中会因为页面宽度不同，呈现不同的宽度？？weibo.cn也是！

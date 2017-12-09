@@ -1,14 +1,19 @@
 <template>
 <div class="discovery">
-  <!--没必要再搭建一个API了，所以只用了静态文本：-->
   <div class="search-bar-wrapper">
     <i class="iconfont icon-search"></i>
     <form class="search-form" action="" method="get">
-      <input @focus="focusSearchBar" :class="{'search-bar-active':searchBarOnFocus}" type="search" class="search-bar" placeholder="搜索">
-      <button @click.prevent="blurSearchBar" v-show="searchBarOnFocus" class="cancel-search-btn">取消</button>
+      <input @focus="focusSearchBar"
+                    class="search-bar"
+                    :class="{'search-bar-active':searchBarFocused}"
+                    type="search"
+                    placeholder="搜索">
+      <button @click.prevent="blurSearchBar"
+                      v-show="searchBarFocused"
+                      class="cancel-search-btn">取消</button>
     </form>
   </div>
-  <div v-show="searchBarOnFocus" class="hot-search card">
+  <div v-show="searchBarFocused" class="hot-search card">
     <section class="card-line card-4" v-ripple>
       <a>
         <i class="iconfont icon-hot"></i>
@@ -31,10 +36,9 @@
       </ul>
     </section>
   </div>
-  <div v-show="!searchBarOnFocus" class="discovery-main-content">
+  <div v-show="!searchBarFocused" class="discovery-main-content">
     <div class="hot-topic card">
       <section class="list-card">
-        <!--没必要再搭建一个API了，所以只用了静态文本：-->
         <ul>
           <li class="hot-search-li"><a>#热门话题#</a></li>
           <li class="hot-search-li"><a>#热门话题#</a></li>
@@ -121,15 +125,15 @@ export default {
   name: 'discovery',
   data() {
     return {
-      searchBarOnFocus: false
+      searchBarFocused: false
     }
   },
   methods: {
     focusSearchBar() {
-      this.searchBarOnFocus = true
+      this.searchBarFocused = true
     },
     blurSearchBar() {
-      this.searchBarOnFocus = false
+      this.searchBarFocused = false
       let searchBar = document.querySelector('.search-bar')
       searchBar.blur()
     }
@@ -199,7 +203,7 @@ export default {
       background-color #ebebeb
 
 .list-card
-  font-size:0   //解决：换行的空白符也会占据位置，导致50%宽度两个list无法并列
+  font-size:0   //用于解决换行的空白符也会占据位置，导致50%宽度两个list无法并列
   border-bottom-1px()
 .hot-search-li
   width: 50%

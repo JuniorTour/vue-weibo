@@ -6,7 +6,7 @@ Vue.use(Vuex)
 const OPEN_PICTURE_VIEWER = 'openPicViewer'
 const CLOSE_PICTURE_VIEWER = 'closePicViewer'
 
-//在发布环境下关闭严格模式，以避免性能损失：
+//在发布环境下关闭严格模式，以避免性能损失
 const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
@@ -17,13 +17,10 @@ export default new Vuex.Store({
   },
   mutations: {
     [OPEN_PICTURE_VIEWER](state, payload){
-      // console.log('OPEN PicViewer in store/index.js')
       state.switchPicViewer = true
-      // console.log('payload.targetPicUrl：' + payload.targetPicUrl)
       state.viewTargetPicUrl = payload.targetPicUrl
     },
     [CLOSE_PICTURE_VIEWER](state){
-      // console.log('close PicViewer in store/index.js')
       state.switchPicViewer = false
     }
   }

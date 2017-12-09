@@ -10,11 +10,22 @@ import Me from '@/pages/Me/Me.vue'
 Vue.use(Router)
 
 export default new Router({
-  linkExactActiveClass: '', //2.5.0+新增的一个类，暂时设为空，详见：http://router.vuejs.org/en/api/router-link.html
   linkActiveClass: 'active-tab',
   mode: 'history',
   saveScrollPosition: true,
   routes: [
+    // 因组件结构的原因，登录页和404页面没有放在App.vue下，
+    //  而是通过prod-server.js的设置（第16行）做成了独立的一个页面
+    // {
+    //   path: '',
+    //   name: 'Login',
+    //   component: Home
+    // },
+    // {
+    //   path: '',
+    //   name: 'Home',
+    //   component: Home
+    // },
     {
       path: '/home',
       name: 'Home',

@@ -71,9 +71,8 @@
           console.log('Get data error!')
           return
         }
-        this.weiboMsg = res.data.data  //微博的所有内容
+        this.weiboMsg = res.data.data
         this.msgGroup = res.data.data.card_group
-        // console.log('this.msgGroup : ', this.msgGroup)
         setTimeout(() => {
           //故意推迟，以显示加载动画效果
           this.isLoading = false
@@ -85,14 +84,11 @@
         this.$set(item, 'isSwiped', false)
       },
       swipe (item, evt) {
-//        console.log("swipe" + evt.direction);
-//        debugger
         if (evt.direction === 'Left' && item.user !== undefined) {
           this.$set(item, 'isSwiped', true)
         }
       },
       deleteMsg (targetMsg) {
-        console.log('targetMsg = ', targetMsg)
         this.msgGroup.splice(this.msgGroup.indexOf(targetMsg), 1)
       }
     }
@@ -147,7 +143,6 @@
   width: 56px
   height:100%
   position: absolute;
-  //z-index:-999
   top 0
   right 0
   .delete-btn

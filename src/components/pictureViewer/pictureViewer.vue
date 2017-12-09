@@ -1,8 +1,8 @@
 <template>
 <div class="picture-viewer">
   <div class="picture-window"
-       v-finger:tap="tap"
-       v-finger:swipe="swipe">
+            v-finger:tap="tap"
+            v-finger:swipe="swipe">
     <img :src="targetPicUrl">
   </div>
   <div class="picture-ctrl-bar">
@@ -23,7 +23,6 @@
     name: 'pictureViewer',
     methods: {
       closePictureViewer() {
-//        console.log('closePicViewer in pictureViewer.vue.')
         this.$store.commit('closePicViewer')
       },
       tap() {
