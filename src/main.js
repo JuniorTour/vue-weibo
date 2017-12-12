@@ -12,7 +12,15 @@ import './assets/stylus/index.styl'
 Vue.config.productionTip = true
 
 import Ripple from 'vue-ripple-directive'
+Ripple.color = 'rgba(238, 238, 238, 0.6)';
 Vue.directive('ripple', Ripple)
+
+Vue.directive('title', {
+  inserted: function (el, binding) {
+    document.title = el.innerText
+    el.remove()
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({

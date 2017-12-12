@@ -13,15 +13,9 @@ app.set('port', process.env.PORT || 8080) //可以修改至其他端口
 app.use((req, res, next) => {
   if (req.originalUrl.includes('/static/') || req.originalUrl.includes('/apis/')) {
     next()
-  } else if (req.originalUrl === '/') {
-    res.sendFile(path.join(__dirname, '../dist/login.html'))
-  } else if ( req.originalUrl === '/home' || req.originalUrl === '/message'
-                    || req.originalUrl === '/discovery' || req.originalUrl === '/me') {
+  } else {
     /*如果是访问页面的，这时，把index.html发送出去。*/
     res.sendFile(path.join(__dirname, '../dist/index.html'))
-  } else {
-    //当访问的不是router-link里的路径时，显示404页面
-    next()
   }
 })
 
@@ -31,14 +25,13 @@ function getCurrentTime () {
 
 //模拟数据：
 var weiboMsg = require('../src/data/weibo-message.json')
-var apiRouters = express.Router() //定义router
+var apiRouters = express.Router()
 apiRouters.get('/weibo-content', function (req, res) {
   console.log('req.query.targetCursor = ' + req.query.targetCursor)
   /*根据查询字符串- targetCursor 确定返回的对象*/
   var errorNum = 0, weiboContentUrl = '', targetCursor = parseInt(req.query.targetCursor)
   switch (targetCursor) {
     case -1:
-      console.log('No new content.')
       /*没有新内容时：*/
       errorNum = -1
       break
@@ -64,11 +57,6 @@ app.use('/apis', apiRouters)
 //提供gzip压缩支持（需要安装express-static-gzip，并修改config/index.js）和静态资源：
 app.use('/', expressStaticGzip('./dist'))
 // app.use(express.static('./dist'))
-
-//404页面
-app.use(function (req, res) {
-  res.sendFile(path.join(__dirname, '../dist/404.html'))
-})
 
 //启动服务器：
 app.listen(app.get('port'), function (err) {

@@ -5,8 +5,6 @@ module.exports = {
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
-    login: path.resolve(__dirname, '../dist/login.html'),
-    notFound: path.resolve(__dirname, '../dist/404.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',

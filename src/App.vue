@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="head-part">
+    <div class="head-part" v-show="!hideHeadPart">
       <top-header @toUpdateWeibo="updateWeibo()"></top-header>
       <div class="tab-group">
         <router-link to="/home" class="tab">首页</router-link>
@@ -32,7 +32,7 @@ export default {
     return {
       transitionName: 'slide-left',
       pageVerticalPos: 0,
-      // 通过navigator.standalone判断是否已是主屏访问
+      // 通过navigator.standalone判断是否是主屏访问
       showAddTip: navigator.standalone !== undefined ? !navigator.standalone : false
     }
   },
@@ -60,6 +60,7 @@ export default {
   },
   methods: {
     resetPagePos() {
+      // TODO change components, no reset.
       this.$nextTick(function () {
         window.scrollTo(0, this.pageVerticalPos)
       })
@@ -70,7 +71,7 @@ export default {
       /*这种方法确实可行，但个人感觉不是很优雅。
        文档里也提到：“$refs 只在组件渲染完成后才填充，并且它是非响应式的。
        它仅仅作为一个直接访问子组件的应急方案——应当避免在模版或计算属性中使用 $refs 。”，
-      ·
+
        不知道还有没有更优雅的方式？*/
     },
     hideAddTip() {
@@ -80,6 +81,10 @@ export default {
   computed: {
     switchPicViewer() {
       return this.$store.state.switchPicViewer
+    },
+    hideHeadPart() {
+//      debugger
+      return this.$route.path === '/'
     }
   }
 }
