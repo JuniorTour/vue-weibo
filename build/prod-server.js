@@ -2,22 +2,66 @@ var express = require('express')
 var expressStaticGzip = require('express-static-gzip')
 var chalk = require('chalk')
 var path = require('path')
+var fs = require('fs')
 var app = express()
+
+var statistics = {};
 
 app.set('port', process.env.PORT || 8080) //可以修改至其他端口
 
-/*下面这段代码写的很糟糕QAQ，不建议参考，如果你有更好的写法，欢迎和我交流！*/
 // TODO:FEAT 在文件中记录下访问者的基本信息和总访问量
 
-//添加中间件应对vue-router的history模式（参考：http://router.vuejs.org/en/essentials/history-mode.html）：
-app.use((req, res, next) => {
+fs.readFile('./notes/prod-statistics.json',  (err, data) => {
+  if (err) {
+    console.log('Read File Error! ', err);
+  } else {
+    // console.log(JSON.parse(data))
+    statistics = JSON.parse(data);
+    statistics.totalVisit = 1;
+
+    recordStatistics(JSON.stringify(statistics));
+  }
+});
+
+var statisticsWriteStream = fs.createWriteStream('./notes/prod-statistics.json',{
+  flags: 'r+',
+  encoding: 'utf8',
+  fd: null,
+  mode: 0o666,
+  autoClose: true
+})
+
+
+function recordStatistics(content) {
+  // 1.未经配置，每次都重写整个文件
+  fs.writeFile('./notes/prod-statistics.json', content, (err) => {
+    if (err) {
+      console.log('Write File Error!', err)
+    }
+  })
+
+  console.log('Write Content: ', content)
+
+  //  2. 更加灵活的API：
+  // statisticsWriteStream.write(content)
+  // statisticsWriteStream.end();
+}
+
+
+
+//添加中间件应对vue-router的history模式请求（参考：http://router.vuejs.org/en/essentials/history-mode.html）：
+function serverStaticFile(req, res, next) {
   if (req.originalUrl.includes('/static/') || req.originalUrl.includes('/apis/')) {
     next()
   } else {
     /*如果是访问页面的，这时，把index.html发送出去。*/
     res.sendFile(path.join(__dirname, '../dist/index.html'))
   }
-})
+}
+
+app.use((req, res, next) => {
+  serverStaticFile(req, res, next);
+});
 
 function getCurrentTime () {
   return new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
@@ -27,7 +71,6 @@ function getCurrentTime () {
 var weiboMsg = require('../src/data/weibo-message.json')
 var apiRouters = express.Router()
 apiRouters.get('/weibo-content', function (req, res) {
-  console.log('req.query.targetCursor = ' + req.query.targetCursor)
   /*根据查询字符串- targetCursor 确定返回的对象*/
   var errorNum = 0, weiboContentUrl = '', targetCursor = parseInt(req.query.targetCursor)
   switch (targetCursor) {
@@ -43,7 +86,7 @@ apiRouters.get('/weibo-content', function (req, res) {
     errorNum: errorNum,
     data: tergetWeiboContent
   })
-  console.log('Successfully deliver weibo content! At ' + getCurrentTime() + '\n')
+  // console.log('Successfully deliver weibo content! At ' + getCurrentTime() + '\n')
 })
 apiRouters.get('/weibo-msg', function (req, res) {
   res.json({
@@ -56,7 +99,7 @@ app.use('/apis', apiRouters)
 
 //提供gzip压缩支持（需要安装express-static-gzip，并修改config/index.js）和静态资源：
 app.use('/', expressStaticGzip('./dist'))
-// app.use(express.static('./dist'))
+
 
 //启动服务器：
 app.listen(app.get('port'), function (err) {
