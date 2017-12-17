@@ -37,13 +37,38 @@
     </footer>
   </div>
   <div class="card-line-group">
-    <section class="card-line card-4" v-ripple>
+    <section
+      class="card-line card-4"
+      @click.prevent="toggleStatCard()">
       <a>
         <i class="iconfont icon-friends"></i>
-        <div class="content">新的好友</div>
+        <div class="content">统计</div>
         <i class="iconfont icon-right-arrow"></i>
       </a>
     </section>
+    <transition name="fade">
+      <div
+          class="statistics-card-wrapper"
+          v-if="showStatCard"
+          @click.prevent="toggleStatCard()">
+        <div class="statistics-card">
+          <h2><i class="iconfont icon-hot icon-red-hot"></i>vue-weibo统计数据</h2>
+          <h3>
+            总访问量：
+          </h3>
+          <h3 class="total-visit-num" @click.stop="changeNum()">
+            <i class="iconfont icon-famous-people"></i>
+            {{animatedTotalVisit}}
+          </h3>
+          <h3>
+            起止时间：
+          </h3>
+          <p>{{statisticsData.start}} - {{statisticsData.end}}</p>
+          <h3>最近访问IP：</h3>
+          <p v-for="IP in statisticsData.recentIP">{{IP}}</p>
+        </div>
+      </div>
+    </transition>
   </div>
   <div class="card-line-group">
     <section class="card-line card-4" v-ripple>
@@ -90,7 +115,67 @@
 </template>
 
 <script>
+  let TWEEN = window.TWEEN
 
+export default {
+  name: 'me',
+  data() {
+    return {
+      showStatCard: false,
+      statisticsData: {
+        start: '',
+        end: '',
+        totalVisit: '0',
+        recentIP: []
+      },
+      animatedTotalVisit: 0
+    }
+  },
+  watch: {
+    'statisticsData.totalVisit': function (newValue, oldValue) {
+        let vm = this
+        function animate () {
+          if (TWEEN.update()) {
+            requestAnimationFrame(animate)
+          }
+        }
+
+        new TWEEN.Tween({ tweeningNumber: oldValue })
+          .easing(TWEEN.Easing.Quadratic.Out)
+          .to({ tweeningNumber: newValue }, 500)
+          .onUpdate(function () {
+            vm.animatedTotalVisit = this.tweeningNumber.toFixed(0)
+          })
+          .start()
+
+        animate()
+      }
+  },
+  methods: {
+    changeNum() {
+      this.statisticsData.totalVisit = Math.random() * (9999 - 10) + 10
+    },
+    toggleStatCard() {
+      this.showStatCard = !this.showStatCard
+
+      if (this.showStatCard) {
+        this.getStatData()
+      } else {
+        // 关闭后还原为0，用于展示动画效果
+        this.statisticsData = 0
+      }
+    },
+    getStatData() {
+      this.$http.get('apis/statistics').then(res => {
+        if (res.body.errorNum === 0) {
+          this.statisticsData = res.body.data
+        } else {
+          this.statisticsData.totalVisit = '获取数据失败！'
+        }
+      })
+    }
+  }
+}
 </script>
 
 <style scoped lang="stylus">
@@ -141,4 +226,54 @@
   background-color #35B87C
 .icon-like
   background-color #F2695F
+
+
+.fade-enter-active, .fade-leave-active
+  transition: opacity 0.25s ease-out
+
+.fade-enter, .fade-leave-to
+  opacity: 0
+
+.statistics-card-wrapper
+  background-color rgba(0,0,0,.8)
+  position: fixed;
+  top 0
+  bottom 0
+  left 0
+  right 0
+  z-index: 999;
+
+.statistics-card
+  position: fixed
+  top 50%
+  left 50%
+  width:70%;
+  height: 313px
+  transform translate(-50%,-50%)
+  background-color #fafafa
+  padding: 12px;
+  border: 1px solid #bbb
+  border-radius 3px
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 999
+  h2
+    font-size: 22px;
+    margin: 12px 0;
+    .icon-red-hot
+      font-size: 18px
+  h3
+    color: #999;
+    font-size: 16px;
+    margin: 6px 0;
+  p
+    font-size: 12px;
+
+
+h3.total-visit-num
+  color: #000
+  font-size: 2rem;
+  text-align center
+  .iconfont
+    font-size: 26px;
 </style>

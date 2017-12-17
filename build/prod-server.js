@@ -5,6 +5,8 @@ var path = require('path')
 var fs = require('fs')
 var app = express()
 
+app.set('port', process.env.PORT || 8080) //可以修改至其他端口
+
 var statistics = {
   start:'',
   end:'',
@@ -12,8 +14,6 @@ var statistics = {
   todayVisit: 0,
   recentIP: []
 };
-
-app.set('port', process.env.PORT || 8080) //可以修改至其他端口
 
 function backupStatistics (content) {
   fs.writeFile('./src/data/statistics-backup.json', content, (err) => {
@@ -117,6 +117,7 @@ apiRouters.get('/weibo-msg', function (req, res) {
     data: weiboMsg
   })
 })
+
 // 统计数据API
 apiRouters.get('/statistics', function (req, res) {
   res.json({

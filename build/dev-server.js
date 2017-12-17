@@ -26,36 +26,40 @@ var app = express()
 var compiler = webpack(webpackConfig)
 
 //模拟动态数据：
-var weiboMsg=require('../src/data/weibo-message.json')
 var apiRouters = express.Router() //定义router
+
 apiRouters.get('/weibo-content',function (req, res) {
-  console.log('req.query.targetCursor = '+req.query.targetCursor)
-  // console.log('typeof req.query.targetCursor = '+typeof req.query.targetCursor)
   /*根据查询字符串- targetCursor 确定返回的对象*/
   var errorNum=0,weiboContentUrl='',targetCursor=parseInt(req.query.targetCursor)
   switch (targetCursor) {
     case -1:
-      console.log('No new content.')
       /*没有新内容时：*/
       errorNum=-1
       break
     default:
-      // console.log('get weiboContentUrl.')
-      // console.log('req.query.targetCursor = '+req.query.targetCursor)
       weiboContentUrl='../src/data/weibo-content-'+req.query.targetCursor+'.json'
   }
   var tergetWeiboContent=weiboContentUrl!==''?require(weiboContentUrl):'empty'
-  // console.log('get tergetWeiboContent.')
   res.json({
     errorNum:errorNum,
     data:tergetWeiboContent
   })
-  console.log('Successfully deliver weibo content!\n')
 })
+
+var weiboMsg=require('../src/data/weibo-message.json')
 apiRouters.get('/weibo-msg',function (req, res) {
   res.json({
     errorNum:0,
     data:weiboMsg
+  })
+})
+
+// 统计数据API
+var statistics = require('../src/data/dev-statistics.json')
+apiRouters.get('/statistics', function (req, res) {
+  res.json({
+    errorNum: 0,
+    data: statistics
   })
 })
 
