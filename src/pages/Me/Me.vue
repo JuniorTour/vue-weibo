@@ -39,7 +39,7 @@
   <div class="card-line-group">
     <section
       class="card-line card-4"
-      @click.prevent="toggleStatCard()">
+      @click.prevent="openStatCard()">
       <a>
         <i class="iconfont icon-friends"></i>
         <div class="content">统计</div>
@@ -50,21 +50,23 @@
       <div
           class="statistics-card-wrapper"
           v-if="showStatCard"
-          @click.prevent="toggleStatCard()">
+          @click.prevent="closeStatCard()">
         <div class="statistics-card">
-          <h2><i class="iconfont icon-hot icon-red-hot"></i>vue-weibo统计数据</h2>
+          <div class="close-btn" @click.stop="closeStatCard()">×</div>
+          <h2><i class="iconfont icon-hot icon-red-hot"></i>vue-weibo统计</h2>
           <h3>
-            总访问量：
+            总量：
           </h3>
           <h3 class="total-visit-num" @click.stop="changeNum()">
             <i class="iconfont icon-famous-people"></i>
             {{animatedTotalVisit}}
+            <span class="unit-char">次</span>
           </h3>
           <h3>
-            起止时间：
+            时间：
           </h3>
           <p>{{statisticsData.start}} - {{statisticsData.end}}</p>
-          <h3>最近访问IP：</h3>
+          <h3>最近：</h3>
           <p v-for="IP in statisticsData.recentIP">{{IP}}</p>
         </div>
       </div>
@@ -155,15 +157,16 @@ export default {
     changeNum() {
       this.statisticsData.totalVisit = Math.random() * (9999 - 10) + 10
     },
-    toggleStatCard() {
-      this.showStatCard = !this.showStatCard
+    openStatCard() {
+      this.showStatCard = true
 
-      if (this.showStatCard) {
-        this.getStatData()
-      } else {
-        // 关闭后还原为0，用于展示动画效果
-        this.statisticsData = 0
-      }
+      this.getStatData()
+    },
+    closeStatCard() {
+      this.showStatCard = false
+
+      // 关闭后还原为0，用于展示动画效果
+      this.statisticsData = 0
     },
     getStatData() {
       this.$http.get('apis/statistics').then(res => {
@@ -234,6 +237,7 @@ export default {
 .fade-enter, .fade-leave-to
   opacity: 0
 
+/*TODO:IMPRO ugly style... I ve tried my best...*/
 .statistics-card-wrapper
   background-color rgba(0,0,0,.8)
   position: fixed;
@@ -257,23 +261,35 @@ export default {
   overflow-x: hidden;
   overflow-y: auto;
   z-index: 999
+  .close-btn
+    position: absolute;
+    top: 3px;
+    right: 8px;
+    color: #bbb;
+    font-size: 18px;
+    padding: 4px;
   h2
-    font-size: 22px;
-    margin: 12px 0;
+    font: 22px 'simsong',serif;
+    text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ddd;
+    margin: 6px 0;
     .icon-red-hot
       font-size: 18px
   h3
     color: #999;
     font-size: 16px;
-    margin: 6px 0;
+    margin: 12px 0 6px;
   p
     font-size: 12px;
 
 
 h3.total-visit-num
-  color: #000
+  color: #EF5A46
   font-size: 2rem;
   text-align center
   .iconfont
     font-size: 26px;
+  .unit-char
+    font-size: 12px
 </style>

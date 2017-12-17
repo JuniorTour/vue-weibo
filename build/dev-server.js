@@ -55,6 +55,7 @@ apiRouters.get('/weibo-msg',function (req, res) {
 })
 
 // 统计数据API
+// 开发环境下，没有记录功能，详情见prod-server line10-64
 var statistics = require('../src/data/dev-statistics.json')
 apiRouters.get('/statistics', function (req, res) {
   res.json({
