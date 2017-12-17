@@ -50,7 +50,7 @@
       <div
           class="statistics-card-wrapper"
           v-if="showStatCard"
-          @click.prevent="closeStatCard()">
+          @click.self="closeStatCard()">
         <div class="statistics-card">
           <div class="close-btn" @click.stop="closeStatCard()">×</div>
           <h2><i class="iconfont icon-hot icon-red-hot"></i>vue-weibo统计</h2>
@@ -66,7 +66,9 @@
             时间：
           </h3>
           <p>{{statisticsData.start}} - {{statisticsData.end}}</p>
-          <h3>最近：</h3>
+          <h3>
+            最近：
+          </h3>
           <p v-for="IP in statisticsData.recentIP">{{IP}}</p>
         </div>
       </div>
