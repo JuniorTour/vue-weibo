@@ -40,19 +40,16 @@
   input:-webkit-autofill
     -webkit-box-shadow 0 0 0 1000px white inset !important
 
-  body,html {
-    font-size:16px;
-    line-height: 1;
-    font-weight: 200;
-    font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif;
-  }
   a {
     color: #5184BC;
   }
 
-  body {
+  /*body {
     background-color: #f8f8f8;
-  }
+  }*/
+
+  .login
+    margin-top: -94px;
 
   .avatar {
     width:70px;

@@ -11,47 +11,49 @@
       </a>
     </div>
     <div class="card" v-for="(item,index) in weiboContent.card_group">
-      <header class="card-header">
-        <div class="header-bg" v-if="typeof item.mblog.cardid!=='undefined'"></div>
-        <a class="avatar" :href="item.mblog.user.profile_url">
-          <div class="avatar-wrapper border-around-1px">
-            <img class="avatar-img" :src="item.mblog.user.profile_image_url">
-            <i class="iconfont" :class="calculateVerifiedClass(item.mblog.user.verified_type)"></i>
+      <div class="card-main">
+        <header class="card-header">
+          <div class="header-bg" v-if="typeof item.mblog.cardid!=='undefined'"></div>
+          <a class="avatar" :href="item.mblog.user.profile_url">
+            <div class="avatar-wrapper border-around-1px">
+              <img class="avatar-img" :src="item.mblog.user.profile_image_url">
+              <i class="iconfont" :class="calculateVerifiedClass(item.mblog.user.verified_type)"></i>
+            </div>
+          </a>
+          <div class="user-info">
+            <a :href="item.mblog.user.profile_url" class="user-name txt-l txt-cut">{{item.mblog.user.screen_name}}</a>
+            <div class="publish-data txt-xs">
+              <span class="publish-created-at">{{item.mblog.created_at}}</span>
+              <span class="publish-source">来自{{item.mblog.source}}</span>
+            </div>
           </div>
-        </a>
-        <div class="user-info">
-          <a :href="item.mblog.user.profile_url" class="user-name txt-l txt-cut">{{item.mblog.user.screen_name}}</a>
-          <div class="publish-data txt-xs">
-            <span class="publish-created-at">{{item.mblog.created_at}}</span>
-            <span class="publish-source">来自{{item.mblog.source}}</span>
+          <a class="card-operate">
+            <i class="iconfont icon-down-arrow"></i>
+          </a>
+        </header>
+        <section class="card-body">
+          <p class="default-content" v-html="item.mblog.text"></p>
+          <div v-if="item.mblog.pics.length===1" class="single-pic">
+            <img :src="item.mblog.pics[0].url">
           </div>
-        </div>
-        <a class="card-operate">
-          <i class="iconfont icon-down-arrow"></i>
-        </a>
-      </header>
-      <section class="card-body">
-        <p class="default-content" v-html="item.mblog.text"></p>
-        <div v-if="item.mblog.pics.length===1" class="single-pic">
-          <img :src="item.mblog.pics[0].url">
-        </div>
-        <ul v-if="item.mblog.pics.length>=2" class="pic-list">
-          <li v-for="(eachPic,index) in item.mblog.pics" @click="openPicViewer(eachPic.url)"><img :src=eachPic.url></li>
-        </ul>
-        <div class="retweet" v-if="item.mblog.retweeted_status!==undefined">
-          <p>
-            <a :href="item.mblog.retweeted_status.user.profile_url"
-               class="retweet-user">@{{item.mblog.retweeted_status.user.screen_name}}</a>：{{item.mblog.retweeted_status.text}}
-          </p>
-          <div v-if="item.mblog.retweeted_status.pics.length===1" class="single-pic">
-            <img :src="item.mblog.retweeted_status.pics[0].url"
-                 @click="openPicViewer(item.mblog.retweeted_status.pics[0].url)">
-          </div>
-          <ul v-if="item.mblog.retweeted_status.pics.length>=2" class="pic-list">
-            <li v-for="(eachPic,index) in item.mblog.retweeted_status.pics"><img :src=eachPic.url></li>
+          <ul v-if="item.mblog.pics.length>=2" class="pic-list">
+            <li v-for="(eachPic,index) in item.mblog.pics" @click="openPicViewer(eachPic.url)"><img :src=eachPic.url></li>
           </ul>
-        </div>
-      </section>
+          <div class="retweet" v-if="item.mblog.retweeted_status!==undefined">
+            <p>
+              <a :href="item.mblog.retweeted_status.user.profile_url"
+                 class="retweet-user">@{{item.mblog.retweeted_status.user.screen_name}}</a>：{{item.mblog.retweeted_status.text}}
+          </p>
+            <div v-if="item.mblog.retweeted_status.pics.length===1" class="single-pic">
+              <img :src="item.mblog.retweeted_status.pics[0].url"
+                   @click="openPicViewer(item.mblog.retweeted_status.pics[0].url)">
+            </div>
+            <ul v-if="item.mblog.retweeted_status.pics.length>=2" class="pic-list">
+              <li v-for="(eachPic,index) in item.mblog.retweeted_status.pics"><img :src=eachPic.url></li>
+            </ul>
+          </div>
+        </section>
+      </div>
       <footer class="card-footer border-1px border-top-1px txt-s no-text-select">
         <a class="forward">
           <i class="iconfont icon-forward"></i>
@@ -299,9 +301,8 @@
         margin-left: .5rem
         font-size: 0.775rem
 
-//  TODO:BUG 会和card-footer的active覆盖！
-/*.card:active*/
-  /*background-color #ebebeb*/
+.card-main:active
+  background-color #ebebeb
 
 .card-header
   display: flex
@@ -460,6 +461,14 @@
   }
   60% {
     transform: rotate(0deg)
+  }
+}
+
+@media (min-width: 600px) {
+  // m.weibo.com有没有很完美的解决这个问题，粗暴的隐藏掉了
+  // 相比之下，我认为这个方法虽然多了一些代码，但至少没有因噎废食
+  .card-header .header-bg {
+    background-size 50%
   }
 }
 </style>

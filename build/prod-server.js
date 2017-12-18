@@ -77,9 +77,8 @@ function recordVisit (req) {
 function serverStaticFile(req, res, next) {
   if (req.originalUrl.includes('/static/') || req.originalUrl.includes('/apis/')) {
     next()
-  } else if (req.originalUrl === '/home' || req.originalUrl === '/message'
-                  || req.originalUrl === '/me' || req.originalUrl === '/discovery'
-                  || req.originalUrl === '/') {
+  } else {
+    // TODO:BUG req for /favicon.ico overlapped
     res.sendFile(path.join(__dirname, '../dist/index.html'))
 
     recordVisit(req)
