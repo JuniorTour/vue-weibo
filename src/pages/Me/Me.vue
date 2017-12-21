@@ -53,7 +53,7 @@
           @click.self="closeStatCard()">
         <div class="statistics-card">
           <div class="close-btn" @click.stop="closeStatCard()">×</div>
-          <h2><i class="iconfont icon-hot icon-red-hot"></i>vue-weibo统计</h2>
+          <h2>统计</h2>
           <h3>
             总量：
           </h3>
@@ -65,11 +65,26 @@
           <h3>
             时间：
           </h3>
-          <p>{{statisticsData.start}} - {{statisticsData.end}}</p>
+          <p style="text-align: center;">{{statisticsData.start}} 至 {{statisticsData.end}}</p>
           <h3>
             最近：
           </h3>
-          <p v-for="IP in statisticsData.recentIP">{{IP}}</p>
+          <div class="table-wrapper">
+            <table class="ip-table">
+              <thead>
+              <tr>
+                <td>IP</td>
+                <td>时间</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="IP in statisticsData.recentIP">
+                <td>{{IP.split(' - ')[0]}}</td>
+                <td>{{IP.split(' - ')[1]}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </transition>
@@ -111,6 +126,18 @@
       <a>
         <i class="iconfont icon-gear"></i>
         <div class="content">设置</div>
+        <i class="iconfont icon-right-arrow"></i>
+      </a>
+    </section>
+  </div>
+
+  <div class="stat-intro-wrapper">
+    <section
+      class="card-line card-4"
+      @click.prevent="openStatCard()">
+      <a>
+        <i class="iconfont icon-friends"></i>
+        <div class="content">统计</div>
         <i class="iconfont icon-right-arrow"></i>
       </a>
     </section>
@@ -271,7 +298,7 @@ export default {
     font-size: 18px;
     padding: 4px;
   h2
-    font: 22px 'simsong',serif;
+    font-size: 24px
     text-align: center;
     padding-bottom: 12px;
     border-bottom: 1px solid #ddd;
@@ -294,4 +321,31 @@ h3.total-visit-num
     font-size: 26px;
   .unit-char
     font-size: 12px
+
+.table-wrapper
+  width: 100%;
+  overflow: auto;
+
+.ip-table
+  width: 100%
+  font-size: 8px
+  td
+    padding 4px
+  thead
+    background-color #ccc
+  tbody
+    tr:nth-child(2n)
+      background-color #eee
+
+.stat-intro-wrapper
+  position: fixed;
+  top 0
+  left 0
+  right 0
+  bottom 0
+  background-color rgba(0,0,0,.6)
+  z-index: 9998;
+  .card-line
+    background-color #fff
+    z-index: 9999;
 </style>

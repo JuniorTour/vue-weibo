@@ -91,6 +91,14 @@ export default {
 </script>
 
 <style lang="stylus">
+
+  // https://css-tricks.com/intro-to-vue-5-animations/
+  /*Now, we could just use <transition> out of the box.
+  This will give us a v- prefix for some transition hooks we can use in our CSS.
+  It will offer enter/leave which is the position that the animation starts with on the first frame,
+  enter-active/leave-active while the animation is running- this is the one you’d place the animation properties themselves on,
+  and enter-to/leave-to, which specifies where the element should be on the last frame.*/
+
   /*路由跳转动画*/
   .slide-to-left-enter-active,.slide-to-right-leave-active,.slide-to-left-leave-active,.slide-to-right-enter-active
     transition all .3s ease-out

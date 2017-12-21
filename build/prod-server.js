@@ -66,7 +66,7 @@ function recordVisit (req) {
   if (statistics.recentIP.length >= 50) {
     statistics.recentIP.shift()
   }
-  statistics.recentIP.push(req.ip + '- ' +statistics.end);
+  statistics.recentIP.push(req.ip + ' - ' +statistics.end);
   statistics.totalVisit++;
 
   writeStatistics(JSON.stringify(statistics));
