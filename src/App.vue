@@ -33,7 +33,7 @@ export default {
       transitionName: 'slide-left',
       pageVerticalPos: 0,
       // 通过navigator.standalone判断是否是主屏访问
-      showAddTip: navigator.standalone !== undefined ? !navigator.standalone : false
+      showAddTip: navigator.standalone !== undefined ? !navigator.standalone && !this.isWebView : false
     }
   },
   components: {
@@ -83,8 +83,26 @@ export default {
       return this.$store.state.switchPicViewer
     },
     hideHeadPart() {
-//      debugger
       return this.$route.path === '/'
+    },
+    isWebView() {
+      let standalone = window.navigator.standalone,
+            userAgent = window.navigator.userAgent.toLowerCase(),
+            safari = /safari/.test(userAgent),
+            ios = /iphone|ipod|ipad/.test(userAgent);
+
+      if (ios) {
+        if (!standalone && safari) {
+          // browser
+          return false
+        } else if (!standalone && !safari) {
+          // ui web view
+          return true
+        }
+      } else {
+        // not iOS
+        return false
+      }
     }
   }
 }

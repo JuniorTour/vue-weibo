@@ -36,7 +36,12 @@
       </a>
     </footer>
   </div>
-  <div class="card-line-group">
+  <div class="card-line-group rubberBand"
+           :class="{'intro-highlighted': toHighlightIntroStat}">
+    <div class="intro-tooltip-wrapper caret-bottom"
+             v-if="toShowStatIntro">
+      <h2>看看这个项目的访问量吧~~</h2>
+    </div>
     <section
       class="card-line card-4"
       @click.prevent="openStatCard()">
@@ -53,9 +58,9 @@
           @click.self="closeStatCard()">
         <div class="statistics-card">
           <div class="close-btn" @click.stop="closeStatCard()">×</div>
-          <h2>统计</h2>
+          <h2>近况</h2>
           <h3>
-            总量：
+            访问：
           </h3>
           <h3 class="total-visit-num" @click.stop="changeNum()">
             <i class="iconfont icon-famous-people"></i>
@@ -129,19 +134,23 @@
         <i class="iconfont icon-right-arrow"></i>
       </a>
     </section>
-  </div>
-
-  <div class="stat-intro-wrapper">
-    <section
-      class="card-line card-4"
-      @click.prevent="openStatCard()">
+    <section class="card-line card-4" v-ripple @click="showStatIntro()">
       <a>
-        <i class="iconfont icon-friends"></i>
-        <div class="content">统计</div>
+        <i class="iconfont icon-t"></i>
+        <div class="content">再次介绍</div>
         <i class="iconfont icon-right-arrow"></i>
       </a>
     </section>
   </div>
+
+  <transition name="fade">
+    <div class="stat-intro-wrapper"
+             v-if="toShowStatIntro">
+      <div class="intro-control-wrapper">
+        <button class="btn btn-warning intro-confirm-btn" @click="hideStatIntro()">知道了！</button>
+      </div>
+    </div>
+  </transition>
 </div>
 </template>
 
@@ -159,7 +168,16 @@ export default {
         totalVisit: '0',
         recentIP: []
       },
-      animatedTotalVisit: 0
+      animatedTotalVisit: 0,
+      toShowStatIntro: false,
+      toHighlightIntroStat: false
+    }
+  },
+  mounted: function () {
+    let haveIntroducedStat = localStorage.getItem('haveIntroducedStat')
+      ? JSON.parse(localStorage.getItem('haveIntroducedStat')) : false;
+    if (!haveIntroducedStat) {
+      this.showStatIntro()
     }
   },
   watch: {
@@ -187,6 +205,8 @@ export default {
       this.statisticsData.totalVisit = Math.random() * (9999 - 10) + 10
     },
     openStatCard() {
+      this.hideStatIntro()
+
       this.showStatCard = true
 
       this.getStatData()
@@ -205,6 +225,19 @@ export default {
           this.statisticsData.totalVisit = '获取数据失败！'
         }
       })
+    },
+    showStatIntro() {
+      this.toShowStatIntro = true
+      this.toHighlightIntroStat = true
+    },
+    hideStatIntro() {
+      this.toShowStatIntro = false
+      this.toHighlightIntroStat = false
+
+      localStorage.setItem('haveIntroducedStat', 'true');
+    },
+    clearIntroLocalStorage() {
+      localStorage.clear('haveIntroducedStat')
     }
   }
 }
@@ -256,7 +289,7 @@ export default {
   background-color #FF8C16
 .icon-album,.icon-gear
   background-color #35B87C
-.icon-like
+.icon-like, .icon-t
   background-color #F2695F
 
 
@@ -345,7 +378,68 @@ h3.total-visit-num
   bottom 0
   background-color rgba(0,0,0,.6)
   z-index: 9998;
-  .card-line
-    background-color #fff
-    z-index: 9999;
+
+.caret-bottom
+  position: relative;
+  &:after
+    content ''
+    position: absolute;
+    bottom -11px
+    left 10px
+    width: 0
+    height: 0
+    border: 6px solid transparent
+    border-top-color #ffc107
+
+.intro-tooltip-wrapper
+  position: absolute;
+  top -50px
+  left 20px
+  min-width: 200px;
+  max-width: 300px;
+  height: 40px;
+  color: #212529;
+  text-align: center;
+  background-color: #ffc107;
+  border-color: #ffc107;
+  border-radius 4px
+  h2
+    font-size: 16px;
+    line-height: 28px;
+    padding: 8px 12px;
+
+.intro-confirm-btn
+  position: fixed;
+  top 83%
+  left 50%
+  transform translateX(-50%)
+
+.intro-highlighted
+  position: relative;
+  z-index 99999 !important
+  animation bounce 1s linear
+
+
+
+@keyframes bounce {
+  0%, 100%, 20%, 53%, 80% {
+    transition-timing-function: cubic-bezier(0.215, .61, .355, 1);
+    transform: translate3d(0, 0, 0);
+  }
+
+  40%, 43% {
+    transition-timing-function: cubic-bezier(0.755, .050, .855, .060);
+    transform: translate3d(0, -30px, 0);
+  }
+
+  70% {
+    transition-timing-function: cubic-bezier(0.755, .050, .855, .060);
+    transform: translate3d(0, -15px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, -4px, 0);
+  }
+}
+
 </style>

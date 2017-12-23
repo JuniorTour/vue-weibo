@@ -18,7 +18,8 @@
           </label>
         </p>
       </section>
-      <a href="./home" class="btn login-btn">登录</a>
+      <router-link to="/home" class="btn login-btn">首页</router-link>
+      <!--<a href="./home" class="btn login-btn">登录</a>-->
       <p class="third-part-login">
         <a>第三方账号</a>
       </p>
@@ -101,6 +102,7 @@
     color: #fff;
     font-size: 1.0625rem;
     text-align: center;
+    padding 0
     background-color: #ff8200;
     border: 1px solid #e86b0f;
     border-radius: 3px;

@@ -28,6 +28,7 @@ module.exports = {
     'space-before-blocks':0,
     'spaced-comment':0,
     "indent": 0,
+    "one-var": 0,
     "quotes": 0
   }
 }
