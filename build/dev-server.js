@@ -39,10 +39,10 @@ apiRouters.get('/weibo-content',function (req, res) {
     default:
       weiboContentUrl='../src/data/weibo-content-'+req.query.targetCursor+'.json'
   }
-  var tergetWeiboContent=weiboContentUrl!==''?require(weiboContentUrl):'empty'
+  var targetWeiboContent = (weiboContentUrl !== '' ? require(weiboContentUrl) : 'empty');
   res.json({
     errorNum:errorNum,
-    data:tergetWeiboContent
+    data:targetWeiboContent
   })
 })
 

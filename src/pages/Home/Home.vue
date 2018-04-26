@@ -158,7 +158,7 @@
       },
       addScrollEvent() {
         /*可以通过以下两句分别对比使用事件防抖前后的事件触发次数：*/
-//      window.addEventListener('scroll', this.handleScroll)
+        //window.addEventListener('scroll', this.handleScroll)
         window.addEventListener('scroll', this.myDebounce(this.handleScroll, 500))
       },
       handleScroll() {
@@ -236,13 +236,18 @@
         }
       },
       likeIt(e, item) {
-        //获取点击位置，用于设置动画的起始位置：
+        // 保存点击位置，用于设置动画块的起始位置：
         this.clickedLikeBtnPos.pageX = e.pageX - parseInt(window.scrollX)
         this.clickedLikeBtnPos.pageY = e.pageY - parseInt(window.scrollY)
 
         if (item.mblog.favorited === false) {
           //显示点赞动画：
           this.showLikeAnimationWrapper = true
+          // 点赞数+1，并设置为已经赞了的状态
+          /* vm.$set( target, key, value ) 用于设置对象的属性。
+          如果对象是响应式的，确保属性被创建后也是响应式的，
+          同时 **“触发视图更新” **。
+          这个方法主要用于避开 Vue 不能检测属性被添加的限制。*/
           this.$set(item.mblog, 'attitudes_count', item.mblog.attitudes_count + 1)
           this.$set(item.mblog, 'favorited', true)
         } else {
@@ -251,15 +256,14 @@
         }
       },
       beforeLikeEnter(el) {
-        /*在动画块呈现之前，将其位置设置到点赞的位置上：*/
+        /*在动画块呈现之前，将其位置设置到点赞开始的位置上：*/
         el.style.transform = 'scale(0.1)'
         el.style.top = this.clickedLikeBtnPos.pageY + 'px'
         el.style.left = this.clickedLikeBtnPos.pageX + 'px'
       },
       likeEnter(el, done) {
         /* eslint-disable no-unused-vars*/
-        /*很神奇！必须要触发一次重绘才能实现位置移动的过渡效果？？？
-        * 正在查资料搞清楚这个问题！*/
+        /*TODO:Figure out 很奇怪！必须要触发一次重绘才能实现位置移动的过渡效果？？？*/
         let rf = el.offsetHeight
         el.style.transform = 'scale(1)'
         el.style.top = '190px'
@@ -268,8 +272,6 @@
       },
       afterLikeEnter(el) {
         //动画结束后，隐藏该动画块（需要enter钩子中调用done()）：
-        /*一个坑：enter钩子中调用了done()的话，动画效果就没有了？？？
-        * 这和css中动画声明的class有关。*/
         this.showLikeAnimationWrapper = false
       },
       hideAppAddTip() {
@@ -447,9 +449,10 @@
     margin 14px 0
 
 .like-enter-to
-  animation: like .8s .4s
+  // like动画最后一帧，即结束时，给图标添加上转动的动画
+  animation: like-rotate .8s .4s
 
-@keyframes like {
+@keyframes like-rotate {
   0% {
     transform: rotate(30deg)
   }
@@ -465,8 +468,9 @@
 }
 
 @media (min-width: 600px) {
-  // m.weibo.com有没有很完美的解决这个问题，粗暴的隐藏掉了
-  // 相比之下，我认为这个方法虽然多了一些代码，但至少没有因噎废食
+  // m.weibo.com有没有很完美的解决微博卡片标题背景挂件比例失调的问题，
+  // 只是在大屏幕下粗暴的隐藏掉了。
+  // 相比之下，我认为下面这个方法虽然多了一些代码，但至少没有因噎废食。
   .card-header .header-bg {
     background-size 50%
   }

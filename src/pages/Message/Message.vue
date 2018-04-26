@@ -14,9 +14,10 @@
           </div>
           <div class="avatar-card main-msg-wrapper"
                v-ripple
+               v-bind:style="{transform: 'translateX(' + swipedDistX + 'px)'}"
                :class="{swiped: item.isSwiped}"
                v-finger:tap="tap.bind(this, item)"
-               v-finger:swipe="swipe.bind(this, item)">
+               v-finger:press-move="pressMove.bind(this, 12)">
             <a v-if="item.user===undefined" class="msg-icon-btn" :class="item.type+'-icon-wrapper'">
               <i class="iconfont" :class="'icon-'+item.type"></i>
             </a>
@@ -48,18 +49,14 @@
 <script>
   import loading from '../../components/loading/loading.vue'
 
-  import Vue from 'vue'
-  import AlloyFinger from 'alloyfinger'
-  import AlloyFingerVue from 'alloyfinger/vue/alloy_finger.vue.js'
-  Vue.use(AlloyFingerVue, { AlloyFinger: AlloyFinger });
-
   export default {
     name: 'message',
     data() {
       return {
         weiboMsg: {},
         msgGroup: {},
-        isLoading: true
+        isLoading: true,
+        swipedDistX: 0
       }
     },
     components: {
@@ -81,12 +78,23 @@
     },
     methods: {
       tap(item, evt) {
+        console.log('tap', evt)
         this.$set(item, 'isSwiped', false)
       },
       swipe (item, evt) {
+//        console.log(evt)
         if (evt.direction === 'Left' && item.user !== undefined) {
           this.$set(item, 'isSwiped', true)
         }
+      },
+      pressMove: function(num, evt) {
+        console.log(evt)
+//        console.log(evt.deltaX);
+//        console.log(evt.deltaY);
+        /*TODO Think about separate this item to a individual component.*/
+        this.swipedDistX += parseInt(evt.deltaX);
+//        console.log(this.swipedDistX);
+//        console.log('onPressMove with params:' + num);
       },
       deleteMsg (targetMsg) {
         this.msgGroup.splice(this.msgGroup.indexOf(targetMsg), 1)

@@ -11,11 +11,11 @@
     </div>
     <div class="main-body" v-show="!switchPicViewer">
       <transition :name="transitionName">
-        <router-view ref="home" @hideAppAddTip="hideAddTip()"></router-view>
+        <router-view ref="home"></router-view>
       </transition>
     </div>
     <picture-viewer v-show="switchPicViewer"></picture-viewer>
-    <div v-show="showAddTip" class="addToHomeTip txt-cut">
+    <div v-show="showAddTip" class="add-to-home-tip txt-cut">
       <i class="close-add-tip-icon" @click.prevent="hideAddTip()">x</i>
       <section class="icon-block"></section>
       <span>添加到主屏幕，不会迷路哦~</span></div>
@@ -33,6 +33,7 @@ export default {
       transitionName: 'slide-left',
       pageVerticalPos: 0,
       // 通过navigator.standalone判断是否是主屏访问
+      // TODO Change to a computed prop
       showAddTip: navigator.standalone !== undefined ? !navigator.standalone && !this.isWebView : false
     }
   },
@@ -86,21 +87,24 @@ export default {
       return this.$route.path === '/'
     },
     isWebView() {
+      // TODO:BUG 微信微博的webview还是没判断出来。。。
       let standalone = window.navigator.standalone,
             userAgent = window.navigator.userAgent.toLowerCase(),
             safari = /safari/.test(userAgent),
-            ios = /iphone|ipod|ipad/.test(userAgent);
+            ios = /iphone|ipod|ipad/.test(userAgent),
+            wechat = /MicroMessenger/.test(userAgent)
+            // TODO:BUG unknown weibo's userAgent
 
       if (ios) {
-        if (!standalone && safari) {
+        if (!standalone && safari && !wechat) {
           // browser
           return false
-        } else if (!standalone && !safari) {
+        } else if ((!standalone && !safari) || wechat) {
           // ui web view
           return true
         }
       } else {
-        // not iOS
+        // not iOS, Android is hard to detect web view
         return false
       }
     }
@@ -113,26 +117,43 @@ export default {
   // https://css-tricks.com/intro-to-vue-5-animations/
   /*Now, we could just use <transition> out of the box.
   This will give us a v- prefix for some transition hooks we can use in our CSS.
-  It will offer enter/leave which is the position that the animation starts with on the first frame,
-  enter-active/leave-active while the animation is running- this is the one you’d place the animation properties themselves on,
-  and enter-to/leave-to, which specifies where the element should be on the last frame.*/
+  1. It will offer enter/leave which is the position that the animation starts with on the first frame,
+  2. enter-active/leave-active while the animation is running- this is the one you’d place the animation properties themselves on,
+  3. and enter-to/leave-to, which specifies where the element should be on the last frame.*/
+
+  /* Vue.js 过渡之我的理解
+  1. Vue.js 的过渡将元素处理为 5 个状态：默认状态、进入中和离开中、进入后状态和离开后状态。
+  2. 默认状态，即v-enter 和 v-leave 通常不需要设置，会默认利用该元素初始的状态。
+  3. 进入后状态和离开后状态，即v-enter-to 和 v-leave-to 才是我们通常需要关注之处，
+      这两个状态分别声明设置了元素进入动画/过渡后的最后一帧和离开后的最后一帧。
+  4. 进入中和离开中，即v-enter-active 和 v-leave-active，这两个状态包含了动画/过渡触发的全过程，
+      即这两个类会在动画/过渡触发的全过程存在于元素上，故通常用来声明transition和animation属性。*/
 
   /*路由跳转动画*/
-  .slide-to-left-enter-active,.slide-to-right-leave-active,.slide-to-left-leave-active,.slide-to-right-enter-active
-    transition all .3s ease-out
-  /*进入的组件什么也不做，只是保持透明，准备替代离开的组件。*/
-  .slide-to-left-enter,.slide-to-left-enter-active
-    opacity 0
-  /*离开的元素向左过渡位移离开，并逐渐透明。*/
-  .slide-to-left-leave-active
-    transform translate(80%)
-    opacity 0
+.slide-to-left-enter-active
+  transition all .3s ease-out .2s
+.slide-to-left-leave-active
+  transition all .3s ease-out
 
-  .slide-to-right-enter,.slide-to-right-enter-active
-    opacity 0
-  .slide-to-right-leave-active
-    transform translate(-80%)
-    opacity 0
+.slide-to-left-enter
+  transform translate(-80%)
+  opacity 0
+.slide-to-left-leave-to
+  transform translate(80%)
+  opacity 0
+
+// 为了便于理解，我在此处没有合并这两个过渡
+.slide-to-right-enter-active
+  transition all .3s ease-out .2s
+.slide-to-right-leave-active
+  transition all .3s ease-out
+
+.slide-to-right-enter
+  transform translate(80%)
+  opacity 0
+.slide-to-right-leave-to
+  transform translate(-80%)
+  opacity 0
 
 body
   background-color #f2f2f2
@@ -180,7 +201,7 @@ body
     position relative
     overflow hidden
 
-  .addToHomeTip
+  .add-to-home-tip
     position: fixed
     bottom 10px
     left 50%
