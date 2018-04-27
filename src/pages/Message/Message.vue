@@ -12,33 +12,34 @@
               <p>删除</p>
             </div>
           </div>
-          <div class="avatar-card main-msg-wrapper"
-               v-ripple
-               v-bind:style="{transform: 'translateX(' + swipedDistX + 'px)'}"
-               :class="{swiped: item.isSwiped}"
-               v-finger:tap="tap.bind(this, item)"
-               v-finger:press-move="pressMove.bind(this, 12)">
-            <a v-if="item.user===undefined" class="msg-icon-btn" :class="item.type+'-icon-wrapper'">
-              <i class="iconfont" :class="'icon-'+item.type"></i>
-            </a>
-            <a v-else="" class="card-avatar">
-              <img :src="item.user.avatar_large">
-            </a>
-            <a v-if="item.user===undefined"  class="avatar-card-content txt-cut">
-              <h3 v-if="item.title" class="txt-xl mct-a txt-cut">{{item.title}}</h3>
-            </a>
-            <a v-else=""  class="avatar-card-content txt-cut">
-              <h3 class="txt-xl mct-a txt-cut">{{item.user.screen_name}}</h3>
-              <p class="sub-text txt-m mct-d txt-cut">{{item.text}}</p>
-            </a>
-            <span v-if="item.display_arrow===1" class="plus-content">
-            <i class="iconfont icon-right-arrow"></i>
-          </span>
-            <span v-else="" class="plus-content">
-            <span class="created-at txt-s mct-d">{{item.created_at}}</span>
-            <i v-if="item.unread>0" class="unread-num">{{item.unread}}</i>
-          </span>
-          </div>
+          <main-message-wrapper :item="item"></main-message-wrapper>
+          <!--<div class="avatar-card main-msg-wrapper"-->
+               <!--v-ripple-->
+               <!--v-bind:style="{transform: 'translateX(' + swipedDistX + 'px)'}"-->
+               <!--:class="{swiped: item.isSwiped}"-->
+               <!--v-finger:tap="tap.bind(this, item)"-->
+               <!--v-finger:press-move="pressMove.bind(this, 12)">-->
+            <!--<a v-if="item.user===undefined" class="msg-icon-btn" :class="item.type+'-icon-wrapper'">-->
+              <!--<i class="iconfont" :class="'icon-'+item.type"></i>-->
+            <!--</a>-->
+            <!--<a v-else="" class="card-avatar">-->
+              <!--<img :src="item.user.avatar_large">-->
+            <!--</a>-->
+            <!--<a v-if="item.user===undefined"  class="avatar-card-content txt-cut">-->
+              <!--<h3 v-if="item.title" class="txt-xl mct-a txt-cut">{{item.title}}</h3>-->
+            <!--</a>-->
+            <!--<a v-else=""  class="avatar-card-content txt-cut">-->
+              <!--<h3 class="txt-xl mct-a txt-cut">{{item.user.screen_name}}</h3>-->
+              <!--<p class="sub-text txt-m mct-d txt-cut">{{item.text}}</p>-->
+            <!--</a>-->
+            <!--<span v-if="item.display_arrow===1" class="plus-content">-->
+            <!--<i class="iconfont icon-right-arrow"></i>-->
+          <!--</span>-->
+            <!--<span v-else="" class="plus-content">-->
+            <!--<span class="created-at txt-s mct-d">{{item.created_at}}</span>-->
+            <!--<i v-if="item.unread>0" class="unread-num">{{item.unread}}</i>-->
+          <!--</span>-->
+          <!--</div>-->
 
         </div>
       </section>
@@ -48,6 +49,7 @@
 
 <script>
   import loading from '../../components/loading/loading.vue'
+  import mainMessageWrapper from '../../components/mainMessageWrapper/mainMessageWrapper.vue'
 
   export default {
     name: 'message',
@@ -55,12 +57,12 @@
       return {
         weiboMsg: {},
         msgGroup: {},
-        isLoading: true,
-        swipedDistX: 0
+        isLoading: true
       }
     },
     components: {
-      loading
+      loading,
+      'main-message-wrapper': mainMessageWrapper
     },
     created() {
       this.$http.get('apis/weibo-msg', {id: 1}).then(res => {
@@ -77,25 +79,6 @@
       })
     },
     methods: {
-      tap(item, evt) {
-        console.log('tap', evt)
-        this.$set(item, 'isSwiped', false)
-      },
-      swipe (item, evt) {
-//        console.log(evt)
-        if (evt.direction === 'Left' && item.user !== undefined) {
-          this.$set(item, 'isSwiped', true)
-        }
-      },
-      pressMove: function(num, evt) {
-        console.log(evt)
-//        console.log(evt.deltaX);
-//        console.log(evt.deltaY);
-        /*TODO Think about separate this item to a individual component.*/
-        this.swipedDistX += parseInt(evt.deltaX);
-//        console.log(this.swipedDistX);
-//        console.log('onPressMove with params:' + num);
-      },
       deleteMsg (targetMsg) {
         this.msgGroup.splice(this.msgGroup.indexOf(targetMsg), 1)
       }

@@ -31,10 +31,7 @@ export default {
   data(){
     return {
       transitionName: 'slide-left',
-      pageVerticalPos: 0,
-      // 通过navigator.standalone判断是否是主屏访问
-      // TODO Change to a computed prop
-      showAddTip: navigator.standalone !== undefined ? !navigator.standalone && !this.isWebView : false
+      pageVerticalPos: 0
     }
   },
   components: {
@@ -86,27 +83,17 @@ export default {
     hideHeadPart() {
       return this.$route.path === '/'
     },
+    showAddTip() {
+      return navigator.standalone !== undefined ? !navigator.standalone && !this.isWebView : false
+    },
     isWebView() {
       // TODO:BUG 微信微博的webview还是没判断出来。。。
-      let standalone = window.navigator.standalone,
-            userAgent = window.navigator.userAgent.toLowerCase(),
-            safari = /safari/.test(userAgent),
-            ios = /iphone|ipod|ipad/.test(userAgent),
-            wechat = /MicroMessenger/.test(userAgent)
-            // TODO:BUG unknown weibo's userAgent
+      let userAgent = window.navigator.userAgent.toLowerCase()
+      let safari = /safari/i.test(userAgent),
+            wechat = /MicroMessenger/i.test(userAgent),
+            weibo = /WeiBo/i.test(userAgent)
 
-      if (ios) {
-        if (!standalone && safari && !wechat) {
-          // browser
-          return false
-        } else if ((!standalone && !safari) || wechat) {
-          // ui web view
-          return true
-        }
-      } else {
-        // not iOS, Android is hard to detect web view
-        return false
-      }
+      return !(safari && !wechat && !weibo);
     }
   }
 }
