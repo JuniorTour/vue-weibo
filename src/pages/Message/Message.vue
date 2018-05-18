@@ -5,13 +5,6 @@
       <section class="card-list">
         <div v-for="(item, index) in msgGroup"
              class="border-1px border-bottom-1px">
-          <!--将需要隐藏的操作按钮放置在html中靠前的位置，同时通过相对定位将后续的元素从普通文档流中脱离出来，
-          便可以优雅地实现覆盖的效果，而不用借助z-index的声明-->
-          <div v-if="item.user!==undefined" class="control-block-wrapper">
-            <div class="delete-btn" @click.stop="deleteMsg(item)">
-              <p>删除</p>
-            </div>
-          </div>
           <main-message-wrapper :item="item"></main-message-wrapper>
           <!--<div class="avatar-card main-msg-wrapper"-->
                <!--v-ripple-->

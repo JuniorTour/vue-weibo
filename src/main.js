@@ -15,16 +15,19 @@ import Ripple from 'vue-ripple-directive'
 Ripple.color = 'rgba(238, 238, 238, 0.6)';
 Vue.directive('ripple', Ripple)
 
-import AlloyFinger from 'alloyfinger'
-import AlloyFingerVue from 'alloyfinger/vue/alloy_finger.vue.js'
-Vue.use(AlloyFingerVue, { AlloyFinger: AlloyFinger });
+// import AlloyFinger from 'alloyfinger'
+// import AlloyFingerVue from 'alloyfinger/vue/alloy_finger.vue.js'
+// Vue.use(AlloyFingerVue, { AlloyFinger: AlloyFinger });
 
-Vue.directive('title', {
-  inserted: function (el, binding) {
-    document.title = el.innerText
-    el.remove()
-  }
-})
+const VueTouch = require('vue-touch')
+Vue.use(VueTouch, {name: 'v-touch'})
+
+// Vue.directive('title', {
+//   inserted: function (el, binding) {
+//     document.title = el.innerText
+//     el.remove()
+//   }
+// })
 
 /* eslint-disable no-new */
 new Vue({
