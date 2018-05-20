@@ -1,6 +1,6 @@
 <template>
 <div class="login">
-  <h1 v-title>登录-vue-weibo</h1>
+  <!--<h1 v-title>登录-vue-weibo</h1>-->
   <div class="container">
     <header class="avatar">
       <img src="../../../static/img/avatar/my-weibo-avatar.jpg">

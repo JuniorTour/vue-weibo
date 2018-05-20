@@ -9,19 +9,14 @@
     </div>
     <v-touch class="avatar-card main-msg-wrapper"
          v-ripple
+         :enabled="item.user!==undefined"
          v-bind:style="{transform: 'translateX(' + swipedDistX + 'px)'}"
-         :class="{swiped: item.isSwiped}"
          v-on:pan="onPan"
-         v-bind:pan-options="{ direction: 'horizontal', threshold: 20 }">
+         v-bind:pan-options="{ direction: 'horizontal', threshold: 25 }"
+         v-on:panend="onPanEnd.call(this, $event, item)"
+         @tap="onTap">
       <!--threshold:	Minimal pan distance required before recognizing.-->
-      <!--<div class="avatar-card main-msg-wrapper"-->
-           <!--v-ripple-->
-           <!--v-bind:style="{transform: 'translateX(' + swipedDistX + 'px)'}"-->
-           <!--:class="{swiped: item.isSwiped}"-->
-           <!--v-finger:tap="tap.bind(this, item)"-->
-           <!--v-finger:press-move="pressMove.bind(this)">-->
       <!-- Render as other elements with the 'tag' prop -->
-      <!--<v-touch tag="p" v-on:tap="onTap">Tap me!</v-touch>-->
       <a v-if="item.user===undefined" class="msg-icon-btn" :class="item.type+'-icon-wrapper'">
         <i class="iconfont" :class="'icon-'+item.type"></i>
       </a>
@@ -51,23 +46,65 @@ export default {
   name: 'main-message-wrapper',
   data() {
     return {
+      controlBlockWidth: 56,
       swipedDistX: 0,
+      prevDir: 2,
       timer: {}
     }
   },
   props: ['item'],
   methods: {
+    updateEleStyle(func) {
+      requestAnimationFrame(func);                       // 借助该API可以实现更为流畅的样式更新
+    },
     onPan(evt) {
-//      console.log(evt)
       /* 滑动直到显示出删除按钮，本函数触发次数：
        * AlloyFinger：                             10-60 （受滑动速度影响），视觉上能看到滑动时明显的卡顿。
        * 换成hammer.js后：                    10-40，滑动卡顿减轻了，但还是有。
        * requestAnimationFrame后：    10-30，视觉上非常流畅。*/
-//      this.swipedDistX = parseInt(evt.deltaX);
-      requestAnimationFrame(() => {
-        this.swipedDistX = parseInt(evt.deltaX);
-      })
+
+//      this.swipedDistX = parseInt(evt.deltaX);    // 直接更新样式，卡顿比较明显，不推荐
+
+      /*BUG swiftly vertically pan will get a wrong deltaX in PC Chrome.
+      * Only on PC, mobile is fine.*/
+//      if (evt.deltaY >= 5 || evt.deltaY <= -5) {
+//        return;
+//      }
+
+      let targetPos = evt.deltaX;
+      // 模拟滑动越界时的阻力效果
+      if (targetPos < -(this.controlBlockWidth)) {
+        targetPos = Math.floor(targetPos / 5 - this.controlBlockWidth);
+      }
+      if (targetPos > 0) {
+        targetPos = Math.floor(targetPos / 8);
+      }
+
+      this.updateEleStyle(() => {
+        this.swipedDistX = targetPos;
+      });
+    },
+    onPanEnd(evt, item) {
+      let targetPos = 0;
+      if (this.swipedDistX < -(this.controlBlockWidth)) {
+        targetPos = -(this.controlBlockWidth);
+      }
+
+      this.updateEleStyle(() => {
+        this.swipedDistX = targetPos;
+      });
+    },
+    onTap(evt) {
+      if (this.swipedDistX !== 0) {
+        this.updateEleStyle(() => {
+          this.swipedDistX = 0;
+        });
+      }
+    },
+    deleteMsg(targetItem) {
+      this.$emit('deleteMsg', targetItem);
     }
+
   }
 }
 </script>
@@ -114,8 +151,6 @@ export default {
     position: relative;
     transition: all .1s linear;
     z-index 9
-    &.swiped
-      transform: translateX(-56px);
 
   .control-block-wrapper
     width: 56px

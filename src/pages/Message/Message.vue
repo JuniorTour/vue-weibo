@@ -4,36 +4,11 @@
     <div class="data-content">
       <section class="card-list">
         <div v-for="(item, index) in msgGroup"
+             :key="item.text"
              class="border-1px border-bottom-1px">
-          <main-message-wrapper :item="item"></main-message-wrapper>
-          <!--<div class="avatar-card main-msg-wrapper"-->
-               <!--v-ripple-->
-               <!--v-bind:style="{transform: 'translateX(' + swipedDistX + 'px)'}"-->
-               <!--:class="{swiped: item.isSwiped}"-->
-               <!--v-finger:tap="tap.bind(this, item)"-->
-               <!--v-finger:press-move="pressMove.bind(this, 12)">-->
-            <!--<a v-if="item.user===undefined" class="msg-icon-btn" :class="item.type+'-icon-wrapper'">-->
-              <!--<i class="iconfont" :class="'icon-'+item.type"></i>-->
-            <!--</a>-->
-            <!--<a v-else="" class="card-avatar">-->
-              <!--<img :src="item.user.avatar_large">-->
-            <!--</a>-->
-            <!--<a v-if="item.user===undefined"  class="avatar-card-content txt-cut">-->
-              <!--<h3 v-if="item.title" class="txt-xl mct-a txt-cut">{{item.title}}</h3>-->
-            <!--</a>-->
-            <!--<a v-else=""  class="avatar-card-content txt-cut">-->
-              <!--<h3 class="txt-xl mct-a txt-cut">{{item.user.screen_name}}</h3>-->
-              <!--<p class="sub-text txt-m mct-d txt-cut">{{item.text}}</p>-->
-            <!--</a>-->
-            <!--<span v-if="item.display_arrow===1" class="plus-content">-->
-            <!--<i class="iconfont icon-right-arrow"></i>-->
-          <!--</span>-->
-            <!--<span v-else="" class="plus-content">-->
-            <!--<span class="created-at txt-s mct-d">{{item.created_at}}</span>-->
-            <!--<i v-if="item.unread>0" class="unread-num">{{item.unread}}</i>-->
-          <!--</span>-->
-          <!--</div>-->
-
+            <main-message-wrapper
+              :item="item"
+              @deleteMsg="deleteMsg"></main-message-wrapper>
         </div>
       </section>
     </div>
@@ -73,6 +48,8 @@
     },
     methods: {
       deleteMsg (targetMsg) {
+        /*BUG when delete a msg, the swipedDistX prop will be given to another msg component.
+        * Solution: Add  unique`:key=item.text` to v-for, https://cn.vuejs.org/v2/guide/list.html#key*/
         this.msgGroup.splice(this.msgGroup.indexOf(targetMsg), 1)
       }
     }

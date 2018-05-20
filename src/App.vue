@@ -18,7 +18,8 @@
     <div v-show="showAddTip" class="add-to-home-tip txt-cut">
       <i class="close-add-tip-icon" @click.prevent="hideAddTip()">x</i>
       <section class="icon-block"></section>
-      <span>添加到主屏幕，不会迷路哦~</span></div>
+      <span>添加到主屏幕，不会迷路哦~</span>
+    </div>
   </div>
 </template>
 
@@ -31,7 +32,8 @@ export default {
   data(){
     return {
       transitionName: 'slide-left',
-      pageVerticalPos: 0
+      pageVerticalPos: 0,
+      showAddTip: (!this.isStandAlone && !this.isWebView())
     }
   },
   components: {
@@ -72,28 +74,35 @@ export default {
 
        不知道还有没有更优雅的方式？*/
     },
+    isWebView() {
+      // BUG 微信微博的webview还是没判断出来。。。
+      /*Done.
+      After debug, I found it is caused by the computed property - isWebView.
+      Due to some reason, personally I think is the cache of computed property,
+      the value is wrong during page render stage,
+      so the data prop depend on the isWebView will get wrong value during the page is rendering too.
+
+      After change it to method, the isWebView doesn't have cache, so that the value will be right,
+      even in the reder stage.*/
+      let userAgent = window.navigator.userAgent.toLowerCase();
+      let isWechat = /MicroMessenger/i.test(userAgent),
+        isWeibo = /WeiBo/i.test(userAgent)
+
+      return (isWechat || isWeibo);
+    },
     hideAddTip() {
       this.showAddTip = false
     }
   },
   computed: {
     switchPicViewer() {
-      return this.$store.state.switchPicViewer
+      return this.$store.state.switchPicViewer;
     },
     hideHeadPart() {
-      return this.$route.path === '/'
+      return this.$route.path === '/';
     },
-    showAddTip() {
-      return navigator.standalone !== undefined ? !navigator.standalone && !this.isWebView : false
-    },
-    isWebView() {
-      // TODO:BUG 微信微博的webview还是没判断出来。。。
-      let userAgent = window.navigator.userAgent.toLowerCase()
-      let safari = /safari/i.test(userAgent),
-            wechat = /MicroMessenger/i.test(userAgent),
-            weibo = /WeiBo/i.test(userAgent)
-
-      return !(safari && !wechat && !weibo);
+    isStandAlone() {
+      return navigator.standalone !== undefined ? navigator.standalone : false;
     }
   }
 }

@@ -5,13 +5,11 @@
   "url": "/msg/index?",
   "previous_cursor": "",
   "next_cursor": "",
-  "loadMore": true,
   "card_group":  [
    {
     "mod_type": "mod/message/item",
     "type": "at",
     "title": "@我的",
-    "scheme": "/msg/atme?subtype=allWB",
     "unread": 0,
     "display_arrow": 1
   },
@@ -19,7 +17,6 @@
     "mod_type": "mod/message/item",
     "type": "comments",
     "title": "评论",
-    "scheme": "/msg/cmts?subtype=allPL",
     "unread": 0,
     "display_arrow": 1
   },
@@ -27,7 +24,6 @@
     "mod_type": "mod/message/item",
     "type": "good",
     "title": "赞",
-    "scheme": "/msg/like",
     "unread": 0,
     "display_arrow": 1
   },
@@ -35,14 +31,13 @@
     "mod_type": "mod/message/item",
     "type": "box",
     "title": "未关注人私信",
-    "scheme": "/msg/notes",
     "unread": 0,
     "display_arrow": 1
   },
     {
       "mod_type": "mod/message/item",
       "user":  {
-        "id": 1904769205,
+        "id": 1,
         "avatar_large": "static/img/avatar/shixiangyun.jpg",
         "screen_name": "史湘云",
         "remark": "",
@@ -57,6 +52,7 @@
     {
       "mod_type": "mod/message/item",
       "user":  {
+        "id": 2,
         "avatar_large": "static/img/avatar/caoxueqin.jpg",
         "screen_name": "曹雪芹",
         "remark": "",
@@ -71,7 +67,7 @@
     {
       "mod_type": "mod/message/item",
       "user":  {
-        "id": 1904769205,
+        "id": 3,
         "avatar_large": "static/img/avatar/zijuan.jpg",
         "screen_name": "紫鹃",
         "remark": "",
@@ -81,7 +77,7 @@
       "created_at": "方才",
       "scheme": "/msg/chat?uid=5500491427",
       "unread": 1,
-      "text": "向左滑动可以将消息删除哦~~ "
+      "text": "←←←向左滑动可以将消息删除哦~~ "
     }
   ]
 }
