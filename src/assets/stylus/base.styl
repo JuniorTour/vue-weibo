@@ -4,6 +4,13 @@ body, html
   line-height: 1
   font-weight: 200
   font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif
+  &.scroll-disabled
+    overflow hidden !important
+
+/*TODO:BUG Headache!!!
+Mobile device does not support this overflow hidden properly...
+So it will not disable the scroll of body in mobile Safari.*/
+
 a
   cursor pointer
   color #598abf
@@ -102,12 +109,29 @@ a
   &:active
     box-shadow: 0 0 0 0.2rem rgba(248,249,250,.5)
 
+.btn-sm
+  font-size: .75rem;
+  padding: 0 .625rem;
+  margin-left: .75rem;
+  margin-right: .001rem;
+  height: 1.6875rem;
+  line-height: 1.6875rem;
+
 .btn-warning
   color: #212529;
   background-color: #ffc107;
   border-color: #ffc107;
   &:active
     box-shadow: 0 0 0 0.2rem  rgba(255,193,7,.5)
+
+.btn-orange
+    color: #fff;
+    background: #FF8200;
+    border: 0 solid #0000;
+    &:active
+      background: #E07400;
+      border-color: #0000;
+
 
 //文字相关类：
 .txt-l

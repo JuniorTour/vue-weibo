@@ -1,6 +1,9 @@
 <template>
   <div class="home">
     <loading v-show="topIsLoading"></loading>
+    <comment-window
+      v-show="showCommentWindow"
+      @closeCommentWindow="closeCommentWindow"></comment-window>
     <div class="content-tip no-text-select" v-show="noNew">
       <span>这会儿还没有新微博，等会再来刷刷看吧(｡･ω･｡)！</span>
     </div>
@@ -55,7 +58,8 @@
         </section>
       </div>
       <footer class="card-footer border-1px border-top-1px txt-s no-text-select">
-        <a class="forward">
+        <a class="forward"
+              @click.prevent="openCommentWindow()">
           <i class="iconfont icon-forward"></i>
           {{item.mblog.reposts_count}}
         </a>
@@ -89,6 +93,7 @@
 
 <script>
   import loading from '../../components/loading/loading.vue'
+  import commentWindow from '../../components/commentWindow/commentWindow.vue'
 
   export default {
     name: 'home',
@@ -108,11 +113,13 @@
         clickedLikeBtnPos: {
           pageX: 0,
           pageY: 0
-        }
+        },
+        showCommentWindow: false
       }
     },
     components: {
-      loading
+      loading,
+      'comment-window': commentWindow
     },
     created() {
       this.$http.get('apis/weibo-content?targetCursor=1', {id: 0}).then(res => {
@@ -154,9 +161,11 @@
         return tempOutcome
       },
       openPicViewer(targetPicUrl) {
+        this.$store.commit('disableBodyScroll');
         this.$store.commit('openPicViewer', {targetPicUrl: targetPicUrl})
       },
       addScrollEvent() {
+        // 监听滚动事件，判断是否接近页面，触发加载旧微博
         /*可以通过以下两句分别对比使用事件防抖前后的事件触发次数：*/
         //window.addEventListener('scroll', this.handleScroll)
         window.addEventListener('scroll', this.myDebounce(this.handleScroll, 500))
@@ -276,6 +285,14 @@
       },
       hideAppAddTip() {
         this.$emit('hideAppAddTip')
+      },
+      openCommentWindow() {
+        this.$store.commit('disableBodyScroll');
+        this.showCommentWindow = true;
+      },
+      closeCommentWindow() {
+        this.$store.commit('enableBodyScroll');
+        this.showCommentWindow = false;
       }
     }
   }

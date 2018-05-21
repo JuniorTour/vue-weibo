@@ -1,8 +1,6 @@
 <template>
 <div class="picture-viewer">
-  <div class="picture-window"
-            v-finger:tap="tap"
-            v-finger:swipe="swipe">
+  <div class="picture-window">
     <img :src="targetPicUrl">
   </div>
   <div class="picture-ctrl-bar">
@@ -23,14 +21,8 @@
     name: 'pictureViewer',
     methods: {
       closePictureViewer() {
+        this.$store.commit('enableBodyScroll');
         this.$store.commit('closePicViewer')
-      },
-      tap() {
-        console.log('alloyfinger tapped')
-      },
-      swipe: function(evt) {
-        console.log("swipe" + evt.direction);
-        console.log('onSwipe');
       }
     },
     computed: {

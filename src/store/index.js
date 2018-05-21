@@ -12,6 +12,7 @@ const debug = process.env.NODE_ENV !== 'production'
 export default new Vuex.Store({
   strict: debug,
   state: {
+    isBodyScrollDisabled: false,
     switchPicViewer: false,
     viewTargetPicUrl: ''
   },
@@ -22,6 +23,16 @@ export default new Vuex.Store({
     },
     [CLOSE_PICTURE_VIEWER](state){
       state.switchPicViewer = false
+    },
+    enableBodyScroll(state) {
+      state.isBodyScrollDisabled = false;
+      document.body.classList.remove('scroll-disabled');
+    },
+    disableBodyScroll(state) {
+      state.isBodyScrollDisabled = true;
+      // const htmlEle = document.getElementsByTagName('html')[0];
+      // htmlEle.classList.add('scroll-disabled');
+      document.body.classList.add('scroll-disabled');
     }
   }
 })

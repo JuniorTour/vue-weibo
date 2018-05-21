@@ -7,20 +7,16 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-import './assets/stylus/index.styl'
-
-Vue.config.productionTip = true
-
 import Ripple from 'vue-ripple-directive'
 Ripple.color = 'rgba(238, 238, 238, 0.6)';
 Vue.directive('ripple', Ripple)
 
-// import AlloyFinger from 'alloyfinger'
-// import AlloyFingerVue from 'alloyfinger/vue/alloy_finger.vue.js'
-// Vue.use(AlloyFingerVue, { AlloyFinger: AlloyFinger });
-
 const VueTouch = require('vue-touch')
 Vue.use(VueTouch, {name: 'v-touch'})
+
+import './assets/stylus/index.styl'
+
+Vue.config.productionTip = true
 
 // Vue.directive('title', {
 //   inserted: function (el, binding) {
@@ -28,6 +24,7 @@ Vue.use(VueTouch, {name: 'v-touch'})
 //     el.remove()
 //   }
 // })
+/* <!--<h1 v-title>登录-vue-weibo</h1>--> */
 
 /* eslint-disable no-new */
 new Vue({

@@ -9,7 +9,7 @@
         <router-link to="/me" class="tab">我</router-link>
       </div>
     </div>
-    <div class="main-body" v-show="!switchPicViewer">
+    <div class="main-body">
       <transition :name="transitionName">
         <router-view ref="home"></router-view>
       </transition>
@@ -18,7 +18,7 @@
     <div v-show="showAddTip" class="add-to-home-tip txt-cut">
       <i class="close-add-tip-icon" @click.prevent="hideAddTip()">x</i>
       <section class="icon-block"></section>
-      <span>添加到主屏幕，不会迷路哦~</span>
+      <span>添加到主屏幕，不会迷路哦~{{isStandAlone}}</span>
     </div>
   </div>
 </template>
@@ -49,22 +49,9 @@ export default {
 
       //  根据路由深度来判断该显示哪个方向的过渡动画
       this.transitionName = toDepth < fromDepth ? 'slide-to-left' : 'slide-to-right'
-    },
-    switchPicViewer: function (val, oldVal) {
-      if (val === false) {
-        this.resetPagePos()
-      } else if (val === true) {
-        this.pageVerticalPos = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
-      }
     }
   },
   methods: {
-    resetPagePos() {
-      // TODO change components, no reset.
-      this.$nextTick(function () {
-        window.scrollTo(0, this.pageVerticalPos)
-      })
-    },
     updateWeibo() {
       //参考：https://cn.vuejs.org/v2/guide/components.html#子组件索引
       this.$refs.home.updateContent()
@@ -73,6 +60,9 @@ export default {
        它仅仅作为一个直接访问子组件的应急方案——应当避免在模版或计算属性中使用 $refs 。”，
 
        不知道还有没有更优雅的方式？*/
+    },
+    isStandAlone() {
+      return navigator.standalone !== undefined ? navigator.standalone : false;
     },
     isWebView() {
       // BUG 微信微博的webview还是没判断出来。。。
@@ -100,9 +90,6 @@ export default {
     },
     hideHeadPart() {
       return this.$route.path === '/';
-    },
-    isStandAlone() {
-      return navigator.standalone !== undefined ? navigator.standalone : false;
     }
   }
 }
