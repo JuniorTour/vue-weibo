@@ -6,10 +6,7 @@ body, html
   font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif
   &.scroll-disabled
     overflow hidden !important
-
-/*TODO:BUG Headache!!!
-Mobile device does not support this overflow hidden properly...
-So it will not disable the scroll of body in mobile Safari.*/
+    position: fixed;
 
 a
   cursor pointer

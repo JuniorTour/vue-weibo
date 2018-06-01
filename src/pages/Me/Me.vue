@@ -299,7 +299,6 @@ export default {
 .fade-enter, .fade-leave-to
   opacity: 0
 
-/*TODO:IMPRO ugly style... I ve tried my best...*/
 .statistics-card-wrapper
   background-color rgba(0,0,0,.8)
   position: fixed;

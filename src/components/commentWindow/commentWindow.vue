@@ -2,7 +2,7 @@
   <div class="comment-window-container">
     <header>
       <div class="header-part left-header">
-        <span @click.prevent="closeCommentWindow()">X</span>
+        <span @click.prevent="closeCommentWindow()">×</span>
       </div>
       <div class="middle-header">
         <span>{{title}}</span>
@@ -16,11 +16,12 @@
                 id="main-input-textarea"
                 cols="30"
                 rows="10"
-                placeholder="眼见何事，情系何方，身在何处，心思何人..."></textarea>
+                placeholder="眼见何事，情系何方，身在何处，心思何人..."
+                :value="content"></textarea>
     </div>
-    <footer>
-      <div>This is footer.</div>
-    </footer>
+    <!--<footer>-->
+      <!--<div>This is footer.</div>-->
+    <!--</footer>-->
   </div>
 </template>
 
@@ -28,13 +29,19 @@
 export default {
   data() {
     return {
-      title: '评论'
+      title: '评论',
+      content: ''
     }
   },
   methods: {
     closeCommentWindow() {
       this.$emit('closeCommentWindow');
     }
+  },
+  destroyed() {
+//    debugger
+    // TODO: IMPROVEMENT, improve the logic
+    this.content = '';
   }
 }
 </script>
@@ -62,6 +69,7 @@ header
   .header-part
     flex 1
   .left-header
+    font-size: 26px;
     text-align left
   .right-header
     text-align: right
@@ -75,7 +83,7 @@ header
   margin-top: .65625rem;
 
 .comment-main-body
-  overflow-y: auto;
+  /*overflow-y: auto;*/
   padding: 0 .6rem;
   -webkit-overflow-scrolling:touch;
 

@@ -14,7 +14,6 @@
         <router-view ref="home"></router-view>
       </transition>
     </div>
-    <picture-viewer v-show="switchPicViewer"></picture-viewer>
     <div v-show="showAddTip" class="add-to-home-tip txt-cut">
       <i class="close-add-tip-icon" @click.prevent="hideAddTip()">x</i>
       <section class="icon-block"></section>
@@ -25,7 +24,6 @@
 
 <script>
 import header from './components/header/header.vue'
-import pictureViewer from './components/pictureViewer/pictureViewer.vue'
 
 export default {
   name: 'app',
@@ -37,8 +35,7 @@ export default {
     }
   },
   components: {
-    'top-header': header,
-    'picture-viewer': pictureViewer
+    'top-header': header
   },
   watch: {
     '$route' (to, from) {
@@ -85,9 +82,6 @@ export default {
     }
   },
   computed: {
-    switchPicViewer() {
-      return this.$store.state.switchPicViewer;
-    },
     hideHeadPart() {
       return this.$route.path === '/';
     }

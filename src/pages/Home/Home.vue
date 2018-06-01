@@ -1,9 +1,12 @@
 <template>
   <div class="home">
     <loading v-show="topIsLoading"></loading>
+
+    <picture-viewer v-show="switchPicViewer"></picture-viewer>
     <comment-window
-      v-show="showCommentWindow"
+      v-if="showCommentWindow"
       @closeCommentWindow="closeCommentWindow"></comment-window>
+
     <div class="content-tip no-text-select" v-show="noNew">
       <span>这会儿还没有新微博，等会再来刷刷看吧(｡･ω･｡)！</span>
     </div>
@@ -64,7 +67,8 @@
           {{item.mblog.reposts_count}}
         </a>
         <i class="separate-line"></i>
-        <a class="comment">
+        <a class="comment"
+             @click.prevent="openCommentWindow()">
           <i class="iconfont icon-comment"></i>
           {{item.mblog.comments_count}}
         </a>
@@ -94,6 +98,7 @@
 <script>
   import loading from '../../components/loading/loading.vue'
   import commentWindow from '../../components/commentWindow/commentWindow.vue'
+  import pictureViewer from '../../components/pictureViewer/pictureViewer.vue'
 
   export default {
     name: 'home',
@@ -119,11 +124,13 @@
     },
     components: {
       loading,
-      'comment-window': commentWindow
+      'comment-window': commentWindow,
+      'picture-viewer': pictureViewer
     },
     created() {
       this.$http.get('apis/weibo-content?targetCursor=1', {id: 0}).then(res => {
-        /*res.body.data和res.data.data，哪一个才是最佳实践？*/
+        /*res.body.data和res.data.data，哪一个才是最佳实践？
+        * .body 是vue-resource 的API，res.data未知？*/
         if (res.body.errorNum !== 0) {
           console.log('Get data error at created()!')
           return;
@@ -161,7 +168,7 @@
         return tempOutcome
       },
       openPicViewer(targetPicUrl) {
-        this.$store.commit('disableBodyScroll');
+//        this.$store.commit('disableBodyScroll');
         this.$store.commit('openPicViewer', {targetPicUrl: targetPicUrl})
       },
       addScrollEvent() {
@@ -286,13 +293,58 @@
       hideAppAddTip() {
         this.$emit('hideAppAddTip')
       },
+      preventBgScroll() {
+        // setTimeout(0) to avoid flash when the page scroll to top
+        setTimeout(() => {
+          this.$store.commit('storePagePos');
+          this.$store.commit('disableBodyScroll');
+        }, 0)
+      },
+      allowBgScroll () {
+        setTimeout(() => {
+          this.$store.commit('enableBodyScroll');
+          this.$store.commit('restorePagePos');
+        }, 0)
+      },
       openCommentWindow() {
-        this.$store.commit('disableBodyScroll');
+        /*TODO:BUG Prevent scrolling when overlaid. (Headache!!!)
+         Mobile device does not support this overflow hidden properly...
+         So it will not disable the scroll of body in mobile Safari.
+
+         After researching this for a long time and trying every solution I think useful,
+         I found there are mainly 3 kind of method:
+
+         1. Add overflow: hidden; position: fixed/absolute; to the body/html or a wrapper.
+         pro: Only CSS
+         con: Not work on mobile Safari. May trigger scroll to top side effect.
+
+         2. Use JS to prevent touch/scroll event.
+         pro: Compatible with mobile Safari.
+         con: A little complex(often more than 30 lines code).
+
+         3. Use JS to record the position before overlay.
+         pro: Compatible with mobile Safari.
+         con: A little complex(often more than 20 lines code).
+
+         Finally, I decided to use the 3rd one.
+
+         https://stackoverflow.com/questions/41594997/ios-10-safari-prevent-scrolling-behind-a-fixed-overlay-and-maintain-scroll-posi/41601290#41601290
+         https://stackoverflow.com/questions/9280258/prevent-body-scrolling-but-allow-overlay-scrolling
+         https://stackoverflow.com/questions/14270084/overflow-xhidden-doesnt-prevent-content-from-overflowing-in-mobile-browsers/24727026#24727026
+         https://stackoverflow.com/questions/9538868/prevent-body-from-scrolling-when-a-modal-is-opened
+
+         */
+        this.preventBgScroll();
         this.showCommentWindow = true;
       },
       closeCommentWindow() {
-        this.$store.commit('enableBodyScroll');
+        this.allowBgScroll();
         this.showCommentWindow = false;
+      }
+    },
+    computed: {
+      switchPicViewer() {
+        return this.$store.state.switchPicViewer;
       }
     }
   }
@@ -485,7 +537,7 @@
 }
 
 @media (min-width: 600px) {
-  // m.weibo.com有没有很完美的解决微博卡片标题背景挂件比例失调的问题，
+  // m.weibo.com没有很完美的解决微博卡片标题背景挂件比例失调的问题，
   // 只是在大屏幕下粗暴的隐藏掉了。
   // 相比之下，我认为下面这个方法虽然多了一些代码，但至少没有因噎废食。
   .card-header .header-bg {
