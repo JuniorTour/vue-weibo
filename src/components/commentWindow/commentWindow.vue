@@ -37,11 +37,6 @@ export default {
     closeCommentWindow() {
       this.$emit('closeCommentWindow');
     }
-  },
-  destroyed() {
-//    debugger
-    // TODO: IMPROVEMENT, improve the logic
-    this.content = '';
   }
 }
 </script>

@@ -12,13 +12,15 @@ v-enter,v-enter-active,v-leave,v-leave-active
 2. 注意分清$router和$route！！！
 3. 看清分号的范围，不要把method写到了methods{}之外，QAQ。
 4. 不要多删除了export的{}！
-5. 注意===判断时的类型，'1'!===1，字符1并不等于数字1。
+5. 注意===判断时的类型，'1'!==1，字符1并不等于数字1。
 
-#### 4. build/dev-server.js和相应的api请求json更新后都需要重启服务器
+#### 4. build/dev-server.js和相应的api所请求的json文件更新后都需要重启服务器
 
 #### 5. 1px border的解决方案：
 http://jinlong.github.io/2015/05/24/css-retina-hairlines/
-已经有比较成熟的多种方案，主要区别在于：两条还是四条边框、是否支持圆角、用的是meta-viewport+initial-scale+rem还是transform:scale(0.5)。
+已经有比较成熟的多种方案，主要区别在于：
+两条还是四条边框、是否支持圆角、用的是meta-viewport+initial-scale+rem还是transform:scale(0.5)。
+
 有以下两种可用的思路：
 1.淘宝-flexible：meta-viewport+initial-scale+rem
 2.微博：伪类+transform: scale(0.5) transform-origin: left top
@@ -38,10 +40,10 @@ http://jinlong.github.io/2015/05/24/css-retina-hairlines/
 
 2. 消息：https://m.weibo.cn/msg/index?format=cards
 
-#### 7. IOS-Safari的:active伪类无效问题：
-IOS safari浏览器对于:active有怪癖。
+#### 7. Safari on iOS的`:active`伪类无效问题：
+iOS safari浏览器对于:active有怪癖。
 https://stackoverflow.com/questions/3885018/active-pseudo-class-doesnt-work-in-mobile-safari
-我目前简单采取了给body添加ontouchstart事件的解决方案。
+我目前简单采取了给<body>添加ontouchstart事件的解决方案。
 
 #### 8. WebStorm用regex和捕获组批量替换
 如用“+word+”替换“word”：
@@ -54,7 +56,8 @@ $1就是匹配到的捕获组。
 methods: {
       closePictureViewer() {...}
 }
-这其实是es2015的新特性！
+
+这其实是es2015的新特性
 
 #### 11. vue-resource的interceptors：
 
@@ -107,7 +110,9 @@ http://expressjs.com/en/4x/api.html#router
 修改config/index.js , productionGzip: true,
 https://stackoverflow.com/questions/38587698/webpack-gzip-vs-express-gzip
 
-17. node.js的path模块
+17. node.js的路径问题
+
+- node.js的path模块
 
 path是node.js内置的package，用来处理路径的。
 
@@ -120,6 +125,8 @@ path.join([path1][, path2][, ...])
 用于连接路径。该方法的主要用途在于，会正确使用当前系统的路径分隔符，Unix系统是/，Windows系统是\。
 path.resolve([from ...], to)
 将 to 参数解析为绝对路径。
+
+- __dirname returns the directory that the currently executing script is in.
 
 18. git使用经验：
     1. `git clone <url>`
@@ -155,8 +162,6 @@ path.resolve([from ...], to)
       hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 
-19. __dirname returns the directory that the currently executing script is in.
-
 20. 居中常用思路：
   1.
   ``` css
@@ -183,6 +188,38 @@ path.resolve([from ...], to)
       //等价于：目前的写法
 
 22.  '@'的路径设置，见build/webpack.base.conf.js
+
+23. 模态框出现时,禁止背景滚动问题
+
+在实现评论和转发组件(commentWindow)时,遇到了这样一个需求:
+当评论和转发组件出现时,需要禁止下层信息流的滚动.
+
+         After researching this for a long time and trying every solution I think useful,
+         I found there are mainly 3 kind of method:
+
+         1. Add overflow: hidden; position: fixed/absolute; to the body/html or a wrapper.
+         pro: Only CSS
+         con: Not work on mobile Safari. May trigger scroll to top side effect.
+
+         Many component lib chose to use this solution for their Modal component, eg: Bootstrap, Ant Design..
+         But they also did not solve the bug on mobile safari.
+
+         2. Use JS to prevent touch/scroll event.
+         pro: Compatible with mobile Safari.
+         con: A little complex(often more than 30 lines code).
+
+         3. Use JS to record the position before overlay.
+         pro: Compatible with mobile Safari.
+         con: A little complex(often more than 20 lines code).
+
+         Finally, I decided to use the 3rd one.
+
+         Reference:
+         https://stackoverflow.com/questions/41594997/ios-10-safari-prevent-scrolling-behind-a-fixed-overlay-and-maintain-scroll-posi/41601290#41601290
+         https://stackoverflow.com/questions/9280258/prevent-body-scrolling-but-allow-overlay-scrolling
+         https://stackoverflow.com/questions/14270084/overflow-xhidden-doesnt-prevent-content-from-overflowing-in-mobile-browsers/24727026#24727026
+         https://stackoverflow.com/questions/9538868/prevent-body-from-scrolling-when-a-modal-is-opened
+
 
 #Bug记录：
 1. 卡片footer的两个间隔线在chrome58之中会因为页面宽度不同，呈现不同的宽度？？weibo.cn也是！

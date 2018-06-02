@@ -7,16 +7,17 @@
         <p>删除</p>
       </div>
     </div>
+    <!-- Render as other elements with the 'tag' prop -->
     <v-touch class="avatar-card main-msg-wrapper"
+         tag="div"
          v-ripple
          :enabled="item.user!==undefined"
          v-bind:style="{transform: 'translateX(' + swipedDistX + 'px)'}"
          v-on:pan="onPan"
-         v-bind:pan-options="{ direction: 'horizontal', threshold: 25 }"
+         v-bind:pan-options="{ direction: 'horizontal', threshold: 15 }"
          v-on:panend="onPanEnd.call(this, $event, item)"
          @tap="onTap">
       <!--threshold:	Minimal pan distance required before recognizing.-->
-      <!-- Render as other elements with the 'tag' prop -->
       <a v-if="item.user===undefined" class="msg-icon-btn" :class="item.type+'-icon-wrapper'">
         <i class="iconfont" :class="'icon-'+item.type"></i>
       </a>
@@ -55,7 +56,8 @@ export default {
   props: ['item'],
   methods: {
     updateEleStyle(func) {
-      requestAnimationFrame(func);                       // 借助该API可以实现更为流畅的样式更新
+      // 借助该API可以实现更为流畅的样式更新
+      requestAnimationFrame(func);
     },
     onPan(evt) {
       /* 滑动直到显示出删除按钮，本函数触发次数：
@@ -86,8 +88,10 @@ export default {
     },
     onPanEnd(evt, item) {
       let targetPos = 0;
-      if (this.swipedDistX < -(this.controlBlockWidth)) {
+      if (this.swipedDistX < -(this.controlBlockWidth / 2)) {
         targetPos = -(this.controlBlockWidth);
+      } else {
+        targetPos = 0;
       }
 
       this.updateEleStyle(() => {

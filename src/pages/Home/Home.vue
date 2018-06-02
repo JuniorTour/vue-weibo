@@ -3,6 +3,7 @@
     <loading v-show="topIsLoading"></loading>
 
     <picture-viewer v-show="switchPicViewer"></picture-viewer>
+
     <comment-window
       v-if="showCommentWindow"
       @closeCommentWindow="closeCommentWindow"></comment-window>
@@ -308,32 +309,7 @@
       },
       openCommentWindow() {
         /*TODO:BUG Prevent scrolling when overlaid. (Headache!!!)
-         Mobile device does not support this overflow hidden properly...
-         So it will not disable the scroll of body in mobile Safari.
-
-         After researching this for a long time and trying every solution I think useful,
-         I found there are mainly 3 kind of method:
-
-         1. Add overflow: hidden; position: fixed/absolute; to the body/html or a wrapper.
-         pro: Only CSS
-         con: Not work on mobile Safari. May trigger scroll to top side effect.
-
-         2. Use JS to prevent touch/scroll event.
-         pro: Compatible with mobile Safari.
-         con: A little complex(often more than 30 lines code).
-
-         3. Use JS to record the position before overlay.
-         pro: Compatible with mobile Safari.
-         con: A little complex(often more than 20 lines code).
-
-         Finally, I decided to use the 3rd one.
-
-         https://stackoverflow.com/questions/41594997/ios-10-safari-prevent-scrolling-behind-a-fixed-overlay-and-maintain-scroll-posi/41601290#41601290
-         https://stackoverflow.com/questions/9280258/prevent-body-scrolling-but-allow-overlay-scrolling
-         https://stackoverflow.com/questions/14270084/overflow-xhidden-doesnt-prevent-content-from-overflowing-in-mobile-browsers/24727026#24727026
-         https://stackoverflow.com/questions/9538868/prevent-body-from-scrolling-when-a-modal-is-opened
-
-         */
+        Read the 23 in ../../notes/Summary-of-experience for detail.*/
         this.preventBgScroll();
         this.showCommentWindow = true;
       },

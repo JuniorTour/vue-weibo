@@ -11,13 +11,14 @@
     </div>
     <div class="main-body">
       <transition :name="transitionName">
-        <router-view ref="home"></router-view>
+        <router-view ref="home"
+                     @hideAppAddTip="hideAddTip"></router-view>
       </transition>
     </div>
     <div v-show="showAddTip" class="add-to-home-tip txt-cut">
-      <i class="close-add-tip-icon" @click.prevent="hideAddTip()">x</i>
+      <i class="close-add-tip-icon" @click.prevent="hideAddTip()">×</i>
       <section class="icon-block"></section>
-      <span>添加到主屏幕，不会迷路哦~{{isStandAlone}}</span>
+      <span>添加到主屏幕，不会迷路哦~</span>
     </div>
   </div>
 </template>
@@ -195,7 +196,7 @@ body
     .close-add-tip-icon
       width: 18px
       line-height: 18px
-      font-size: 12px
+      font-size: 16px
       position: absolute
       top 0
       right 0

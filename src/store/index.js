@@ -28,11 +28,9 @@ export default new Vuex.Store({
     storePagePos(state) {
       state.pagePos = document.documentElement.scrollTop ||
                                      window.pageYOffset || document.body.scrollTop;
-      console.log(' state.pagePos = ', state.pagePos)
     },
     restorePagePos(state) {
       window.scrollTo(0, state.pagePos);
-      console.log(' state.pagePos = ', state.pagePos)
     },
     enableBodyScroll(state) {
       state.isBodyScrollDisabled = false;
